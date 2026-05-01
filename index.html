@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALORANT StratEngine Pro | 2026 Meta</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Barlow+Condensed:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --val-red: #ff4655;
+            --val-black: #0f1923;
+            --val-white: #ece8e1;
+            --val-gray: #1f2326;
+            --val-blue: #00eeff;
+            --val-dark-red: #8b1e2a;
+            --s-tier: #ffcc00;
+            --a-tier: #00ff88;
+            --b-tier: #00ccff;
+            --c-tier: #999999;
+            --bg-gradient: radial-gradient(circle at center, #1f2326 0%, #0f1923 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--val-black);
+            color: var(--val-white);
+            font-family: 'Barlow Condensed', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .val-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        /* Header UI */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+        }
+
+        .logo { font-size: 2rem; font-weight: 900; color: var(--val-red); font-style: italic; }
+        .meta-tag { background: var(--val-red); color: white; padding: 5px 15px; font-size: 0.8rem; font-family: 'Orbitron'; }
+
+        /* Scoreboard */
+        .scoreboard {
+            display: flex;
+            gap: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border: 1px solid var(--val-red);
+            font-family: 'Orbitron';
+            margin-bottom: 20px;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .score-box { text-align: center; }
+        .score-label { font-size: 0.6rem; opacity: 0.6; display: block; }
+        .score-num { font-weight: 900; }
+        .score-divider { opacity: 0.3; }
+
+        .btn-restart { 
+            background: transparent; 
+            border: 1px solid var(--val-red); 
+            color: var(--val-red); 
+            padding: 5px 15px; 
+            cursor: pointer; 
+            font-family: 'Orbitron'; 
+            font-size: 0.7rem;
+            transition: 0.3s;
+        }
+        .btn-restart:hover { background: var(--val-red); color: white; }
+
+        #match-end-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 25, 35, 0.95);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Step Progress */
+        .progress-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .step {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .step.active { background: var(--val-red); box-shadow: 0 0 15px var(--val-red); }
+        .step-label { position: absolute; top: 15px; font-size: 0.7rem; font-family: 'Orbitron'; opacity: 0.5; }
+        .step.active .step-label { opacity: 1; color: var(--val-red); }
+
+        /* Sections */
+        .section { display: none; opacity: 0; transform: translateY(20px); transition: 0.5s all ease; }
+        .section.active { display: block; opacity: 1; transform: translateY(0); }
+
+        /* Map Grid */
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .map-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            height: 180px;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            clip-path: polygon(10% 0, 100% 0, 100% 85%, 90% 100%, 0 100%, 0 15%);
+        }
+
+        .map-card:hover { border-color: var(--val-red); transform: scale(1.03); background: #1c2128; }
+        .map-card h3 { font-size: 1.8rem; z-index: 2; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
+        .map-card::before { content: 'DEPLOY'; position: absolute; top: 10px; right: 10px; font-size: 0.6rem; color: var(--val-red); font-family: 'Orbitron'; opacity: 0; transition: 0.3s; }
+        .map-card:hover::before { opacity: 1; }
+
+        /* Agent Picker Layout */
+        .selection-panel {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+        }
+
+        .side-bar {
+            background: rgba(255,255,255,0.03);
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+
+        /* Agent Grid Custom Styling */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+        }
+
+        .agent-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .agent-card:hover { background: #1c2128; border-color: var(--val-white); }
+        .agent-card.selected-teammate { border-color: var(--val-red); background: rgba(255, 70, 85, 0.1); }
+        .agent-card.user-choice { border-color: var(--val-blue); background: rgba(0, 238, 255, 0.1); box-shadow: 0 0 15px rgba(0, 238, 255, 0.2); }
+
+        .agent-card .name { font-weight: 700; font-size: 0.9rem; margin-bottom: 5px; display: block; }
+        .agent-card .synergy-bar { height: 4px; background: #333; width: 100%; margin-top: 8px; border-radius: 2px; overflow: hidden; }
+        .agent-card .synergy-fill { height: 100%; width: 0%; transition: 1s width ease-out; }
+        .agent-card .percentage { font-size: 0.7rem; font-family: 'Orbitron'; display: block; margin-top: 4px; }
+
+        /* Round Tracker */
+        .match-dashboard { display: grid; grid-template-columns: 1fr 400px; gap: 30px; }
+        .round-box { background: rgba(255,255,255,0.03); padding: 30px; border-radius: 8px; border-top: 4px solid var(--val-red); }
+
+        .round-nav { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; margin-bottom: 30px; }
+        .round-dot { 
+            aspect-ratio: 1; border: 1px solid #444; display: flex; align-items: center; 
+            justify-content: center; cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .round-dot.active { border-color: var(--val-red); color: var(--val-red); box-shadow: 0 0 10px rgba(255, 70, 85, 0.3); }
+        .round-dot.win { background: #00ff88; color: black; border: none; }
+        .round-dot.loss { background: var(--val-red); color: white; border: none; }
+
+        .btn-group { display: flex; gap: 15px; margin-top: 20px; }
+        .val-btn {
+            flex: 1; padding: 15px; border: none; font-family: 'Orbitron'; font-weight: 900; 
+            cursor: pointer; transition: 0.2s; position: relative; overflow: hidden;
+        }
+        .val-btn::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: rgba(255,255,255,0.1); transition: 0.3s; }
+        .val-btn:hover::after { left: 0; }
+        .btn-red { background: var(--val-red); color: white; }
+        .btn-green { background: #00ff88; color: black; }
+        .btn-outline { background: transparent; border: 1px solid var(--val-white); color: var(--val-white); }
+
+        .advice-card { background: #22272e; padding: 25px; margin-top: 20px; border-left: 5px solid var(--val-blue); }
+        .advice-card h4 { color: var(--val-blue); margin-bottom: 10px; }
+
+        /* Responsiveness */
+        @media (max-width: 1000px) {
+            .selection-panel, .match-dashboard { grid-template-columns: 1fr; }
+            .side-bar { order: -1; }
+        }
+        @media (max-width: 600px) {
+            .round-nav { grid-template-columns: repeat(6, 1fr); }
+            .logo { font-size: 1.2rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <img src="icon.svg" alt="StratEngine Logo" style="height: 50px; width: auto; filter: drop-shadow(0 0 5px var(--val-red));">
+            <div class="logo">VALORANT STRAT//ENGINE</div>
+            <button id="btn-back" class="btn-restart" style="display:none; border-color: var(--val-blue); color: var(--val-blue);" onclick="goBack()">BACK</button>
+            <button class="btn-restart" onclick="restartGame()">RESTART SYSTEM</button>
+        </img>
+        <div class="meta-tag">ACT IV: MAY 2026 META</div>
+    </header>
+
+    <div class="progress-bar">
+        <div class="step active" id="step-1"><span class="step-label">MAP SELECTION</span></div>
+        <div class="step" id="step-2"><span class="step-label">TEAM COMPOSITION</span></div>
+        <div class="step" id="step-3"><span class="step-label">LIVE TACTICS</span></div>
+    </div>
+
+    <!-- SECTION 1: MAPS -->
+    <div id="section-1" class="section active">
+        <h2 style="margin-bottom: 30px;">Select Active Map</h2>
+        <div class="map-grid" id="map-container">
+            <!-- JS Injection -->
+        </div>
+    </div>
+
+    <!-- SECTION 2: TEAM SETUP -->
+    <div id="section-2" class="section">
+        <div class="selection-panel">
+            <div class="side-bar">
+                <h3 id="selected-map-name" style="color: var(--val-red); margin-bottom: 10px;">MAP</h3>
+                <p id="map-desc" style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px;">Layout intel loading...</p>
+                
+                <div style="margin-bottom: 30px;">
+                    <label style="display:block; margin-bottom: 10px; font-weight: bold;">TEAM SLOTS (4)</label>
+                    <div id="teammate-slots" style="display: flex; gap: 5px; flex-wrap: wrap;">
+                        <!-- Selected teammates appear here -->
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom: 10px; font-weight: bold;">STARTING SIDE</label>
+                    <div class="btn-group">
+                        <button class="val-btn btn-outline" id="side-attack" onclick="setSide('Attack')">ATTACK</button>
+                        <button class="val-btn btn-outline" id="side-defense" onclick="setSide('Defense')">DEFENSE</button>
+                    </div>
+                </div>
+
+                <div id="comp-score-box" style="display:none; text-align: center; border-top: 1px solid #444; padding-top: 20px;">
+                    <div style="font-size: 0.8rem; font-family: 'Orbitron';">TEAM SYNERGY</div>
+                    <div id="synergy-val" style="font-size: 3rem; font-weight: 900; color: var(--val-blue);">0%</div>
+                    <button class="val-btn btn-red" style="width: 100%; margin-top: 15px;" onclick="goToMatch()">LOCK IN COMP</button>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="margin-bottom: 20px;">Select Agent Roles</h3>
+                <div class="agent-grid" id="agent-picker">
+                    <!-- JS Injection -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: LIVE MATCH -->
+    <div id="section-3" class="section">
+        <div class="match-dashboard">
+            <div class="round-box">
+                <div class="scoreboard">
+                    <div class="score-box">
+                        <span class="score-label" id="score-team-label">YOUR TEAM</span>
+                        <span class="score-num" id="score-team">0</span>
+                    </div>
+                    <div class="score-divider">:</div>
+                    <div class="score-box">
+                        <span class="score-label">OPPONENT</span>
+                        <span class="score-num" id="score-enemy">0</span>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 id="live-map-title">MAP: ABYSS</h2>
+                    <div id="live-side-tag" class="meta-tag">ATTACKING</div>
+                </div>
+
+                <div class="round-nav" id="round-nav-container">
+                    <!-- Dynamic rounds -->
+                </div>
+
+                <div class="btn-group">
+                    <button class="val-btn btn-green" onclick="handleRound('win')">ROUND WON</button>
+                    <button class="val-btn btn-red" onclick="handleRound('loss')">ROUND LOST</button>
+                </div>
+                
+                <div id="ot-controls" style="display:none; margin-top: 15px;">
+                    <button class="val-btn btn-outline" style="width: 100%;" onclick="voteDraw()">VOTE FOR DRAW</button>
+                </div>
+
+                <div class="advice-card" id="main-strategy">
+                    <h4>PHASE 1: THE OPENING</h4>
+                    <p id="strat-text">Select a round to begin tactical assessment.</p>
+                </div>
+            </div>
+
+            <div class="side-bar">
+                <h3 style="margin-bottom: 20px;">Economic Status</h3>
+                <div id="economy-intel">
+                    <!-- Economy updates here -->
+                </div>
+                
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Agent Mastery</h3>
+                <div id="agent-nuance" style="background: rgba(0,0,0,0.3); padding: 15px; font-size: 0.9rem;">
+                    Select an agent to see nuances.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="match-end-overlay">
+        <h1 id="end-title" style="font-size: 4rem; color: var(--val-red); margin-bottom: 10px;">VICTORY</h1>
+        <p id="end-score" style="font-size: 2rem; margin-bottom: 40px;">13 - 10</p>
+        <button class="val-btn btn-red" style="padding: 20px 50px;" onclick="restartGame()">NEW DEPLOYMENT</button>
+    </div>
+</div>
+
+<script>
+    // --- DATABASE ---
+    const agents = [
+        { name: "Astra", role: "Controller" }, { name: "Breach", role: "Initiator" }, { name: "Brimstone", role: "Controller" },
+        { name: "Chamber", role: "Sentinel" }, { name: "Clove", role: "Controller" }, { name: "Cypher", role: "Sentinel" },
+        { name: "Deadlock", role: "Sentinel" }, { name: "Fade", role: "Initiator" }, { name: "Gekko", role: "Initiator" },
+        { name: "Harbor", role: "Controller" }, { name: "Iso", role: "Duelist" }, { name: "Jett", role: "Duelist" },
+        { name: "KAY/O", role: "Initiator" }, { name: "Killjoy", role: "Sentinel" }, { name: "Miks", role: "Controller" },
+        { name: "Neon", role: "Duelist" }, { name: "Omen", role: "Controller" }, { name: "Phoenix", role: "Duelist" },
+        { name: "Raze", role: "Duelist" }, { name: "Reyna", role: "Duelist" }, { name: "Sage", role: "Sentinel" },
+        { name: "Skye", role: "Initiator" }, { name: "Sova", role: "Initiator" }, { name: "Tejo", role: "Initiator" },
+        { name: "Veto", role: "Sentinel" }, { name: "Viper", role: "Controller" }, { name: "Vyse", role: "Sentinel" },
+        { name: "Waylay", role: "Duelist" }, { name: "Yoru", role: "Duelist" }
+    ];
+
+    const mapData = {
+        "CORRODE": { desc: "Medieval French town. Narrow lanes, vertical traps.", best: ["Waylay", "Fade", "KAY/O", "Omen", "Veto"], rates: {"Vyse":56.6, "Clove":54.8, "Neon":54.1, "Veto":53.5, "Sage":52.2, "Sova":51.8, "Fade":51.5, "Waylay":51.4, "Killjoy":51.2, "Phoenix":51.1, "Raze":50.8, "Reyna":50.5, "Cypher":49.8, "Chamber":49.4, "Jett":49.2, "Tejo":49.1, "Deadlock":48.9, "Skye":48.7, "Miks":48.5, "Viper":48.2, "Brimstone":47.9, "Omen":47.5, "Iso":47.1, "Astra":46.8, "Yoru":46.4, "Breach":46.1, "Gekko":45.8, "KAY/O":45.2, "Harbor":44.9} },
+        "ABYSS": { desc: "Large scale, verticality, and death drops.", best: ["Jett", "Sova", "Omen", "Cypher", "KAY/O"], rates: {"Jett":94, "Sova":92, "Omen":90, "Clove":89, "Neon":88, "Cypher":87, "KAY/O":85, "Gekko":84, "Fade":82, "Killjoy":80, "Phoenix":78, "Breach":76, "Astra":74, "Waylay":71, "Vyse":68, "Tejo":65, "Raze":64, "Skye":62, "Miks":58, "Veto":55, "Chamber":52, "Yoru":50, "Reyna":48, "Sage":45, "Viper":42, "Deadlock":40, "Iso":38, "Brimstone":32, "Harbor":28} },
+        "SUNSET": { desc: "Tight corridors, open ceilings for info.", best: ["Neon", "Breach", "Sova", "Omen", "Cypher"], rates: {"Neon":58.8, "Sova":57.5, "Cypher":56.9, "Breach":56.2, "Clove":55.4, "Omen":54.3, "Raze":53.8, "Vyse":53.2, "Sage":52.9, "Gekko":52.5, "Phoenix":52.1, "Tejo":51.5, "Killjoy":50.8, "Fade":50.4, "Reyna":49.7, "Veto":49.3, "Chamber":49.1, "Waylay":49.0, "Jett":48.6, "KAY/O":48.2, "Miks":47.9, "Brimstone":47.5, "Deadlock":47.1, "Iso":46.8, "Viper":46.2, "Astra":45.8, "Yoru":45.1, "Harbor":44.7, "Skye":44.2} },
+        "LOTUS": { desc: "3-site layout, revolving doors.", best: ["Raze", "Fade", "Omen", "Viper", "Killjoy"], rates: {"Raze":92, "Viper":90, "Killjoy":89, "Omen":89, "Neon":88, "Skye":87, "Clove":86, "Cypher":85, "Breach":85, "Phoenix":84, "Vyse":83, "Sova":82, "Astra":82, "Sage":80, "KAY/O":79, "Waylay":78, "Miks":78, "Jett":76, "Gekko":75, "Veto":74, "Brimstone":72, "Chamber":70, "Reyna":68, "Tejo":66, "Iso":65, "Deadlock":64, "Yoru":62, "Harbor":58, "Fade":91} },
+        "PEARL": { desc: "Long sightlines and complex Mid lanes.", best: ["Neon", "Fade", "KAY/O", "Astra", "Killjoy"], rates: {"Killjoy":94, "Neon":91, "Astra":89, "Fade":88, "Cypher":84, "Gekko":82, "Jett":81, "KAY/O":79, "Sova":77, "Phoenix":75, "Miks":72, "Clove":70, "Sage":68, "Vyse":66, "Omen":65, "Waylay":63, "Viper":61, "Breach":59, "Raze":55, "Chamber":52, "Reyna":50, "Deadlock":48, "Iso":45, "Harbor":42, "Veto":40, "Tejo":38} },
+        "FRACTURE": { desc: "H-shaped layout, four site entrances.", best: ["Neon", "Raze", "Breach", "Brimstone", "Killjoy"], rates: {"Breach":95, "Neon":91, "Brimstone":89, "Raze":88, "Killjoy":87, "Clove":85, "Tejo":84, "Fade":82, "Cypher":81, "Skye":79, "Vyse":79, "Jett":78, "Omen":76, "Sage":75, "Gekko":74, "Phoenix":72, "Viper":72, "Waylay":70, "Chamber":70, "Sova":68, "Miks":68, "Deadlock":66, "KAY/O":65, "Iso":64, "Reyna":62, "Veto":62, "Yoru":58, "Astra":60, "Harbor":54} },
+        "BREEZE": { desc: "Massive open spaces, sniper sightlines.", best: ["Viper", "Sova", "Jett", "Yoru", "Cypher"], rates: {"Viper":98, "Sova":95, "Jett":92, "Cypher":90, "Yoru":88, "Neon":86, "Waylay":82, "Tejo":80, "Vyse":79, "Chamber":78, "Skye":75, "Astra":73, "Clove":71, "Harbor":68, "Fade":65, "Sage":62, "Veto":58, "Phoenix":55, "KAY/O":52, "Omen":50, "Killjoy":48, "Raze":45, "Iso":42, "Miks":40, "Brimstone":38, "Deadlock":35, "Gekko":32, "Breach":28, "Reyna":25} },
+        "ICEBOX": { desc: "Vertical crates, cold sightlines.", best: ["Viper", "Sova", "Killjoy", "Jett", "KAY/O"], rates: {"Viper":98, "Sova":94, "Killjoy":91, "Jett":88, "Sage":85, "KAY/O":82, "Gekko":80, "Vyse":78, "Clove":76, "Chamber":74, "Reyna":72, "Tejo":71, "Fade":68, "Neon":65, "Omen":62, "Cypher":60, "Phoenix":58, "Veto":57, "Waylay":55, "Deadlock":53, "Brimstone":48, "Astra":46, "Miks":44, "Raze":42, "Yoru":40, "Skye":38, "Breach":35, "Harbor":32, "Iso":30} },
+        "ASCENT": { desc: "Mid control and wall-bangable sites.", best: ["Jett", "Sova", "KAY/O", "Omen", "Killjoy"], rates: {"Sova":99, "Jett":96, "Killjoy":95, "Omen":93, "Vyse":91, "KAY/O":90, "Fade":88, "Clove":86, "Cypher":85, "Neon":84, "Sage":82, "Waylay":78, "Phoenix":76, "Skye":75, "Chamber":74, "Veto":72, "Raze":70, "Tejo":68, "Miks":65, "Yoru":62, "Brimstone":60, "Viper":58, "Deadlock":55, "Astra":48, "Breach":46, "Iso":45, "Gekko":44, "Harbor":42} },
+        "SPLIT": { desc: "High verticality, narrow choke points.", best: ["Raze", "Sage", "Omen", "Fade", "Viper"], rates: {"Raze":98, "Sage":95, "Omen":92, "Clove":90, "Viper":88, "Fade":86, "Cypher":84, "Gekko":82, "Jett":78, "Breach":75, "Neon":72, "Killjoy":70, "Sova":55, "Harbor":45, "Astra":42} },
+        "HAVEN": { desc: "The unique three-site fortress.", best: ["Neon", "Sova", "Fade", "Omen", "Killjoy"], rates: {"Killjoy":94, "Sova":92, "Neon":88, "Clove":86, "Fade":82, "Omen":80, "Phoenix":78, "Sage":75, "Cypher":72, "Jett":68, "Breach":65, "Skye":62, "Vyse":58, "Reyna":55, "Viper":48, "Astra":45, "Harbor":40} },
+        "BIND": { desc: "Teleporter tactics and Hookah control.", best: ["Raze", "Brimstone", "Skye", "Viper", "Cypher"], rates: {"Raze":95, "Brimstone":92, "Cypher":89, "Skye":88, "Viper":86, "Fade":82, "Gekko":80, "Clove":78, "Vyse":75, "Sova":72, "Omen":68, "Jett":65, "Tejo":62, "Killjoy":60, "Breach":58, "Neon":52, "Sage":48, "Astra":45, "Harbor":42} }
+    };
+
+    // Duo synergy database (from prompt)
+    const duoSynergies = [
+        {a: "Waylay", b: "Fade", score: 98}, {a: "Veto", b: "Omen", score: 91}, {a: "Yoru", b: "Viper", score: 87},
+        {a: "Sova", b: "Jett", score: 96}, {a: "Omen", b: "Cypher", score: 91}, {a: "Neon", b: "Breach", score: 89},
+        {a: "Clove", b: "Gekko", score: 85}, {a: "Raze", b: "Fade", score: 98}, {a: "Omen", b: "Viper", score: 92}
+    ];
+
+    // --- STATE ---
+    let currentStep = 1;
+    let selectedMap = "";
+    let teammates = [];
+    let userAgent = "";
+    let side = "Attack";
+    let round = 1;
+    let roundResults = {};
+    let teamScore = 0;
+    let enemyScore = 0;
+    let isGameOver = false;
+
+    const STORAGE_KEY = "val_strat_engine_v1";
+
+    function saveProgress() {
+        const state = {
+            currentStep, selectedMap, teammates, userAgent, side,
+            round, roundResults, teamScore, enemyScore, isGameOver
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function loadProgress() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+        
+        try {
+            const state = JSON.parse(saved);
+            currentStep = state.currentStep || 1;
+            selectedMap = state.selectedMap || "";
+            teammates = state.teammates || [];
+            userAgent = state.userAgent || "";
+            side = state.side || "Attack";
+            round = state.round || 1;
+            roundResults = state.roundResults || {};
+            teamScore = state.teamScore || 0;
+            enemyScore = state.enemyScore || 0;
+            isGameOver = state.isGameOver || false;
+
+            // Restore UI
+            if (selectedMap) {
+                document.getElementById('selected-map-name').innerText = selectedMap;
+                document.getElementById('map-desc').innerText = mapData[selectedMap].desc;
+            }
+            setSide(side);
+            updateAgentVisuals();
+            calculateSynergies();
+            updateScoreboard();
+            
+            if (currentStep === 3) {
+                document.getElementById('live-map-title').innerText = `MAP: ${selectedMap}`;
+                document.getElementById('live-side-tag').innerText = side.toUpperCase();
+                initRoundNav();
+                updateRoundAdvice();
+            }
+
+            if (isGameOver) {
+                endMatch(teamScore > enemyScore ? "VICTORY" : (teamScore === enemyScore ? "DRAW" : "DEFEAT"));
+            }
+
+            switchSection(currentStep, false);
+        } catch (e) {
+            console.error("Error loading progress", e);
+        }
+    }
+
+    // --- INIT ---
+    function init() {
+        const mapCont = document.getElementById('map-container');
+        Object.keys(mapData).forEach(m => {
+            const el = document.createElement('div');
+            el.className = 'map-card';
+            el.innerHTML = `<h3>${m}</h3>`;
+            el.onclick = () => selectMap(m);
+            mapCont.appendChild(el);
+        });
+
+        const agentCont = document.getElementById('agent-picker');
+        agents.forEach(a => {
+            const el = document.createElement('div');
+            el.className = 'agent-card';
+            el.id = `agent-${a.name}`;
+            el.innerHTML = `
+                <span class="name">${a.name}</span>
+                <span style="font-size:0.6rem; opacity:0.6">${a.role.toUpperCase()}</span>
+                <div class="synergy-bar"><div class="synergy-fill" id="fill-${a.name}"></div></div>
+                <span class="percentage" id="perc-${a.name}">--%</span>
+            `;
+            el.onclick = () => handleAgentSelection(a.name);
+            agentCont.appendChild(el);
+        });
+    }
+
+    // --- NAVIGATION ---
+    function goBack() {
+        if (currentStep > 1) {
+            switchSection(currentStep - 1);
+        }
+    }
+
+    function selectMap(mapName) {
+        selectedMap = mapName;
+        document.getElementById('selected-map-name').innerText = mapName;
+        document.getElementById('map-desc').innerText = mapData[mapName].desc;
+        switchSection(2);
+        calculateSynergies();
+    }
+
+    function switchSection(step, shouldSave = true) {
+        currentStep = step;
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        const targetSection = document.getElementById(`section-${step}`);
+        if (targetSection) targetSection.classList.add('active');
+        
+        // Toggle Back Button Visibility
+        document.getElementById('btn-back').style.display = step > 1 ? 'block' : 'none';
+
+        // Update progress bar steps
+        document.querySelectorAll('.step').forEach((s, idx) => {
+            if (idx < step) {
+                s.classList.add('active');
+            } else {
+                s.classList.remove('active');
+            }
+        });
+
+        if (shouldSave) saveProgress();
+    }
+
+    // --- SYNERGY ENGINE ---
+    function handleAgentSelection(name) {
+        if (teammates.includes(name)) {
+            teammates = teammates.filter(t => t !== name);
+            userAgent = "";
+        } else if (teammates.length < 4) {
+            teammates.push(name);
+        } else if (!userAgent) {
+            userAgent = name;
+        } else {
+            userAgent = name; // Replace user agent
+        }
+        updateAgentVisuals();
+        calculateSynergies();
+        saveProgress();
+    }
+
+    function updateAgentVisuals() {
+        document.querySelectorAll('.agent-card').forEach(el => {
+            el.classList.remove('selected-teammate', 'user-choice');
+            const name = el.id.replace('agent-', '');
+            if (teammates.includes(name)) el.classList.add('selected-teammate');
+            if (userAgent === name) el.classList.add('user-choice');
+        });
+
+        // Update Teammate Slots UI
+        const slotCont = document.getElementById('teammate-slots');
+        slotCont.innerHTML = teammates.map(t => `<div class="meta-tag" style="background:#444">${t}</div>`).join('') + 
+                           (userAgent ? `<div class="meta-tag" style="background:var(--val-blue); color:black">${userAgent}</div>` : '');
+        
+        document.getElementById('comp-score-box').style.display = (teammates.length === 4 && userAgent) ? 'block' : 'none';
+    }
+
+    function calculateSynergies() {
+        const mapRates = mapData[selectedMap].rates;
+        let totalCompScore = 0;
+
+        agents.forEach(agent => {
+            let baseScore = mapRates[agent.name] || 50;
+            let bonus = 0;
+
+            // Role Balance Bonus (If team is missing a role, agents of that role get a boost)
+            const currentRoles = [...teammates, userAgent].filter(n => n).map(n => agents.find(a => a.name === n).role);
+            if (!currentRoles.includes(agent.role)) bonus += 15;
+
+            // Duo Synergy Bonus
+            teammates.forEach(tm => {
+                const duo = duoSynergies.find(s => (s.a === tm && s.b === agent.name) || (s.b === tm && s.a === agent.name));
+                if (duo) bonus += (duo.score / 10);
+            });
+
+            const finalScore = Math.min(Math.round(baseScore + bonus), 100);
+            
+            // Update UI Bars
+            const fill = document.getElementById(`fill-${agent.name}`);
+            const percText = document.getElementById(`perc-${agent.name}`);
+            if (fill) {
+                fill.style.width = finalScore + '%';
+                fill.style.background = finalScore > 80 ? 'var(--a-tier)' : (finalScore > 60 ? 'var(--b-tier)' : 'var(--val-red)');
+                percText.innerText = finalScore + '%';
+            }
+
+            if (userAgent === agent.name) totalCompScore = finalScore;
+        });
+
+        if (userAgent) {
+            document.getElementById('synergy-val').innerText = totalCompScore + '%';
+        }
+    }
+
+    // --- MATCH LOGIC ---
+    function setSide(s) {
+        side = s;
+        document.getElementById('side-attack').className = `val-btn ${s === 'Attack' ? 'btn-red' : 'btn-outline'}`;
+        document.getElementById('side-defense').className = `val-btn ${s === 'Defense' ? 'btn-red' : 'btn-outline'}`;
+        saveProgress();
+    }
+
+    function goToMatch() {
+        switchSection(3);
+        document.getElementById('live-map-title').innerText = `MAP: ${selectedMap}`;
+        document.getElementById('live-side-tag').innerText = side.toUpperCase();
+        initRoundNav();
+        updateRoundAdvice();
+    }
+
+    function initRoundNav() {
+        const cont = document.getElementById('round-nav-container');
+        cont.innerHTML = '';
+        // Initially show 24 or current round + 1
+        const totalToShow = Math.max(24, round);
+        for (let i = 1; i <= totalToShow; i++) {
+            const div = document.createElement('div');
+            div.className = `round-dot ${i === round ? 'active' : ''}`;
+            if (roundResults[i]) div.classList.add(roundResults[i]);
+            div.innerText = i;
+            div.onclick = () => { round = i; updateRoundAdvice(); };
+            cont.appendChild(div);
+        }
+    }
+
+    function handleRound(result) {
+        if(isGameOver) return;
+        
+        roundResults[round] = result;
+        if (result === 'win') teamScore++;
+        else enemyScore++;
+
+        updateScoreboard();
+        checkMatchStatus();
+
+        if (!isGameOver) {
+            round++;
+            initRoundNav();
+            updateRoundAdvice();
+        }
+        saveProgress();
+    }
+
+    function updateScoreboard() {
+        document.getElementById('score-team').innerText = teamScore;
+        document.getElementById('score-enemy').innerText = enemyScore;
+        
+        // Show Draw button in OT
+        if (teamScore >= 12 && enemyScore >= 12) {
+            document.getElementById('ot-controls').style.display = 'block';
+        }
+    }
+
+    function checkMatchStatus() {
+        const diff = Math.abs(teamScore - enemyScore);
+        
+        // Regulation Win
+        if ((teamScore === 13 && enemyScore < 12) || (enemyScore === 13 && teamScore < 12)) {
+            endMatch(teamScore === 13 ? "VICTORY" : "DEFEAT");
+            return;
+        }
+
+        // Overtime Win (Win by 2)
+        if (teamScore >= 12 && enemyScore >= 12 && diff >= 2) {
+            endMatch(teamScore > enemyScore ? "VICTORY" : "DEFEAT");
+            return;
+        }
+        
+        // Switch sides logic at round 12
+        if (round === 12) {
+            side = (side === "Attack") ? "Defense" : "Attack";
+            document.getElementById('live-side-tag').innerText = side.toUpperCase();
+        }
+    }
+
+    function endMatch(status) {
+        isGameOver = true;
+        const overlay = document.getElementById('match-end-overlay');
+        overlay.style.display = 'flex';
+        document.getElementById('end-title').innerText = status;
+        document.getElementById('end-title').style.color = status === "VICTORY" ? "var(--a-tier)" : "var(--val-red)";
+        document.getElementById('end-score').innerText = `${teamScore} - ${enemyScore}`;
+    }
+
+    function voteDraw() {
+        endMatch("MATCH DRAW");
+    }
+
+    function restartGame() {
+        if (!isGameOver && currentStep === 3) {
+            if (!confirm("End current match and reset all progress?")) return;
+        }
+
+        // Reset State
+        localStorage.removeItem(STORAGE_KEY);
+        selectedMap = "";
+        teammates = [];
+        userAgent = "";
+        side = "Attack";
+        round = 1;
+        roundResults = {};
+        teamScore = 0;
+        enemyScore = 0;
+        isGameOver = false;
+
+        // Reset UI Overlays and Scores
+        document.getElementById('match-end-overlay').style.display = 'none';
+        document.getElementById('ot-controls').style.display = 'none';
+        document.getElementById('score-team').innerText = "0";
+        document.getElementById('score-enemy').innerText = "0";
+        document.getElementById('synergy-val').innerText = "0%";
+        
+        // Reset Components
+        setSide("Attack"); // Resets side button styling
+        updateAgentVisuals(); // Clears teammate slots and agent cards
+        calculateSynergies(); // Resets progress bars on agents
+        
+        // Return to Map Selection
+        switchSection(1);
+        
+        // Scroll to top for fresh start
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateRoundAdvice() {
+        document.querySelectorAll('.round-dot').forEach((d, i) => {
+            d.classList.remove('active');
+            if (i === round - 1) d.classList.add('active');
+        });
+
+        const strat = getEconomyAdvice();
+        document.getElementById('strat-text').innerHTML = `<strong>${strat.title}</strong><br>${strat.strat}<br><br><span style="color:var(--val-blue)">RECOMMENDED LOADOUT:</span> ${strat.buy}`;
+        
+        document.getElementById('economy-intel').innerHTML = `
+            <div class="advice-card" style="border-color: #aaa; background: rgba(255,255,255,0.05)">
+                <small>NEXT ROUND MINIMUM:</small>
+                <div style="font-size:1.5rem; font-weight:bold; color:#00ff88">$${calculateMinCreds()}</div>
+            </div>
+        `;
+
+        document.getElementById('agent-nuance').innerText = getAgentTip();
+    }
+
+    function calculateMinCreds() {
+        if (round === 1 || round === 13) return "800";
+        return roundResults[round-1] === 'win' ? "3000+" : "1900+";
+    }
+
+    function getEconomyAdvice() {
+        if (round === 1 || round === 13) return { title: "PISTOL START", strat: "High impact. Use all 800 credits to secure the site.", buy: "Ghost + Utility" };
+        const lastRes = roundResults[round - 1];
+        if (round === 2 || round === 14) {
+            return lastRes === 'win' ? 
+                { title: "ANTI-ECO", strat: "Punish their lack of armor. Stay at range.", buy: "Spectre + Full Shields" } :
+                { title: "FULL SAVE", strat: "Save for Round 3. Do not spend over $1500.", buy: "Classic + No Shield" };
+        }
+        return { title: "FULL BUY PHASE", strat: "Coordinate ultimates. Play for trades.", buy: "Vandal/Phantom + Full Shield" };
+    }
+
+    function getAgentTip() {
+        const role = agents.find(a => a.name === userAgent).role;
+        if (role === "Sentinel") return "Anchor the site. Let the enemy come to you. Don't over-rotate too early.";
+        if (role === "Duelist") return "Create space. Ask for flashes before you entry. Your life for the site is a good trade.";
+        if (role === "Initiator") return "Provide intel. Don't use your utility selfishly; wait for the Duelist's cue.";
+        return "Manage the vision. Keep smokes refreshed and play post-plant positions.";
+    }
+
+    init();
+    loadProgress();
+</script>
+
+</body>
+</html>
