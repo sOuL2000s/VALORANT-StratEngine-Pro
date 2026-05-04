@@ -164,6 +164,52 @@
 
         .meta-tag { background: var(--val-red); color: white; padding: 5px 15px; font-size: 0.8rem; font-family: 'Orbitron'; }
 
+        /* Filter Controls */
+        .search-wrapper {
+            margin-bottom: 25px;
+            position: relative;
+            max-width: 400px;
+        }
+
+        .val-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 20px;
+            color: var(--val-white);
+            font-family: 'Barlow Condensed';
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .val-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--val-red);
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tag {
+            padding: 5px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.7rem;
+            font-family: 'Orbitron';
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filter-tag.active {
+            border-color: var(--val-red);
+            color: var(--val-red);
+            background: rgba(255, 70, 85, 0.05);
+        }
+
         /* Scoreboard */
         .scoreboard {
             display: flex;
@@ -423,6 +469,9 @@
 
         <div id="section-1" class="section active">
             <h2 style="margin-bottom: 30px;">Select Active Map</h2>
+            <div class="search-wrapper">
+                <input type="text" class="val-input" placeholder="SEARCH MAPS..." onkeyup="filterMaps(this.value)">
+            </div>
             <div class="map-grid" id="map-container"></div>
         </div>
 
@@ -448,7 +497,19 @@
                     </div>
                     <button class="val-btn btn-outline" style="width: 100%; margin-top: 10px;" onclick="goBack()">BACK TO MAPS</button>
                 </div>
-                <div class="agent-grid" id="agent-picker"></div>
+                <div>
+                    <div class="search-wrapper" style="max-width: 100%;">
+                        <input type="text" class="val-input" id="agent-search" placeholder="SEARCH AGENTS..." onkeyup="filterAgents()">
+                    </div>
+                    <div class="filter-tags" id="agent-role-filters">
+                        <div class="filter-tag active" onclick="setAgentRoleFilter('ALL', this)">ALL</div>
+                        <div class="filter-tag" onclick="setAgentRoleFilter('DUELIST', this)">DUELIST</div>
+                        <div class="filter-tag" onclick="setAgentRoleFilter('CONTROLLER', this)">CONTROLLER</div>
+                        <div class="filter-tag" onclick="setAgentRoleFilter('INITIATOR', this)">INITIATOR</div>
+                        <div class="filter-tag" onclick="setAgentRoleFilter('SENTINEL', this)">SENTINEL</div>
+                    </div>
+                    <div class="agent-grid" id="agent-picker"></div>
+                </div>
             </div>
         </div>
 
@@ -481,6 +542,9 @@
     <!-- TAB: PRO CONFIGS -->
     <div id="tab-pro" class="main-tab">
         <h2 style="margin-bottom: 30px;">Professional Player Configs</h2>
+        <div class="search-wrapper">
+            <input type="text" class="val-input" placeholder="SEARCH PLAYERS OR MICE..." onkeyup="filterProConfigs(this.value)">
+        </div>
         <div class="pro-grid" id="pro-configs-container">
             <!-- Populated via JS -->
         </div>
@@ -603,6 +667,7 @@
     let teamScore = 0;
     let enemyScore = 0;
     let isGameOver = false;
+    let activeAgentRole = "ALL";
 
     // Aim Trainer State
     let aimActive = false;
@@ -755,6 +820,42 @@
     }
 
     // --- INIT ---
+    function filterMaps(query) {
+        const cards = document.querySelectorAll('.map-card');
+        query = query.toLowerCase();
+        cards.forEach(card => {
+            const name = card.querySelector('h3').innerText.toLowerCase();
+            card.style.display = name.includes(query) ? 'flex' : 'none';
+        });
+    }
+
+    function setAgentRoleFilter(role, el) {
+        activeAgentRole = role;
+        document.querySelectorAll('#agent-role-filters .filter-tag').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        filterAgents();
+    }
+
+    function filterAgents() {
+        const query = document.getElementById('agent-search').value.toLowerCase();
+        agents.forEach(agent => {
+            const el = document.getElementById(`agent-${agent.name}`);
+            const roleMatch = activeAgentRole === 'ALL' || agent.role.toUpperCase() === activeAgentRole;
+            const searchMatch = agent.name.toLowerCase().includes(query);
+            el.style.display = (roleMatch && searchMatch) ? 'block' : 'none';
+        });
+    }
+
+    function filterProConfigs(query) {
+        const cards = document.querySelectorAll('.pro-card');
+        query = query.toLowerCase();
+        cards.forEach((card, idx) => {
+            const player = proConfigs[idx].name.toLowerCase();
+            const mouse = proConfigs[idx].mouse.toLowerCase();
+            card.style.display = (player.includes(query) || mouse.includes(query)) ? 'block' : 'none';
+        });
+    }
+
     function init() {
         const mapCont = document.getElementById('map-container');
         Object.keys(mapData).forEach(m => {
