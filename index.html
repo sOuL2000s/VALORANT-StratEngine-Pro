@@ -863,8 +863,16 @@
                 </div>
                 <div class="side-bar">
                     <h3 id="live-map-title">MAP</h3>
-                    <div id="economy-intel"></div>
+                    <div id="live-side-tag" class="meta-tag" style="margin-top: 10px; width: fit-content;">SIDE</div>
+                    <div id="economy-intel" style="margin-top: 20px;"></div>
                     <div id="agent-nuance" style="margin-top:20px; background: rgba(0,0,0,0.3); padding: 15px;"></div>
+                    
+                    <div id="live-tactics" style="margin-top: 20px;">
+                        <h4 style="font-family: 'Orbitron'; font-size: 0.8rem; color: var(--val-red); margin-bottom: 10px; border-bottom: 1px solid var(--val-red); padding-bottom: 5px;">ACTIVE TACTICS</h4>
+                        <div id="live-tactics-content" style="font-size: 0.95rem; line-height: 1.4; opacity: 0.9; background: rgba(255, 70, 85, 0.05); padding: 15px; border-left: 2px solid var(--val-red);">
+                            Select a side to see setups.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1228,78 +1236,78 @@
     const masterTactics = {
         "Controllers": {
             "Brimstone": {
-                "ASCENT": { att: "Molly for Gen/Hell. Smoke A-Tree & Heaven.", def: "One-way smokes for A-Main." },
-                "BIND": { att: "Triple smoke B-Site. Post-plant molly from long.", def: "Molly for Hookah entry." },
-                "HAVEN": { att: "B-Site post-plant molly.", def: "Smoke A-Main/Garage." },
-                "SPLIT": { att: "Heaven/Screens smokes.", def: "Molly for Mid control." },
-                "ICEBOX": { att: "Smoke for A-Nest.", def: "Molly for default plant denial." },
+                "ASCENT": { att: "Molly for Gen/Hell. Smoke A-Tree & Heaven. Lineup: Stand at B-Lobby fence, aim at cloud for B-Default molly.", def: "One-way smokes for A-Main. Deep molly for B-Main rush denial. Ult for B-Main choke." },
+                "BIND": { att: "Triple smoke B-Site. Post-plant molly from long. Ult for U-Hall.", def: "Molly for Hookah entry. Smoke A-Short/Bath. Ult for B-Long plant denial." },
+                "HAVEN": { att: "B-Site post-plant molly. Smoke A-Heaven/Tunnel. Ult for C-Site.", def: "Smoke A-Main/Garage. Molly for B-Main. Ult for C-Long plant denial." },
+                "SPLIT": { att: "Heaven/Screens smokes. Molly for Mid control. Ult for A-Alley.", def: "Molly for Mid control. Smoke B-Main. Ult for A-Main rush denial." },
+                "ICEBOX": { att: "Smoke for A-Nest. Molly for B-Yellow. Ult for A-Screen.", def: "Molly for default plant denial. Smoke B-Green. Ult for A-Belt." },
                 "BREEZE": { att: "Post-plant molly from Cave.", def: "Smoke Mid-Chute." },
                 "FRACTURE": { att: "Full execute A-Site smokes.", def: "Smoke A-Drop." },
                 "PEARL": { att: "Execute smokes for B-Long.", def: "Molly A-Art." },
                 "LOTUS": { att: "Smoke C-Site plant.", def: "Molly A-Rotating doors." },
-                "SUNSET": { att: "Post-plant molly from Market.", def: "Smoke A-Main." },
+                "SUNSET": { att: "Post-plant molly from Market. Smoke A-Main. Ult B-Back.", def: "Smoke A-Main. Molly for Mid-Tiles. Ult for B-Main rush." },
                 "ABYSS": { att: "Smoke A-Bridge.", def: "Molly B-Bridge chokes." },
                 "CORRODE": { att: "Smoke A-Hall ramps.", def: "Molly B-Salt mine." }
             },
             "Omen": {
-                "ASCENT": { att: "Smoke A-Tree & Heaven.", def: "One-way A-Main/B-Main." },
-                "BIND": { att: "Smoke A-Lamps. TP to backsite.", def: "Smoke Hookah entry." },
-                "HAVEN": { att: "Smoke Heaven/C-Link.", def: "One-way Garage door." },
-                "SPLIT": { att: "Aggro smokes for Mid-Vent.", def: "One-way B-Main." },
+                "ASCENT": { att: "Smoke A-Tree & Heaven. TP to Generator from A-Main. Blind Mid-Link for teammates.", def: "One-way A-Main/B-Main. TP to A-Rafters for off-angle. Smoke Mid-Bottom for Market control." },
+                "BIND": { att: "Smoke A-Lamps. TP to backsite. Blind for Hookah entry.", def: "Smoke Hookah entry. TP for A-Lamps off-angle. One-way A-Short." },
+                "HAVEN": { att: "Smoke Heaven/C-Link. TP to C-Backsite. Blind B-Main.", def: "One-way Garage door. Smoke A-Short. TP to A-Long boxes." },
+                "SPLIT": { att: "Aggro smokes for Mid-Vent. TP to B-Heaven. Blind for A-Main.", def: "One-way B-Main. Smoke Mid-Vent. TP for A-Rafters off-angle." },
                 "ICEBOX": { att: "Smoke A-Pipes/Screen.", def: "Smoke for sneaky retakes." },
-                "BREEZE": { att: "Smoke A-Pyramids.", def: "One-way Mid-Chute." },
+                "BREEZE": { att: "Smoke A-Pyramids. TP to B-Back. Blind for Mid-Chute.", def: "One-way Mid-Chute. Smoke B-Main. TP for A-Cave flank." },
                 "FRACTURE": { att: "Smoke A-Main/Drop.", def: "One-way A-Dish." },
                 "PEARL": { att: "Smoke B-Tower.", def: "Smoke A-Secret." },
-                "LOTUS": { att: "Smoke A-Tree entry.", def: "One-way C-Mound." },
+                "LOTUS": { att: "Smoke A-Tree entry. TP to C-Backsite. Blind B-Main.", def: "One-way C-Mound. Smoke A-Root. TP for B-Site off-angle." },
                 "SUNSET": { att: "Smoke A-Elbow.", def: "One-way A-Main." },
-                "ABYSS": { att: "Smoke A-Drop vision.", def: "One-way A-Drop." },
+                "ABYSS": { att: "Smoke A-Drop vision. TP to Bridge back. Blind B-Zip.", def: "One-way A-Drop. Smoke B-Main. TP for Bridge flank." },
                 "CORRODE": { att: "Smoke Salt-Mine chokes.", def: "One-way Medieval Alley." }
             },
             "Viper": {
-                "ASCENT": { att: "Molly for Gen/Hell.", def: "Wall for A-Main control." },
-                "BIND": { att: "Wall across A-Short/Lamps.", def: "Orb for B-Long/Short." },
-                "HAVEN": { att: "B-Site post-plant molly.", def: "Wall for C-Site/Garage." },
-                "SPLIT": { att: "Orb for A-Screens.", def: "One-way B-Main." },
-                "ICEBOX": { att: "Wall for A-Nest.", def: "Wall for B-Yellow control." },
-                "BREEZE": { att: "The 'A-Pyramid' Wall.", def: "B-Main wall." },
+                "ASCENT": { att: "Wall for A-Site (cuts Tree/Heaven). Molly for Gen/Hell. Orb for Mid-Top one-way.", def: "Wall for A-Main control. One-way Orb for B-Main entrance. Molly for B-Lane denial." },
+                "BIND": { att: "Wall across A-Short/Lamps. Orb for B-Long. Molly for A-Lamps.", def: "Orb for B-Long/Short. Wall for A-Site control. Molly for Hookah." },
+                "HAVEN": { att: "B-Site post-plant molly. Wall for C-Site/Garage. Orb for A-Short.", def: "Wall for C-Site/Garage. Orb for B-Main. Molly for A-Long." },
+                "SPLIT": { att: "Orb for A-Screens. Wall for B-Site. Molly for Mid-Vent.", def: "One-way B-Main. Wall for Mid/A-Main. Molly for A-Heaven." },
+                "ICEBOX": { att: "Wall for A-Nest. Orb for B-Green. Molly for A-Pipes.", def: "Wall for B-Yellow control. Orb for A-Screen. Molly for B-Main." },
+                "BREEZE": { att: "The 'A-Pyramid' Wall. Orb for Mid-Tunnel. Molly for B-Backsite.", def: "B-Main wall. Orb for Mid-Chute. Molly for A-Cave." },
                 "FRACTURE": { att: "Wall for A-Sands/Drop.", def: "Wall for B-Main/Arcade." },
                 "PEARL": { att: "Wall for B-Long.", def: "A-Art molly/smoke setup." },
-                "LOTUS": { att: "Pit for B-Site control.", def: "Wall for C-Mound/Main." },
+                "LOTUS": { att: "Pit for B-Site control. Wall for C-Mound. Molly A-Tree.", def: "Wall for C-Mound/Main. Orb for B-Main. Molly A-Root." },
                 "SUNSET": { att: "Orb for Mid-Tiles.", def: "One-way A-Main." },
                 "ABYSS": { att: "Wall to block Bridge vision.", def: "Orb for A-Drop landing." },
                 "CORRODE": { att: "Post-plant for B-Salt.", def: "Wall for Medieval Alley." }
             },
             "Astra": {
-                "ASCENT": { att: "Smoke A-Tree & Heaven.", def: "Stars on A-Short/B-Main." },
-                "BIND": { att: "Gravity Well Hookah.", def: "Stars on A-Short/Bath." },
+                "ASCENT": { att: "Smoke A-Tree & Heaven. Gravity Well B-Backsite. Stun A-Generator for entry.", def: "Stars on A-Short/B-Main. Gravity Well Mid-Link. Ult to split A-Site for retake." },
+                "BIND": { att: "Gravity Well Hookah. Smoke A-Lamps. Stun for B-Site.", def: "Stars on A-Short/Bath. Gravity Well B-Long. Ult to cut A-Site." },
                 "HAVEN": { att: "Stun for Garage entry.", def: "Stars on A-Short/Garage." },
                 "SPLIT": { att: "Pull/Stun for Mid-Mail entry.", def: "Stars on A-Main/B-Alley." },
                 "ICEBOX": { att: "Smoke A-Screen.", def: "Stars on B-Green." },
                 "BREEZE": { att: "Gravity Well A-Nest.", def: "Stars on Mid-Chute." },
                 "FRACTURE": { att: "Sucker A-Drop.", def: "Stars on B-Arcade." },
-                "PEARL": { att: "Gravity Well B-Link.", def: "Stars on A-Restaurant." },
+                "PEARL": { att: "Gravity Well B-Link. Smoke B-Tower. Stun A-Secret.", def: "Stars on A-Restaurant. Gravity Well Mid-Art. Ult to split B-Long." },
                 "LOTUS": { att: "Smoke B-Main.", def: "Stars on A-Rotating doors." },
                 "SUNSET": { att: "Stun A-Elbow.", def: "Stars on Mid-Market." },
-                "ABYSS": { att: "Pull enemies off Bridge edge!", def: "Stars on A-Drop." },
+                "ABYSS": { att: "Pull enemies off Bridge edge! Smoke A-Drop. Stun B-Main.", def: "Stars on A-Drop. Gravity Well Bridge. Ult to cut Bridge lanes." },
                 "CORRODE": { att: "Concuss for Salt-Mine chokes.", def: "Stars on Medieval Alley." }
             },
             "Harbor": {
-                "ASCENT": { att: "Wall for B-Lane entry.", def: "Cascade for A-Main hold." },
-                "BIND": { att: "Wall for A-Short push.", def: "Cascade for Hookah delay." },
+                "ASCENT": { att: "Wall for B-Lane entry. Cascade to cross A-Main. Cove for mid-site plant.", def: "Cascade for A-Main hold. Wall for Mid-Market. Cove for ninja-defuse on B." },
+                "BIND": { att: "Wall for A-Short push. Cove for B-Long plant. Cascade for Hookah.", def: "Cascade for Hookah delay. Wall for A-Bath. Cove for B-Site retake." },
                 "HAVEN": { att: "Wall for C-Long push.", def: "Cove for B-Site retake." },
                 "SPLIT": { att: "Cascade for Mid-Vent control.", def: "Wall for B-Main/Alley." },
                 "ICEBOX": { att: "Cove for B-Default plant.", def: "Cascade for A-Belt vision." },
                 "BREEZE": { att: "Wall for A-Pyramid push.", def: "Cascades to block Mid-Chute." },
                 "FRACTURE": { att: "Wall for B-Main/Arcade.", def: "Cascade for A-Dish info." },
-                "PEARL": { att: "Cove for B-Long plant.", def: "Double cascades for B-Main." },
+                "PEARL": { att: "Cove for B-Long plant. Wall for A-Main. Cascade for Mid.", def: "Double cascades for B-Main. Wall for Mid-Link. Cove for A-Site." },
                 "LOTUS": { att: "Cove C-Site plant.", def: "Wall for A-Root/Tree." },
                 "SUNSET": { att: "Wall for Mid-Market control.", def: "Cascade for A-Main push." },
                 "ABYSS": { att: "Wall to isolate Bridge lanes.", def: "Cove for Bridge retake." },
                 "CORRODE": { att: "Wall across Medieval Alley.", def: "Cascade for Salt-Mine chokes." }
             },
             "Clove": {
-                "ASCENT": { att: "Aggro smokes for Mid-link.", def: "Post-death smokes for A-Main." },
-                "BIND": { att: "Aggro smokes for Hookah.", def: "Post-death smokes for B-Long." },
+                "ASCENT": { att: "Aggro smokes for Mid-link. Meddle for A-Generator. Post-death smoke A-Main.", def: "Post-death smokes for A-Main. Meddle for B-Main chokes. C-Pick for heals on Mid." },
+                "BIND": { att: "Aggro smokes for Hookah. Meddle for A-Lamps. Post-death B-Long.", def: "Post-death smokes for B-Long. Meddle for A-Short. C-Pick for A-Bath." },
                 "HAVEN": { att: "Smoke for Garage entry.", def: "Post-death smokes for C-Main." },
                 "SPLIT": { att: "Aggro smokes for Mid-Vent.", def: "Post-death smokes for B-Alley." },
                 "ICEBOX": { att: "Smoke for B-Yellow push.", def: "Post-death smokes for A-Belt." },
@@ -1309,11 +1317,11 @@
                 "LOTUS": { att: "Smoke A-Tree on entry.", def: "Post-death smokes for C-Bend." },
                 "SUNSET": { att: "Smoke for Mid-Tiles.", def: "Post-death smokes for Mid-Tiles." },
                 "ABYSS": { att: "Smoke for A-Drop/Bridge.", def: "Post-death smokes for A-Drop." },
-                "CORRODE": { att: "Smoke for Salt-Mine.", def: "Post-death smokes for Medieval Alley." }
+                "CORRODE": { att: "Smoke for Salt-Mine. Meddle for A-Castle. Post-death B-Alley.", def: "Post-death smokes for Medieval Alley. Meddle Salt-Mine." }
             },
             "Miks": {
-                "ASCENT": { att: "Healing smokes on Mid-link.", def: "Smoke A-Main for heals." },
-                "BIND": { att: "Smoke Tunnels to isolate 1v1s.", def: "Healing smokes for Hookah." },
+                "ASCENT": { att: "Healing smokes on Mid-link. Isolation smoke for A-Wine. Smoke for Hell entry.", def: "Smoke A-Main for heals. Smoke B-Lane to regenerate HP during anchor." },
+                "BIND": { att: "Smoke Tunnels for 1v1s. Healing smoke for A-Short. Smoke B-Long.", def: "Healing smokes for Hookah. Smoke A-Lamps for health regen." },
                 "HAVEN": { att: "Smoke Garage for B-Split.", def: "Smoke A-Short for health regens." },
                 "SPLIT": { att: "Smoke Mid-Vents for entry.", def: "Healing smokes for B-Alley." },
                 "ICEBOX": { att: "Smoke A-Screen for plant.", def: "Smoke Pipes for sneaky retakes." },
@@ -1323,15 +1331,15 @@
                 "LOTUS": { att: "Smoke B-Main for heals.", def: "Smoke C-Mound for isolation." },
                 "SUNSET": { att: "Smoke Mid-Market for entry.", def: "Healing smokes for A-Elbow." },
                 "ABYSS": { att: "Smoke B-Bridge to hide health-regens.", def: "Smoke B-Main for heals." },
-                "CORRODE": { att: "Smoke Salt-Mine entry.", def: "Healing smokes for Medieval Ramps." }
+                "CORRODE": { att: "Smoke Salt-Mine entry. Healing smoke for A-Hall.", def: "Healing smokes for Medieval Ramps. Smoke B-Alley for HP." }
             }
         },
         "Sentinels": {
             "Sage": {
-                "ASCENT": { att: "Wall A-Switch to close door.", def: "Wall B-Main/Mid-Link." },
-                "BIND": { att: "Wall for B-Long plant.", def: "Wall Hookah entry." },
+                "ASCENT": { att: "Wall A-Switch to close door. Slow orb for A-Hell. Slow for B-Backsite.", def: "Wall B-Main/Mid-Link. Slow orb for A-Main entry. Wall A-Heaven for retake." },
+                "BIND": { att: "Wall for B-Long plant. Slow orb A-Short. Slow for Hookah.", def: "Wall Hookah entry. Slow orb B-Long. Wall A-Bath for delay." },
                 "HAVEN": { att: "Wall Mid-B to split.", def: "Wall C-Long/Garage." },
-                "SPLIT": { att: "Wall Mid-Mail.", def: "Wall B-Main/A-Main." },
+                "SPLIT": { att: "Wall Mid-Mail. Slow orb A-Main. Slow for B-Heaven.", def: "Wall B-Main/A-Main. Slow orb Mid. Wall A-Heaven for retake." },
                 "ICEBOX": { att: "Wall B-Yellow.", def: "Wall A-Belt/Kitchen." },
                 "BREEZE": { att: "Wall Mid-Tunnel.", def: "Wall B-Main/Mid." },
                 "FRACTURE": { att: "Wall for A-Sands plant.", def: "Wall B-Canteen retake." },
@@ -1342,37 +1350,37 @@
                 "CORRODE": { att: "Wall B-Alley.", def: "Wall Medieval Ramps." }
             },
             "Cypher": {
-                "ASCENT": { att: "Flank trip B-Main.", def: "A-Main one-way cage + Cam." },
-                "BIND": { att: "Trip A-Bath/Short.", def: "One-way cages for Hookah." },
+                "ASCENT": { att: "Flank trip B-Main. Cam high on A-Main wall. Cage for A-Tree push.", def: "A-Main one-way cage + Cam. Trips on B-Lane/Stairs. Cam for Mid-Market info." },
+                "BIND": { att: "Trip A-Bath/Short. Cam for B-Long. Cage for Hookah.", def: "One-way cages for Hookah. Trip B-Long. Cam high on A-Lamps." },
                 "HAVEN": { att: "Flank trip C-Long.", def: "C-Site trips + Garage Cam." },
                 "SPLIT": { att: "Flank trips B-Alley.", def: "A-Screens cam setup." },
                 "ICEBOX": { att: "Flank trip B-Green.", def: "A-Site trip/cam setup." },
-                "BREEZE": { att: "Flank trip Cave.", def: "B-Site cam (Top Wall)." },
-                "FRACTURE": { att: "Trip Dish/Arcade.", def: "A-Main/Sands trip setup." },
+                "BREEZE": { att: "Flank trip Cave. Cam high on A-Wall. Cage for B-Main.", def: "B-Site cam (Top Wall). Trip Mid-Tunnel. Cam for A-Hall info." },
+                "FRACTURE": { att: "Trip Dish/Arcade. Cam high on B-Gen. Cage for A-Sands.", def: "A-Main/Sands trip setup. Cam for Arcade info. Trip B-Canteen." },
                 "PEARL": { att: "Trip A-Restaurant.", def: "B-Hall trip setup." },
                 "LOTUS": { att: "Trip C-Mound.", def: "A-Root trips." },
-                "SUNSET": { att: "Trip Mid-Tiles.", def: "B-Site 'God Cam'." },
+                "SUNSET": { att: "Trip Mid-Tiles. Cam for B-Main. Cage for A-Elbow.", def: "B-Site 'God Cam'. Trips on A-Main. Cam for Mid-Top info." },
                 "ABYSS": { att: "Flank trip A-Drop.", def: "B-Main/Zip trip setup." },
-                "CORRODE": { att: "Trip B-Alley.", def: "Salt-Mine trip/cam setup." }
+                "CORRODE": { att: "Trip B-Alley. Cam for Salt-Mine. Cage for A-Hall.", def: "Salt-Mine trip/cam setup. Trip Medieval Alley. Cam B-Alley." }
             },
             "Killjoy": {
-                "ASCENT": { att: "Turret Mid-Link.", def: "B-Site setup (Turret on Logs)." },
-                "BIND": { att: "Turret B-Long.", def: "A-Short/Lamps setup." },
-                "HAVEN": { att: "Turret C-Mound.", def: "C-Site setup." },
+                "ASCENT": { att: "Turret Mid-Link. Swarm for A-Generator plant. Ult for A-Site take.", def: "B-Site setup (Turret on Logs). Swarm on A-Door/B-Switch. Alarmbot Mid." },
+                "BIND": { att: "Turret B-Long. Swarm for A-Lamps. Ult for B-Site execute.", def: "A-Short/Lamps setup. Turret on B-Site. Swarm for B-Long plant." },
+                "HAVEN": { att: "Turret C-Mound. Swarm for B-Default. Ult for A-Site take.", def: "C-Site setup. Turret on A-Long. Swarm for Garage entry." },
                 "SPLIT": { att: "Turret Mid-Vents.", def: "A-Heaven/B-Main setup." },
-                "ICEBOX": { att: "Turret A-Belt.", def: "A-Site setup (Nades on Pipes)." },
+                "ICEBOX": { att: "Turret A-Belt. Swarm for B-Default. Ult for B-Site take.", def: "A-Site setup (Nades on Pipes). Turret on B-Site. Swarm B-Green." },
                 "BREEZE": { att: "Turret Mid-Tunnel.", def: "B-Site turret/alarmbot." },
-                "FRACTURE": { att: "Turret Arcade/Dish.", def: "B-Site Alarmbot setup." },
-                "PEARL": { att: "Turret A-Restaurant.", def: "B-Long alarmbot/nades." },
-                "LOTUS": { att: "Turret C-Mound.", def: "C-Site alarmbot setup." },
-                "SUNSET": { att: "Turret Mid-Tiles.", def: "A-Main Swarm Grenades." },
+                "FRACTURE": { att: "Turret Arcade/Dish. Swarm for A-Sands. Ult for B-Site.", def: "B-Site Alarmbot setup. Turret A-Main. Swarm for Dish entry." },
+                "PEARL": { att: "Turret A-Restaurant. Swarm for B-Tower. Ult for A-Site.", def: "B-Long alarmbot/nades. Turret Mid-Art. Swarm A-Secret." },
+                "LOTUS": { att: "Turret C-Mound. Swarm for B-Main. Ult for A-Site.", def: "C-Site alarmbot setup. Turret A-Root. Swarm for B-Site entry." },
+                "SUNSET": { att: "Turret Mid-Tiles. Swarm for B-Market. Ult for A-Site.", def: "A-Main Swarm Grenades. Turret on B-Site logs. Alarmbot Mid." },
                 "ABYSS": { att: "Turret B-Bridge.", def: "A-Drop alarmbot/nades." },
                 "CORRODE": { att: "Turret B-Alley.", def: "Setup for A-Castle." }
             },
             "Chamber": {
-                "ASCENT": { att: "Trap B-Main.", def: "OP at A-Main." },
-                "BIND": { att: "Trip A-Short.", def: "Headhunter for Hookah." },
-                "HAVEN": { att: "Trap C-Long.", def: "A-Long TP/OP angle." },
+                "ASCENT": { att: "Trap B-Main. Headhunter for A-Main peek. TP for Mid-Link aggression.", def: "OP at A-Main. Trap for Mid-Market. TP from B-Backsite to B-Market." },
+                "BIND": { att: "Trip A-Short. Headhunter for B-Long. TP for A-Lamps.", def: "Headhunter for Hookah. Trap B-Long. TP from A-Site to Bath." },
+                "HAVEN": { att: "Trap C-Long. Headhunter B-Main.", def: "A-Long TP/OP angle. Trap for C-Long." },
                 "SPLIT": { att: "Trap Mid-Mail.", def: "B-Heaven TP/OP angle." },
                 "ICEBOX": { att: "Trip A-Belt.", def: "A-Nest TP/OP angle." },
                 "BREEZE": { att: "Trip B-Main.", def: "Mid-Chute headhunter." },
@@ -1384,8 +1392,8 @@
                 "CORRODE": { att: "Trap B-Salt Mine.", def: "Medieval Alley TP/OP angle." }
             },
             "Deadlock": {
-                "ASCENT": { att: "GravNet B-Main entry.", def: "Barrier Mesh Mid-link." },
-                "BIND": { att: "Wall off Hookah.", def: "Sonic sensor A-Short/Bath." },
+                "ASCENT": { att: "GravNet B-Main entry. Sonic sensor for A-Wine. Wall off B-Lane.", def: "Barrier Mesh Mid-link. Sonic sensor B-Main. GravNet for A-Main rush." },
+                "BIND": { att: "Wall off Hookah. GravNet A-Lamps. Sonic sensor B-Long.", def: "Sonic sensor A-Short/Bath. Barrier Mesh B-Long. GravNet Hookah." },
                 "HAVEN": { att: "Wall off Garage.", def: "Barrier Mesh B-Main." },
                 "SPLIT": { att: "GravNet Mid-Mail.", def: "Sonic sensor A-Rafters." },
                 "ICEBOX": { att: "Barrier Mesh B-Yellow.", def: "Sonic sensor B-Green." },
@@ -1398,10 +1406,10 @@
                 "CORRODE": { att: "Barrier Mesh Salt-Mine.", def: "Sonic sensor Medieval Ramps." }
             },
             "Vyse": {
-                "ASCENT": { att: "Steel Garden A-Gen entry.", def: "Liquid metal Floor Mid-link." },
-                "BIND": { att: "Steel Garden B-Backsite.", def: "Shear wall A-Short." },
+                "ASCENT": { att: "Steel Garden A-Gen entry. Rose Flash A-Main. Shear wall for Mid.", def: "Liquid metal Floor Mid-link. Shear wall A-Main. Rose Flash B-Main." },
+                "BIND": { att: "Steel Garden B-Backsite. Rose Flash A-Bath. Shear wall B.", def: "Shear wall A-Short. Rose Flash Hookah. Liquid metal A-Lamps." },
                 "HAVEN": { att: "Steel Garden C-Site retake.", def: "Rose Flash Garage." },
-                "SPLIT": { att: "Steel Garden Mid-Vent.", def: "Liquid metal floor B-Main." },
+                "SPLIT": { att: "Steel Garden Mid-Vent. Rose Flash B-Main.", def: "Liquid metal floor B-Main. Shear wall for Mid." },
                 "ICEBOX": { att: "Steel Garden A-Nest.", def: "Shear wall B-Yellow." },
                 "BREEZE": { att: "Steel Garden B-Back.", def: "Rose Flash A-Pyramids." },
                 "FRACTURE": { att: "Steel Garden B-Gen.", def: "Shear wall A-Main." },
@@ -1412,8 +1420,8 @@
                 "CORRODE": { att: "Steel Garden B-Salt Mine.", def: "Shear wall Medieval Ramps." }
             },
             "Veto": {
-                "ASCENT": { att: "Proximity trap B-Lane.", def: "Veto-Point A-Main." },
-                "BIND": { att: "Detection zone A-Short.", def: "Proximity traps Hookah." },
+                "ASCENT": { att: "Proximity trap B-Lane. Detection zone A-Main. Ult for Site-Lock.", def: "Veto-Point A-Main. Proximity traps Mid-Bottom. Silence field B-Site." },
+                "BIND": { att: "Detection zone A-Short. Proximity traps Hookah. Ult for B-Site.", def: "Proximity traps Hookah. Veto-Point A-Short/Bath. Silence zone B." },
                 "HAVEN": { att: "Veto-Point B-Main.", def: "Veto-Point A-Short/Garage." },
                 "SPLIT": { att: "Detection zone Mid-Mail.", def: "Veto-Point B-Alley." },
                 "ICEBOX": { att: "Proximity trap A-Pipes.", def: "Veto-Point B-Green." },
@@ -1423,17 +1431,17 @@
                 "LOTUS": { att: "Veto-Point C-Mound.", def: "Proximity traps A-Root." },
                 "SUNSET": { att: "Detection zone A-Main.", def: "Veto-Point B-Market." },
                 "ABYSS": { att: "Trap the Zip-lines.", def: "Detection zone A-Drop." },
-                "CORRODE": { att: "Sensor traps Salt-Mine.", def: "Veto-Point Medieval Ramps." }
+                "CORRODE": { att: "Sensor traps Salt-Mine. Detection zone A-Hall. Ult B-Site.", def: "Veto-Point Medieval Ramps. Proximity traps A-Castle. Silence field." }
             }
         },
         "Initiators": {
             "Sova": {
-                "ASCENT": { att: "God arrow for B-Main.", def: "Recon A-Main/Mid." },
-                "BIND": { att: "Recon A-Short/Bath.", def: "Recon B-Long." },
-                "HAVEN": { att: "Recon C-Long.", def: "Shock dart C-Long/Garage." },
+                "ASCENT": { att: "God arrow for B-Main. Shock dart A-Generator. Drone for A-Tree info.", def: "Recon A-Main/Mid. Shock dart for B-Main plant denial. Ult for Mid-Market." },
+                "BIND": { att: "Recon A-Short/Bath. Shock dart B-Long. Drone for Hookah info.", def: "Recon B-Long. Shock dart A-Short. Ult for B-Long plant denial." },
+                "HAVEN": { att: "Recon C-Long. Drone for Garage. Shock dart for A-Hell.", def: "Recon A-Long. Shock dart C-Long. Ult for B-Main pressure." },
                 "SPLIT": { att: "Recon Mid-Vents.", def: "Recon B-Alley push." },
-                "ICEBOX": { att: "Recon A-Nest.", def: "Recon B-Main info." },
-                "BREEZE": { att: "Cave recon arrow.", def: "B-Main recon info." },
+                "ICEBOX": { att: "Recon A-Nest. Drone for B-Yellow. Shock dart for A-Screen.", def: "Recon B-Main info. Shock dart A-Belt. Ult for B-Default plant." },
+                "BREEZE": { att: "Cave recon arrow. Shock dart B-Back. Drone for A-Pyramid.", def: "B-Main recon info. Shock dart Mid-Tunnel. Ult for A-Cave denial." },
                 "FRACTURE": { att: "Recon A-Main/Sands.", def: "Recon B-Arcade." },
                 "PEARL": { att: "Recon B-Long.", def: "Recon A-Main info." },
                 "LOTUS": { att: "Recon C-Mound.", def: "Recon A-Root info." },
@@ -1442,13 +1450,13 @@
                 "CORRODE": { att: "Recon Medieval Ramps.", def: "Shock dart B-Salt Mine." }
             },
             "Breach": {
-                "ASCENT": { att: "Stun B-Main entry.", def: "Fault Line for Mid-link." },
-                "BIND": { att: "Stun A-Lamps entry.", def: "Fault Line for B-Long." },
-                "HAVEN": { att: "Stun Garage entry.", def: "Flash for Garage retake." },
+                "ASCENT": { att: "Stun B-Main entry. Flash through A-Main wall. Aftershock A-Wine.", def: "Fault Line for Mid-link. Flash for A-Main retake. Ult for B-Site retake." },
+                "BIND": { att: "Stun A-Lamps entry. Aftershock B-Long. Flash for Hookah.", def: "Fault Line for B-Long. Flash for A-Short. Ult for A-Site retake." },
+                "HAVEN": { att: "Stun Garage entry. Aftershock A-Hell.", def: "Flash for Garage retake. Fault Line A-Long." },
                 "SPLIT": { att: "Stun Mid-Vent.", def: "Fault Line for A-Main." },
-                "ICEBOX": { att: "Stun A-Screen entry.", def: "Fault Line B-Green." },
+                "ICEBOX": { att: "Stun A-Screen entry. Aftershock A-Nest.", def: "Fault Line B-Green." },
                 "BREEZE": { att: "Stun A-Nest entry.", def: "Fault Line Cave entry." },
-                "FRACTURE": { att: "Aftershock A-Sandwich.", def: "Flash for A-Dish info." },
+                "FRACTURE": { att: "Aftershock A-Sandwich. Stun B-Main. Flash for Dish.", def: "Flash for A-Dish info. Fault Line B-Main. Ult for Site retake." },
                 "PEARL": { att: "Stun B-Tower entry.", def: "Fault Line A-Art." },
                 "LOTUS": { att: "Aftershock A-Tree door.", def: "Flash through rotating doors." },
                 "SUNSET": { att: "Stun B-Market entry.", def: "Fault Line Mid-Tiles." },
@@ -1456,9 +1464,9 @@
                 "CORRODE": { att: "Stun Medieval Ramps.", def: "Fault Line Salt-Mine." }
             },
             "Skye": {
-                "ASCENT": { att: "Bird Mid-link for info.", def: "Dog A-Main for info." },
-                "BIND": { att: "Dog through Hookah.", def: "Bird B-Long for info." },
-                "HAVEN": { att: "Bird Garage for info.", def: "Dog C-Long for info." },
+                "ASCENT": { att: "Bird Mid-link for info. Dog A-Main for info. Heal for team entry.", def: "Dog A-Main for info. Bird B-Main for flash-peek. Ult for site-retake info." },
+                "BIND": { att: "Dog through Hookah. Bird B-Long info. Heal for A-Bath push.", def: "Bird B-Long for info. Dog A-Short. Ult for site-retake info." },
+                "HAVEN": { att: "Bird Garage for info. Dog C-Long for info. Heal for entry.", def: "Dog C-Long for info. Bird A-Short. Ult info." },
                 "SPLIT": { att: "Bird Mid-Vents.", def: "Dog B-Alley for info." },
                 "ICEBOX": { att: "Bird A-Belt for info.", def: "Dog B-Main for info." },
                 "BREEZE": { att: "Bird Cave for info.", def: "Dog for Mid-Tunnel info." },
@@ -1470,8 +1478,8 @@
                 "CORRODE": { att: "Dog A-Hall.", def: "Bird B-Alley for info." }
             },
             "KAY/O": {
-                "ASCENT": { att: "Knife Gen for entry.", def: "Flash for A-Main retake." },
-                "BIND": { att: "Knife A-Lamps.", def: "Knife B-Long entry." },
+                "ASCENT": { att: "Knife Gen for entry. Flash over A-Main wall. Molly for A-Hell.", def: "Flash for A-Main retake. Knife for Mid-Market info. Molly for B-Main." },
+                "BIND": { att: "Knife A-Lamps. Flash for B-Long. Molly for Hookah.", def: "Knife B-Long entry. Flash for A-Short retake. Molly A-Bath." },
                 "HAVEN": { att: "Knife B-Main.", def: "Flash for C-Long retake." },
                 "SPLIT": { att: "Knife B-Heaven.", def: "Knife A-Main push." },
                 "ICEBOX": { att: "Knife A-Nest.", def: "Knife A-Pipes." },
@@ -1484,13 +1492,13 @@
                 "CORRODE": { att: "Knife Salt-Mine.", def: "Flash Medieval Alley." }
             },
             "Fade": {
-                "ASCENT": { att: "Haunt A-Main entry.", def: "Haunt B-Main entry." },
-                "BIND": { att: "Haunt A-Short.", def: "Haunt B-Long." },
+                "ASCENT": { att: "Haunt A-Main entry. Prowler for A-Short. Seize for B-Main rush.", def: "Haunt B-Main entry. Prowler for Mid info. Seize for A-Main combo." },
+                "BIND": { att: "Haunt A-Short. Prowler through Hookah. Seize for A-Lamps.", def: "Haunt B-Long. Prowler for A-Short info. Seize for Hookah rush." },
                 "HAVEN": { att: "Haunt A-Site.", def: "Haunt C-Long." },
                 "SPLIT": { att: "Haunt Mid-Vents.", def: "Haunt B-Alley." },
                 "ICEBOX": { att: "Haunt A-Belt.", def: "Prowler for B-Main info." },
                 "BREEZE": { att: "Haunt Cave.", def: "Haunt Mid-Tunnel." },
-                "FRACTURE": { att: "Haunt B-Site.", def: "Haunt A-Main." },
+                "FRACTURE": { att: "Haunt B-Site. Prowler for A-Drop. Seize for B-Arcade.", def: "Haunt A-Main. Prowler for Dish info. Seize for A-Sands." },
                 "PEARL": { att: "Haunt B-Long.", def: "Haunt A-Main." },
                 "LOTUS": { att: "Haunt C-Mound.", def: "Haunt B-Site." },
                 "SUNSET": { att: "Haunt Mid-Tiles.", def: "Haunt A-Main." },
@@ -1498,8 +1506,8 @@
                 "CORRODE": { att: "Haunt B-Alley.", def: "Haunt Medieval Ramps." }
             },
             "Gekko": {
-                "ASCENT": { att: "Wingman plant B-Back.", def: "Dizzy for A-Main info." },
-                "BIND": { att: "Wingman plant A-Lamps.", def: "Mosh Pit Hookah." },
+                "ASCENT": { att: "Wingman plant B-Back. Dizzy for A-Main info. Mosh pit A-Gen.", def: "Dizzy for A-Main info. Thrash for B-Main retake. Wingman for defuse." },
+                "BIND": { att: "Wingman plant A-Lamps. Mosh Pit Hookah. Dizzy for B-Long.", def: "Mosh Pit Hookah. Dizzy for A-Short info. Wingman for defuse." },
                 "HAVEN": { att: "Wingman plant C.", def: "Dizzy B-Main info." },
                 "SPLIT": { att: "Wingman plant A-Rafters.", def: "Dizzy Mid-Vents." },
                 "ICEBOX": { att: "Flash B-Yellow.", def: "Wingman defuse B-Default." },
@@ -1508,12 +1516,12 @@
                 "PEARL": { att: "Wingman plant B-Long.", def: "Dizzy Mid-Art info." },
                 "LOTUS": { att: "Flash A-Root.", def: "Wingman defuse C-Site." },
                 "SUNSET": { att: "Wingman plant B-Market.", def: "Dizzy Mid-Tiles." },
-                "ABYSS": { att: "Dizzy Bridge info.", def: "Dizzy for Mid-Zip info." },
+                "ABYSS": { att: "Dizzy Bridge info. Wingman plant A-Drop. Mosh for B-Back.", def: "Dizzy for Mid-Zip info. Thrash for Bridge drop. Wingman defuse." },
                 "CORRODE": { att: "Wingman plant Salt-Mine.", def: "Mosh Pit Medieval Ramps." }
             },
             "Tejo": {
-                "ASCENT": { att: "Drone B-Main entry.", def: "Info-drone for Mid-Market." },
-                "BIND": { att: "Detection pulse Hookah.", def: "Detection pulse for A-Short Bath." },
+                "ASCENT": { att: "Drone B-Main entry. Pulse detection A-Main. Drone for Mid-Market.", def: "Info-drone for Mid-Market. Detection pulse A-Short. Pulse for B-Main." },
+                "BIND": { att: "Detection pulse Hookah. Drone B-Long. Pulse for A-Bath.", def: "Detection pulse for A-Short Bath. Drone for B-Long. Pulse Hookah." },
                 "HAVEN": { att: "Drone C-Long entry.", def: "Detection pulse Garage." },
                 "SPLIT": { att: "Detection pulse Mid-Mail.", def: "Pulse for B-Alley push." },
                 "ICEBOX": { att: "Drone A-Belt entry.", def: "Detection pulse A-Nest." },
@@ -1523,16 +1531,16 @@
                 "LOTUS": { att: "Detection pulse C-Mound.", def: "Drone for A-Root info." },
                 "SUNSET": { att: "Drone A-Main entry.", def: "Pulse for A-Main lobby." },
                 "ABYSS": { att: "Drone for Bridge info.", def: "Detection pulse B-Main." },
-                "CORRODE": { att: "Drone Medieval Alley.", def: "Detection pulse for B-Salt Mine." }
+                "CORRODE": { att: "Drone Medieval Alley. Pulse for B-Salt Mine. Drone A-Castle.", def: "Detection pulse for B-Salt Mine. Drone A-Hall. Pulse Alley." }
             }
         },
         "Duelists": {
             "Jett": {
-                "ASCENT": { att: "Dash to Gen.", def: "OP at A-Main." },
-                "BIND": { att: "Dash A-Lamps.", def: "OP B-Long." },
+                "ASCENT": { att: "Dash to Gen. Cloudburst for A-Main cross. Updraft for Heaven peek.", def: "OP at A-Main. Dash for Mid-Market pick. Cloudburst for B-Main retake." },
+                "BIND": { att: "Dash A-Lamps. Cloudburst for B-Long. Updraft for Hookah peek.", def: "OP B-Long. Dash for A-Short pick. Cloudburst for A-Bath retake." },
                 "HAVEN": { att: "Dash A-Hell.", def: "OP C-Long." },
                 "SPLIT": { att: "Dash Mid-Vents.", def: "Updraft for A-Screens angle." },
-                "ICEBOX": { att: "Dash A-Pipes.", def: "OP B-Yellow." },
+                "ICEBOX": { att: "Dash A-Pipes. Cloudburst for B-Yellow. Updraft for A-Belt.", def: "OP B-Yellow. Dash for A-Nest pick. Cloudburst for B-Main retake." },
                 "BREEZE": { att: "Dash A-Pyramid.", def: "OP Mid-Chute." },
                 "FRACTURE": { att: "Dash A-Sands.", def: "OP B-Main." },
                 "PEARL": { att: "Dash B-Screen.", def: "OP A-Main." },
@@ -1542,8 +1550,8 @@
                 "CORRODE": { att: "Dash to Medieval Ramps.", def: "OP B-Alley." }
             },
             "Phoenix": {
-                "ASCENT": { att: "Flash B-Lane entry.", def: "Flash A-Main push." },
-                "BIND": { att: "Flash A-Bath entry.", def: "Flash B-Short." },
+                "ASCENT": { att: "Flash B-Lane entry. Wall for A-Cross. Molly for A-Wine.", def: "Flash A-Main push. Molly for B-Main delay. Ult for Mid-Market pick." },
+                "BIND": { att: "Flash A-Bath entry. Wall for B-Long. Molly for Hookah.", def: "Flash B-Short. Molly A-Short. Ult for A-Lamps pick." },
                 "HAVEN": { att: "Flash Garage entry.", def: "Flash C-Long push." },
                 "SPLIT": { att: "Flash Mid-Mail.", def: "Flash B-Main push." },
                 "ICEBOX": { att: "Flash A-Belt.", def: "Flash B-Green." },
@@ -1556,10 +1564,10 @@
                 "CORRODE": { att: "Flash Medieval Ramps.", def: "Flash Salt-Mine." }
             },
             "Raze": {
-                "ASCENT": { att: "Satchel to B-Backsite.", def: "Grenade B-Main." },
-                "BIND": { att: "Satchel through Hookah.", def: "Grenade A-Short." },
+                "ASCENT": { att: "Satchel to B-Backsite. Grenade B-Main. Boombot for A-Short.", def: "Grenade B-Main. Satchel for A-Main height. Boombot for Mid info." },
+                "BIND": { att: "Satchel through Hookah. Grenade A-Short. Boombot for B-Long.", def: "Grenade A-Short. Satchel for B-Long height. Boombot for Hookah." },
                 "HAVEN": { att: "Satchel C-Long entry.", def: "Grenade Garage." },
-                "SPLIT": { att: "Satchel A-Rafters.", def: "Grenade B-Main." },
+                "SPLIT": { att: "Satchel A-Rafters. Grenade B-Main. Boombot for Mid-Mail.", def: "Grenade B-Main. Satchel for Mid height. Boombot for A-Main info." },
                 "ICEBOX": { att: "Satchel B-Top.", def: "Grenade A-Pipes." },
                 "BREEZE": { att: "Satchel A-Pyramid.", def: "Grenade Cave." },
                 "FRACTURE": { att: "Satchel B-Gen.", def: "Grenade A-Main." },
@@ -1570,8 +1578,8 @@
                 "CORRODE": { att: "Satchel Salt-Mine.", def: "Grenade Medieval Alley." }
             },
             "Reyna": {
-                "ASCENT": { att: "Leer A-Main entry.", def: "Dismiss B-Main entry." },
-                "BIND": { att: "Leer Hookah entry.", def: "Leer A-Short entry." },
+                "ASCENT": { att: "Leer A-Main entry. Dismiss to Hell after pick. Empress for site take.", def: "Dismiss B-Main entry. Leer for A-Main peek. Heal after Mid pick." },
+                "BIND": { att: "Leer Hookah entry. Dismiss after A-Lamps pick. Empress for B-Site.", def: "Leer A-Short entry. Dismiss B-Long entry. Heal after Hookah pick." },
                 "HAVEN": { att: "Leer Garage entry.", def: "Leer C-Long." },
                 "SPLIT": { att: "Leer Mid-Mail.", def: "Leer B-Main push." },
                 "ICEBOX": { att: "Leer A-Belt.", def: "Dismiss A-Nest." },
@@ -1584,8 +1592,8 @@
                 "CORRODE": { att: "Leer Medieval Ramps.", def: "Leer A-Hall." }
             },
             "Yoru": {
-                "ASCENT": { att: "TP B-Lane backsite.", def: "TP A-Main flank." },
-                "BIND": { att: "TP A-Lamps.", def: "TP Hookah flank." },
+                "ASCENT": { att: "TP B-Lane backsite. Flash for A-Main. Clone for Mid-Link.", def: "TP A-Main flank. Flash for B-Main retake. Clone for A-Short info." },
+                "BIND": { att: "TP A-Lamps. Flash for B-Long. Clone for Hookah.", def: "TP Hookah flank. Flash for A-Short retake. Clone for B-Long info." },
                 "HAVEN": { att: "TP C-Long backsite.", def: "TP Garage flank." },
                 "SPLIT": { att: "TP A-Heaven.", def: "TP Mid-Vent flank." },
                 "ICEBOX": { att: "TP A-Nest.", def: "TP B-Green flank." },
@@ -1598,8 +1606,8 @@
                 "CORRODE": { att: "TP Salt-Mine.", def: "TP Medieval Alley flank." }
             },
             "Neon": {
-                "ASCENT": { att: "Slide B-Lane entry.", def: "Slide A-Main push." },
-                "BIND": { att: "Slide Hookah entry.", def: "Slide B-Long push." },
+                "ASCENT": { att: "Slide B-Lane entry. Wall for A-Cross. Stun for A-Generator.", def: "Slide A-Main push. Wall for Mid-Market. Stun for B-Main entry." },
+                "BIND": { att: "Slide Hookah entry. Wall for B-Long. Stun for A-Lamps.", def: "Slide B-Long push. Wall for A-Short. Stun for Hookah entry." },
                 "HAVEN": { att: "Sprint B-Site.", def: "Slide C-Long entry." },
                 "SPLIT": { att: "Slide B-Alley.", def: "Slide Mid-Mail push." },
                 "ICEBOX": { att: "Slide A-Belt entry.", def: "Slide B-Green push." },
@@ -1612,11 +1620,11 @@
                 "CORRODE": { att: "Slide B-Salt.", def: "Slide Medieval Alley push." }
             },
             "Iso": {
-                "ASCENT": { att: "Shield B-Lane entry.", def: "Shield Mid-Market." },
-                "BIND": { att: "Shield A-Short entry.", def: "Shield B-Long entry." },
+                "ASCENT": { att: "Shield B-Lane entry. Vulnerable A-Gen. Wall for A-Cross.", def: "Shield Mid-Market. Vulnerable for A-Main. Wall for B-Main hold." },
+                "BIND": { att: "Shield A-Short entry. Vulnerable for Hookah. Wall for B-Long.", def: "Shield B-Long entry. Vulnerable A-Bath. Wall for A-Short hold." },
                 "HAVEN": { att: "Shield C-Long entry.", def: "Shield Garage entry." },
                 "SPLIT": { att: "Shield Mid-Mail.", def: "Shield Mid-Mail." },
-                "ICEBOX": { att: "Shield A-Pipes.", def: "Shield B-Green entry." },
+                "ICEBOX": { att: "Shield A-Pipes. Vulnerable B-Green.", def: "Shield B-Green entry." },
                 "BREEZE": { att: "Shield Cave entry.", def: "Shield A-Pyramids." },
                 "FRACTURE": { att: "Shield A-Sands.", def: "Shield B-Arcade entry." },
                 "PEARL": { att: "Shield A-Main.", def: "Shield B-Long entry." },
@@ -1626,18 +1634,18 @@
                 "CORRODE": { att: "Shield Medieval Ramps.", def: "Shield Salt-Mine entry." }
             },
             "Waylay": {
-                "ASCENT": { att: "Aggro slow-field Mid-link.", def: "Aggro slow-field for Mid-Market." },
-                "BIND": { att: "Flash/Dash Bath entry.", def: "Aggro dash for A-Bath control." },
+                "ASCENT": { att: "Aggro slow-field Mid-link. Air-dash A-Gen. Flash for B-Main.", def: "Aggro slow-field for Mid-Market. Dash for A-Main pick. Slow-field B." },
+                "BIND": { att: "Flash/Dash Bath entry. Slow-field Hookah. Air-dash A-Lamps.", def: "Aggro dash for A-Bath control. Slow-field B-Long. Dash A-Short." },
                 "HAVEN": { att: "Aggro dash B-Main.", def: "Flash/Dash for Garage picks." },
-                "SPLIT": { att: "Aggro slow-field A-Rafters.", def: "Aggro dash B-Alley control." },
-                "ICEBOX": { att: "Flash/Dash B-Yellow.", def: "Aggro dash for B-Green control." },
+                "SPLIT": { att: "Aggro slow-field A-Rafters. Aggro dash B-Alley control.", def: "Aggro dash B-Alley control. Slow-field A." },
+                "ICEBOX": { att: "Flash/Dash B-Yellow. Aggro dash for B-Green control.", def: "Aggro dash for B-Green control. Flash Pipes." },
                 "BREEZE": { att: "Aggro dash A-Pyramids.", def: "Flash Cave entry." },
                 "FRACTURE": { att: "Flash/Dash Arcade.", def: "Aggro dash A-Sands." },
                 "PEARL": { att: "Aggro dash B-Tower.", def: "Flash A-Restaurant." },
                 "LOTUS": { att: "Flash/Dash through B-Main.", def: "Aggro dash C-Mound." },
                 "SUNSET": { att: "Flash/Dash A-Elbow.", def: "Aggro dash B-Boba." },
-                "ABYSS": { att: "Air-dash over Bridge.", def: "Aggro dash A-Drop." },
-                "CORRODE": { att: "Dash to Medieval Ramps.", def: "Aggro dash Salt-Mine." }
+                "ABYSS": { att: "Air-dash over Bridge. Slow-field A-Drop. Flash B-Main.", def: "Aggro dash A-Drop. Slow-field Bridge lanes. Dash B-Zip." },
+                "CORRODE": { att: "Dash to Medieval Ramps. Slow-field Salt-Mine. Flash A-Hall.", def: "Aggro dash Salt-Mine. Slow-field Medieval Alley. Dash B-Alley." }
             }
         }
     };
@@ -2882,6 +2890,40 @@
         `;
 
         document.getElementById('agent-nuance').innerText = getAgentTip();
+        updateLiveTactics();
+    }
+
+    function updateLiveTactics() {
+        if (!userAgent || !selectedMap) return;
+
+        let role = "";
+        for (let r in masterTactics) {
+            if (masterTactics[r][userAgent]) {
+                role = r;
+                break;
+            }
+        }
+
+        if (!role) return;
+
+        const mapTactics = masterTactics[role][userAgent][selectedMap];
+        const display = document.getElementById('live-tactics-content');
+        const header = document.querySelector('#live-tactics h4');
+
+        if (mapTactics) {
+            const isAttack = side === "Attack";
+            const tacticText = isAttack ? mapTactics.att : mapTactics.def;
+            
+            header.innerText = `${side.toUpperCase()} // ${userAgent.toUpperCase()}`;
+            header.style.color = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
+            header.style.borderColor = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
+            display.style.borderLeftColor = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
+            display.style.background = isAttack ? 'rgba(255, 70, 85, 0.05)' : 'rgba(0, 238, 255, 0.05)';
+            
+            display.innerHTML = `<span style="opacity: 0.6; font-size: 0.7rem; display: block; margin-bottom: 5px;">MISSION DATA:</span>${tacticText}`;
+        } else {
+            display.innerText = "No specific tactical data for this map/agent combo.";
+        }
     }
 
     function calculateMinCreds() {
@@ -2901,7 +2943,9 @@
     }
 
     function getAgentTip() {
-        const role = agents.find(a => a.name === userAgent).role;
+        const agent = agents.find(a => a.name === userAgent);
+        if (!agent) return "Select your agent in the composition screen to see specific tactical tips.";
+        const role = agent.role;
         if (role === "Sentinel") return "Anchor the site. Let the enemy come to you. Don't over-rotate too early.";
         if (role === "Duelist") return "Create space. Ask for flashes before you entry. Your life for the site is a good trade.";
         if (role === "Initiator") return "Provide intel. Don't use your utility selfishly; wait for the Duelist's cue.";
