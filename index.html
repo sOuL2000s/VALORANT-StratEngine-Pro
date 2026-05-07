@@ -177,16 +177,23 @@
         /* Pro Configs Style */
         .pro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .pro-card {
-            background: #161b22;
+            background-color: #161b22;
+            background-size: cover;
+            background-position: center;
             border: 1px solid var(--glass-border);
             padding: 30px;
             transition: 0.4s;
             position: relative;
             clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
-        .pro-card::after {
+        .pro-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 70, 85, 0.05));
+            background: linear-gradient(0deg, rgba(15, 25, 35, 0.9) 0%, transparent 100%);
+            z-index: 0;
             pointer-events: none;
         }
         .pro-card:hover { 
@@ -194,7 +201,8 @@
             transform: translateY(-5px); 
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .pro-card h3 { color: var(--val-white); margin-bottom: 20px; font-size: 1.2rem; }
+        .pro-card h3, .pro-card .pro-stat, .pro-card div { position: relative; z-index: 1; }
+        .pro-card h3 { color: var(--val-white); margin-bottom: 10px; font-size: 1.2rem; }
         .pro-stat { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px; }
         .pro-stat label { opacity: 0.5; font-family: 'Orbitron'; font-size: 0.7rem; }
 
@@ -583,7 +591,9 @@
         }
 
         .map-card {
-            background: #161b22;
+            background-color: #161b22;
+            background-size: cover;
+            background-position: center;
             border: 1px solid var(--glass-border);
             height: 220px;
             display: flex;
@@ -628,7 +638,9 @@
         @media (min-width: 600px) { .agent-grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 20px; } }
 
         .agent-card {
-            background: #161b22;
+            background-color: #161b22;
+            background-size: cover;
+            background-position: center top;
             border: 1px solid var(--glass-border);
             padding: 20px 10px;
             text-align: center;
@@ -636,6 +648,24 @@
             transition: 0.3s;
             position: relative;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 85% 100%, 0 100%);
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(0deg, rgba(15, 25, 35, 0.8) 0%, transparent 80%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .agent-card .name, .agent-card span, .agent-card .synergy-bar, .agent-card .percentage {
+            position: relative;
+            z-index: 1;
         }
 
         .agent-card:hover { border-color: white; transform: translateY(-3px); }
@@ -1161,31 +1191,31 @@
 <script>
     // --- DATABASE ---
     const agents = [
-        { name: "Astra", role: "Controller" }, { name: "Breach", role: "Initiator" }, { name: "Brimstone", role: "Controller" },
-        { name: "Chamber", role: "Sentinel" }, { name: "Clove", role: "Controller" }, { name: "Cypher", role: "Sentinel" },
-        { name: "Deadlock", role: "Sentinel" }, { name: "Fade", role: "Initiator" }, { name: "Gekko", role: "Initiator" },
-        { name: "Harbor", role: "Controller" }, { name: "Iso", role: "Duelist" }, { name: "Jett", role: "Duelist" },
-        { name: "KAY/O", role: "Initiator" }, { name: "Killjoy", role: "Sentinel" }, { name: "Miks", role: "Controller" },
-        { name: "Neon", role: "Duelist" }, { name: "Omen", role: "Controller" }, { name: "Phoenix", role: "Duelist" },
-        { name: "Raze", role: "Duelist" }, { name: "Reyna", role: "Duelist" }, { name: "Sage", role: "Sentinel" },
-        { name: "Skye", role: "Initiator" }, { name: "Sova", role: "Initiator" }, { name: "Tejo", role: "Initiator" },
-        { name: "Veto", role: "Sentinel" }, { name: "Viper", role: "Controller" }, { name: "Vyse", role: "Sentinel" },
-        { name: "Waylay", role: "Duelist" }, { name: "Yoru", role: "Duelist" }
+        { name: "Astra", role: "Controller", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/ba51d43803082941b0274b66413b0acc972546dd-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=348" }, { name: "Breach", role: "Initiator", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/e435c3378b7999a3338b408dbb5da8ba63f91150-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=348" }, { name: "Brimstone", role: "Controller", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/51e62f3c74356a7501d06feba42ac643133257d7-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=348" },
+        { name: "Chamber", role: "Sentinel", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/0f5b668b77499c0051201389d6ac5e7343c9727f-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Clove", role: "Controller", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/9f02060077f9d61dbe89555a339e6231006d9b7b-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Cypher", role: "Sentinel", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/4a648cdbcbbeef137050deefeaf6a1369c606666-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "Deadlock", role: "Sentinel", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/477284dfe402a85abcf6b07512bcd6f01c8fe60e-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Fade", role: "Initiator", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/e7099cc13a665ed2b556d514e50984393ed49967-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Gekko", role: "Initiator", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/8d88f133f735f6a9077679b1ece754e5624c728e-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "Harbor", role: "Controller", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/1246b5c517f6c8fa660e884a7032c1c54994003e-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Iso", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/2c35cef9c38283f8478d1e808b1c129f371e50b3-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Jett", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/d41286dc9017bf79c0b4d907b7a260c27b0adb69-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "KAY/O", role: "Initiator", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/fe52e0efac73ec782b19a54e98a4658b03677407-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Killjoy", role: "Sentinel", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/820d36d431fff77b1e1ece39ad6f007746bd31f6-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Miks", role: "Controller", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/39d3f1e45e9a416d6c7bd77cd37accaf16686061-587x900.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "Neon", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/14145d7bf9be17afa80c04ee4fbe200076cc1769-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Omen", role: "Controller", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/015a083717e9687de8a741cfceddb836775b5f9f-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Phoenix", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/47387e354c34d51b84066bc47af3c5755b92b9c5-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "Raze", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/40b4b242b68afe30d21e7f95bdcacaebca46ea60-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Reyna", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/7cb513c9b3eae3286449776e85753138436d553c-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Sage", role: "Sentinel", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/58a180961a14beb631877921e647c233804853c1-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "Skye", role: "Initiator", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/37ea1466beebb54aad4f16efbad184566cb80368-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Sova", role: "Initiator", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/08b3d8822544bd327ebed0768c8b90fcec83d1a5-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Tejo", role: "Initiator", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/3413df9939de606a355c1f88fbfc35f0774c19c9-587x900.jpg?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "Veto", role: "Sentinel", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/b89de74fedbb633bdbd7a4423c270957aef18514-587x900.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Viper", role: "Controller", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/152244f121e61ca32bdd2bea9fc5370e315664fb-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Vyse", role: "Sentinel", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/370e4b820670ef0bac7e685f6e8c5e64d19f1890-587x900.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" },
+        { name: "Waylay", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/11c2b158d932076d3215749a34b7b4209b48ce44-587x900.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }, { name: "Yoru", role: "Duelist", img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/05e1a996814dd10d7179efee327d29a7be00e912-616x822.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=349" }
     ];
 
     const mapData = {
-        "CORRODE": { desc: "Medieval French town. Narrow lanes, vertical traps.", best: ["Waylay", "Fade", "KAY/O", "Omen", "Veto"], rates: {"Vyse":56.6, "Clove":54.8, "Neon":54.1, "Veto":53.5, "Sage":52.2, "Sova":51.8, "Fade":51.5, "Waylay":51.4, "Killjoy":51.2, "Phoenix":51.1, "Raze":50.8, "Reyna":50.5, "Cypher":49.8, "Chamber":49.4, "Jett":49.2, "Tejo":49.1, "Deadlock":48.9, "Skye":48.7, "Miks":48.5, "Viper":48.2, "Brimstone":47.9, "Omen":47.5, "Iso":47.1, "Astra":46.8, "Yoru":46.4, "Breach":46.1, "Gekko":45.8, "KAY/O":45.2, "Harbor":44.9} },
-        "ABYSS": { desc: "Large scale, verticality, and death drops.", best: ["Jett", "Sova", "Omen", "Cypher", "KAY/O"], rates: {"Jett":94, "Sova":92, "Omen":90, "Clove":89, "Neon":88, "Cypher":87, "KAY/O":85, "Gekko":84, "Fade":82, "Killjoy":80, "Phoenix":78, "Breach":76, "Astra":74, "Waylay":71, "Vyse":68, "Tejo":65, "Raze":64, "Skye":62, "Miks":58, "Veto":55, "Chamber":52, "Yoru":50, "Reyna":48, "Sage":45, "Viper":42, "Deadlock":40, "Iso":38, "Brimstone":32, "Harbor":28} },
-        "SUNSET": { desc: "Tight corridors, open ceilings for info.", best: ["Neon", "Breach", "Sova", "Omen", "Cypher"], rates: {"Neon":58.8, "Sova":57.5, "Cypher":56.9, "Breach":56.2, "Clove":55.4, "Omen":54.3, "Raze":53.8, "Vyse":53.2, "Sage":52.9, "Gekko":52.5, "Phoenix":52.1, "Tejo":51.5, "Killjoy":50.8, "Fade":50.4, "Reyna":49.7, "Veto":49.3, "Chamber":49.1, "Waylay":49.0, "Jett":48.6, "KAY/O":48.2, "Miks":47.9, "Brimstone":47.5, "Deadlock":47.1, "Iso":46.8, "Viper":46.2, "Astra":45.8, "Yoru":45.1, "Harbor":44.7, "Skye":44.2} },
-        "LOTUS": { desc: "3-site layout, revolving doors.", best: ["Raze", "Fade", "Omen", "Viper", "Killjoy"], rates: {"Raze":92, "Viper":90, "Killjoy":89, "Omen":89, "Neon":88, "Skye":87, "Clove":86, "Cypher":85, "Breach":85, "Phoenix":84, "Vyse":83, "Sova":82, "Astra":82, "Sage":80, "KAY/O":79, "Waylay":78, "Miks":78, "Jett":76, "Gekko":75, "Veto":74, "Brimstone":72, "Chamber":70, "Reyna":68, "Tejo":66, "Iso":65, "Deadlock":64, "Yoru":62, "Harbor":58, "Fade":91} },
-        "PEARL": { desc: "Long sightlines and complex Mid lanes.", best: ["Neon", "Fade", "KAY/O", "Astra", "Killjoy"], rates: {"Killjoy":94, "Neon":91, "Astra":89, "Fade":88, "Cypher":84, "Gekko":82, "Jett":81, "KAY/O":79, "Sova":77, "Phoenix":75, "Miks":72, "Clove":70, "Sage":68, "Vyse":66, "Omen":65, "Waylay":63, "Viper":61, "Breach":59, "Raze":55, "Chamber":52, "Reyna":50, "Deadlock":48, "Iso":45, "Harbor":42, "Veto":40, "Tejo":38} },
-        "FRACTURE": { desc: "H-shaped layout, four site entrances.", best: ["Neon", "Raze", "Breach", "Brimstone", "Killjoy"], rates: {"Breach":95, "Neon":91, "Brimstone":89, "Raze":88, "Killjoy":87, "Clove":85, "Tejo":84, "Fade":82, "Cypher":81, "Skye":79, "Vyse":79, "Jett":78, "Omen":76, "Sage":75, "Gekko":74, "Phoenix":72, "Viper":72, "Waylay":70, "Chamber":70, "Sova":68, "Miks":68, "Deadlock":66, "KAY/O":65, "Iso":64, "Reyna":62, "Veto":62, "Yoru":58, "Astra":60, "Harbor":54} },
-        "BREEZE": { desc: "Massive open spaces, sniper sightlines.", best: ["Viper", "Sova", "Jett", "Yoru", "Cypher"], rates: {"Viper":98, "Sova":95, "Jett":92, "Cypher":90, "Yoru":88, "Neon":86, "Waylay":82, "Tejo":80, "Vyse":79, "Chamber":78, "Skye":75, "Astra":73, "Clove":71, "Harbor":68, "Fade":65, "Sage":62, "Veto":58, "Phoenix":55, "KAY/O":52, "Omen":50, "Killjoy":48, "Raze":45, "Iso":42, "Miks":40, "Brimstone":38, "Deadlock":35, "Gekko":32, "Breach":28, "Reyna":25} },
-        "ICEBOX": { desc: "Vertical crates, cold sightlines.", best: ["Viper", "Sova", "Killjoy", "Jett", "KAY/O"], rates: {"Viper":98, "Sova":94, "Killjoy":91, "Jett":88, "Sage":85, "KAY/O":82, "Gekko":80, "Vyse":78, "Clove":76, "Chamber":74, "Reyna":72, "Tejo":71, "Fade":68, "Neon":65, "Omen":62, "Cypher":60, "Phoenix":58, "Veto":57, "Waylay":55, "Deadlock":53, "Brimstone":48, "Astra":46, "Miks":44, "Raze":42, "Yoru":40, "Skye":38, "Breach":35, "Harbor":32, "Iso":30} },
-        "ASCENT": { desc: "Mid control and wall-bangable sites.", best: ["Jett", "Sova", "KAY/O", "Omen", "Killjoy"], rates: {"Sova":99, "Jett":96, "Killjoy":95, "Omen":93, "Vyse":91, "KAY/O":90, "Fade":88, "Clove":86, "Cypher":85, "Neon":84, "Sage":82, "Waylay":78, "Phoenix":76, "Skye":75, "Chamber":74, "Veto":72, "Raze":70, "Tejo":68, "Miks":65, "Yoru":62, "Brimstone":60, "Viper":58, "Deadlock":55, "Astra":48, "Breach":46, "Iso":45, "Gekko":44, "Harbor":42} },
-        "SPLIT": { desc: "High verticality, narrow choke points.", best: ["Raze", "Sage", "Omen", "Fade", "Viper"], rates: {"Raze":98, "Sage":95, "Omen":92, "Clove":90, "Viper":88, "Fade":86, "Cypher":84, "Gekko":82, "Jett":78, "Breach":75, "Neon":72, "Killjoy":70, "Sova":55, "Harbor":45, "Astra":42} },
-        "HAVEN": { desc: "The unique three-site fortress.", best: ["Neon", "Sova", "Fade", "Omen", "Killjoy"], rates: {"Killjoy":94, "Sova":92, "Neon":88, "Clove":86, "Fade":82, "Omen":80, "Phoenix":78, "Sage":75, "Cypher":72, "Jett":68, "Breach":65, "Skye":62, "Vyse":58, "Reyna":55, "Viper":48, "Astra":45, "Harbor":40} },
-        "BIND": { desc: "Teleporter tactics and Hookah control.", best: ["Raze", "Brimstone", "Skye", "Viper", "Cypher"], rates: {"Raze":95, "Brimstone":92, "Cypher":89, "Skye":88, "Viper":86, "Fade":82, "Gekko":80, "Clove":78, "Vyse":75, "Sova":72, "Omen":68, "Jett":65, "Tejo":62, "Killjoy":60, "Breach":58, "Neon":52, "Sage":48, "Astra":45, "Harbor":42} }
+        "CORRODE": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/6e3e66577519c8290d874aa94d82e28aec2ccc3e-915x515.jpg?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Medieval French town. Narrow lanes, vertical traps.", best: ["Waylay", "Fade", "KAY/O", "Omen", "Veto"], rates: {"Vyse":56.6, "Clove":54.8, "Neon":54.1, "Veto":53.5, "Sage":52.2, "Sova":51.8, "Fade":51.5, "Waylay":51.4, "Killjoy":51.2, "Phoenix":51.1, "Raze":50.8, "Reyna":50.5, "Cypher":49.8, "Chamber":49.4, "Jett":49.2, "Tejo":49.1, "Deadlock":48.9, "Skye":48.7, "Miks":48.5, "Viper":48.2, "Brimstone":47.9, "Omen":47.5, "Iso":47.1, "Astra":46.8, "Yoru":46.4, "Breach":46.1, "Gekko":45.8, "KAY/O":45.2, "Harbor":44.9} },
+        "ABYSS": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/53698d442a14b5a6be643d53eb970ac16442cb38-930x522.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Large scale, verticality, and death drops.", best: ["Jett", "Sova", "Omen", "Cypher", "KAY/O"], rates: {"Jett":94, "Sova":92, "Omen":90, "Clove":89, "Neon":88, "Cypher":87, "KAY/O":85, "Gekko":84, "Fade":82, "Killjoy":80, "Phoenix":78, "Breach":76, "Astra":74, "Waylay":71, "Vyse":68, "Tejo":65, "Raze":64, "Skye":62, "Miks":58, "Veto":55, "Chamber":52, "Yoru":50, "Reyna":48, "Sage":45, "Viper":42, "Deadlock":40, "Iso":38, "Brimstone":32, "Harbor":28} },
+        "SUNSET": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/5101e4ee241fbfca261bf8150230236c46c8b991-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Tight corridors, open ceilings for info.", best: ["Neon", "Breach", "Sova", "Omen", "Cypher"], rates: {"Neon":58.8, "Sova":57.5, "Cypher":56.9, "Breach":56.2, "Clove":55.4, "Omen":54.3, "Raze":53.8, "Vyse":53.2, "Sage":52.9, "Gekko":52.5, "Phoenix":52.1, "Tejo":51.5, "Killjoy":50.8, "Fade":50.4, "Reyna":49.7, "Veto":49.3, "Chamber":49.1, "Waylay":49.0, "Jett":48.6, "KAY/O":48.2, "Miks":47.9, "Brimstone":47.5, "Deadlock":47.1, "Iso":46.8, "Viper":46.2, "Astra":45.8, "Yoru":45.1, "Harbor":44.7, "Skye":44.2} },
+        "LOTUS": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/67d199e0f7108bc60e8293d3f9a37538b0b55b11-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "3-site layout, revolving doors.", best: ["Raze", "Fade", "Omen", "Viper", "Killjoy"], rates: {"Raze":92, "Viper":90, "Killjoy":89, "Omen":89, "Neon":88, "Skye":87, "Clove":86, "Cypher":85, "Breach":85, "Phoenix":84, "Vyse":83, "Sova":82, "Astra":82, "Sage":80, "KAY/O":79, "Waylay":78, "Miks":78, "Jett":76, "Gekko":75, "Veto":74, "Brimstone":72, "Chamber":70, "Reyna":68, "Tejo":66, "Iso":65, "Deadlock":64, "Yoru":62, "Harbor":58, "Fade":91} },
+        "PEARL": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/0089861662b41c8d5c3c4f1c14cb4d1937936105-915x515.webp?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Long sightlines and complex Mid lanes.", best: ["Neon", "Fade", "KAY/O", "Astra", "Killjoy"], rates: {"Killjoy":94, "Neon":91, "Astra":89, "Fade":88, "Cypher":84, "Gekko":82, "Jett":81, "KAY/O":79, "Sova":77, "Phoenix":75, "Miks":72, "Clove":70, "Sage":68, "Vyse":66, "Omen":65, "Waylay":63, "Viper":61, "Breach":59, "Raze":55, "Chamber":52, "Reyna":50, "Deadlock":48, "Iso":45, "Harbor":42, "Veto":40, "Tejo":38} },
+        "FRACTURE": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/983a6d66978aabd3ccd4e51517298d9a0b5467d9-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "H-shaped layout, four site entrances.", best: ["Neon", "Raze", "Breach", "Brimstone", "Killjoy"], rates: {"Breach":95, "Neon":91, "Brimstone":89, "Raze":88, "Killjoy":87, "Clove":85, "Tejo":84, "Fade":82, "Cypher":81, "Skye":79, "Vyse":79, "Jett":78, "Omen":76, "Sage":75, "Gekko":74, "Phoenix":72, "Viper":72, "Waylay":70, "Chamber":70, "Sova":68, "Miks":68, "Deadlock":66, "KAY/O":65, "Iso":64, "Reyna":62, "Veto":62, "Yoru":58, "Astra":60, "Harbor":54} },
+        "BREEZE": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news_live/430fb50965f1d99cdaef3588df13d98dbea340cf-930x522.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Massive open spaces, sniper sightlines.", best: ["Viper", "Sova", "Jett", "Yoru", "Cypher"], rates: {"Viper":98, "Sova":95, "Jett":92, "Cypher":90, "Yoru":88, "Neon":86, "Waylay":82, "Tejo":80, "Vyse":79, "Chamber":78, "Skye":75, "Astra":73, "Clove":71, "Harbor":68, "Fade":65, "Sage":62, "Veto":58, "Phoenix":55, "KAY/O":52, "Omen":50, "Killjoy":48, "Raze":45, "Iso":42, "Miks":40, "Brimstone":38, "Deadlock":35, "Gekko":32, "Breach":28, "Reyna":25} },
+        "ICEBOX": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/72853f583a0f6b25aed54870531756483a7b61de-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Vertical crates, cold sightlines.", best: ["Viper", "Sova", "Killjoy", "Jett", "KAY/O"], rates: {"Viper":98, "Sova":94, "Killjoy":91, "Jett":88, "Sage":85, "KAY/O":82, "Gekko":80, "Vyse":78, "Clove":76, "Chamber":74, "Reyna":72, "Tejo":71, "Fade":68, "Neon":65, "Omen":62, "Cypher":60, "Phoenix":58, "Veto":57, "Waylay":55, "Deadlock":53, "Brimstone":48, "Astra":46, "Miks":44, "Raze":42, "Yoru":40, "Skye":38, "Breach":35, "Harbor":32, "Iso":30} },
+        "ASCENT": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/5cb7e65c04a489eccd725ce693fdc11e99982e10-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Mid control and wall-bangable sites.", best: ["Jett", "Sova", "KAY/O", "Omen", "Killjoy"], rates: {"Sova":99, "Jett":96, "Killjoy":95, "Omen":93, "Vyse":91, "KAY/O":90, "Fade":88, "Clove":86, "Cypher":85, "Neon":84, "Sage":82, "Waylay":78, "Phoenix":76, "Skye":75, "Chamber":74, "Veto":72, "Raze":70, "Tejo":68, "Miks":65, "Yoru":62, "Brimstone":60, "Viper":58, "Deadlock":55, "Astra":48, "Breach":46, "Iso":45, "Gekko":44, "Harbor":42} },
+        "SPLIT": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/878d51688c0f9dd0de827162e80c40811668e0c6-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "High verticality, narrow choke points.", best: ["Raze", "Sage", "Omen", "Fade", "Viper"], rates: {"Raze":98, "Sage":95, "Omen":92, "Clove":90, "Viper":88, "Fade":86, "Cypher":84, "Gekko":82, "Jett":78, "Breach":75, "Neon":72, "Killjoy":70, "Sova":55, "Harbor":45, "Astra":42} },
+        "HAVEN": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/bccc7b5f8647a4f654d4bb359247bce6e82c77ab-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "The unique three-site fortress.", best: ["Neon", "Sova", "Fade", "Omen", "Killjoy"], rates: {"Killjoy":94, "Sova":92, "Neon":88, "Clove":86, "Fade":82, "Omen":80, "Phoenix":78, "Sage":75, "Cypher":72, "Jett":68, "Breach":65, "Skye":62, "Vyse":58, "Reyna":55, "Viper":48, "Astra":45, "Harbor":40} },
+        "BIND": { img: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/7df1e6ee284810ef0cbf8db369c214a8cbf6578c-3840x2160.png?accountingTag=VAL&auto=format&fit=fill&q=80&w=721", desc: "Teleporter tactics and Hookah control.", best: ["Raze", "Brimstone", "Skye", "Viper", "Cypher"], rates: {"Raze":95, "Brimstone":92, "Cypher":89, "Skye":88, "Viper":86, "Fade":82, "Gekko":80, "Clove":78, "Vyse":75, "Sova":72, "Omen":68, "Jett":65, "Tejo":62, "Killjoy":60, "Breach":58, "Neon":52, "Sage":48, "Astra":45, "Harbor":42} }
     };
 
     // Duo synergy database (from prompt)
@@ -1630,32 +1660,32 @@
     }
 
     const proConfigs = [
-        { name: "CHRONICLE (Vitality)", dpi: "1600", sens: "0.175", res: "1920x1080", cross: "0;P;h;0;f;0;0t;1;0l;4;0o;0;0a;1;0f;0;1b;0", mouse: "ATK Dragonfly A9" },
-        { name: "ASPAZ (MIBR)", dpi: "800", sens: "0.4", res: "1920x1080", cross: "0;s;1;P;o;1;d;1;0b;0;1b;0;S;c;0", mouse: "Logitech G Pro X Superlight 2" },
-        { name: "BOASTER (Fnatic)", dpi: "800", sens: "0.24", res: "1920x1080", cross: "0;s;1;P;c;1;o;1;d;1;0l;0;0o;2;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;S;c;1;o;1", mouse: "Ninjutso Sora V2 Pink" },
-        { name: "ZEKKEN (MIBR)", dpi: "1600", sens: "0.175", res: "1920x1080", cross: "0;s;1;P;c;1;t;2;o;1;d;1;0b;0;1b;0;S;b;1;c;8;s;0.823", mouse: "Razer Viper V3 Pro Black" },
-        { name: "F0RSAKEN (PRX)", dpi: "800", sens: "0.645", res: "1920x1080", cross: "0;p;0;c;1;s;1;P;h;0;f;0;s;0;0l;3;0v;3;0g;1;0o;0;0a;1;0f;0;1b;0", mouse: "Pulsar Susanto-X" },
-        { name: "ALFAJER (Fnatic)", dpi: "400", sens: "0.45", res: "1920x1080", cross: "0;p;0;s;1;P;h;0;f;0;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "Razer DeathAdder V4 Pro Green" },
-        { name: "JINGGG (PRX)", dpi: "1600", sens: "0.175", res: "1280x960 (4:3)", cross: "0;s;1;P;c;5;o;1;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "G-Wolves Hati S+ 8K" },
-        { name: "SAADHAK (KRÜ)", dpi: "900", sens: "0.255", res: "1920x1080", cross: "0;P;o;1;d;1;0t;1;0l;4;0o;1;0a;1;0f;0;1b;0", mouse: "Logitech G Pro X2 Superstrike" },
-        { name: "NATS (Liquid)", dpi: "800", sens: "0.49", res: "1280x960 (4:3)", cross: "0;P;c;1;o;1;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "ZOWIE U2-DW Black" },
-        { name: "TENZ (Content Creator)", dpi: "1600", sens: "0.173", res: "1920x1440", cross: "0;s;1;P;c;5;o;0;f;0;0l;2;0v;2;0g;1;0o;1;0a;1;0f;0;1b;0", mouse: "Pulsar TenZ Signature Edition" },
-        { name: "MAKO (DRX)", dpi: "400", sens: "0.45", res: "1920x1080", cross: "0;P;o;1;d;1;f;0;0b;0;1b;0", mouse: "Razer Viper V4 Pro Black" },
-        { name: "METEOR (T1)", dpi: "800", sens: "0.3", res: "1920x1080", cross: "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0;S;o;1", mouse: "Logitech G Pro X Superlight 2" },
-        { name: "BRAWK (NRG)", dpi: "800", sens: "0.2", res: "1440x1080", cross: "0;s;1;P;c;1;o;1;0l;5;0a;1;0f;0;1b;0;S;s;1.002", mouse: "Razer Viper V4 Pro Black" },
-        { name: "DEMON1 (Envy)", dpi: "1600", sens: "0.1", res: "1920x1080", cross: "0;p;0;s;1;P;o;1;f;0;0t;1;0l;3;0o;2;0a;1;0f;0;1b;0", mouse: "ASUS ROG Harpe Ace 2 Black" },
-        { name: "SOMETHING (PRX)", dpi: "800", sens: "0.7", res: "1280x960 (4:3)", cross: "0;s;1;P;o;0.619;d;1;f;0;s;0;0t;1;0l;0;0o;2;0a;1;0f;0;1b;0", mouse: "Logitech G Pro X2 Superstrike" },
-        { name: "SCREAM (FUT)", dpi: "400", sens: "0.785", res: "1280x960 (4:3)", cross: "0;P;c;5;o;1;d;1;z;3;f;0;0t;6;0l;0;0ee;0", mouse: "Finalmouse ULX Prophecy" },
-        { name: "JOHNQT (Sentinels)", dpi: "1600", sens: "0.2", res: "1920x1080", cross: "0;p;0;s;1;P;c;5;h;0;0l;4;0o;1;0a;1;0f;0;1b;0", mouse: "Razer Viper V4 Pro Black" },
-        { name: "SHROUD (Content Creator)", dpi: "800", sens: "0.3", res: "2560x1440", cross: "White Dot (Size 2)", mouse: "Logitech G Pro X2 Superstrike" },
-        { name: "TARIK (Sentinels)", dpi: "800", sens: "0.471", res: "1680x1050", cross: "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0;S;d;0", mouse: "Finalmouse ULX Tiger" },
-        { name: "ASUNA (100T)", dpi: "1400", sens: "0.26", res: "1920x1080", cross: "0;P;o;1;m;1;0t;1;0l;2;0o;2;0a;1;0f;0;1t;1;1o;3;1a;1;1m;0;1f;0", mouse: "Razer DeathAdder V2" },
-        { name: "STEWIE2K (Free Agent)", dpi: "800", sens: "1.1", res: "1024x768", cross: "CSGO-r3XBE-ySAhm-GuHRz-CfiVC-Vc4NF", mouse: "Razer Viper V4 Pro Black" },
-        { name: "SINATRAA (Content Creator)", dpi: "800", sens: "0.387", res: "1920x1080", cross: "0;s;1;P;c;5;o;1;0t;1;0l;3;0a;1;0f;0;1t;0;1l;1;1o;1;1a;1;1m;0;1f;0", mouse: "Logitech G Pro X Superlight 2" },
-        { name: "ACEU (Content Creator)", dpi: "1600", sens: "0.2", res: "1920x1080", cross: "0;P;d;1;z;1;0t;1;0l;3;0v;3;0g;1;0o;0;0a;1;0f;0;1b;0", mouse: "Finalmouse ULX Medium" },
-        { name: "SHAHZAM (Liquid)", dpi: "800", sens: "0.265", res: "1920x1080", cross: "0;P;c;1;o;1;f;0;0l;5;0a;0.5;0f;0;1b;0", mouse: "TEEVOLUTION Terra" },
-        { name: "BRAX (Content Creator)", dpi: "400", sens: "0.377", res: "1920x1080", cross: "CSGO-Zj5X7-nzzDB-vjCAP-pjLqa-5mSyL", mouse: "Razer DeathAdder V3 Pro" },
-        { name: "S0M (NRG)", dpi: "400", sens: "0.8", res: "1920x1080", cross: "White Dot (1-1-1-2)", mouse: "Logitech G Pro X Superlight 2 White" }
+        { name: "CHRONICLE (Vitality)", img: "https://prosettings.net/wp-content/uploads/chronicle-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1600", sens: "0.175", res: "1920x1080", cross: "0;P;h;0;f;0;0t;1;0l;4;0o;0;0a;1;0f;0;1b;0", mouse: "ATK Dragonfly A9" },
+        { name: "ASPAZ (MIBR)", img: "https://prosettings.net/wp-content/uploads/aspas-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.4", res: "1920x1080", cross: "0;s;1;P;o;1;d;1;0b;0;1b;0;S;c;0", mouse: "Logitech G Pro X Superlight 2" },
+        { name: "BOASTER (Fnatic)", img: "https://prosettings.net/wp-content/uploads/boaster-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.24", res: "1920x1080", cross: "0;s;1;P;c;1;o;1;d;1;0l;0;0o;2;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;S;c;1;o;1", mouse: "Ninjutso Sora V2 Pink" },
+        { name: "ZEKKEN (MIBR)", img: "https://prosettings.net/wp-content/uploads/zekken-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1600", sens: "0.175", res: "1920x1080", cross: "0;s;1;P;c;1;t;2;o;1;d;1;0b;0;1b;0;S;b;1;c;8;s;0.823", mouse: "Razer Viper V3 Pro Black" },
+        { name: "F0RSAKEN (PRX)", img: "https://prosettings.net/wp-content/uploads/f0rsaken-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.645", res: "1920x1080", cross: "0;p;0;c;1;s;1;P;h;0;f;0;s;0;0l;3;0v;3;0g;1;0o;0;0a;1;0f;0;1b;0", mouse: "Pulsar Susanto-X" },
+        { name: "ALFAJER (Fnatic)", img: "https://prosettings.net/wp-content/uploads/alfajer-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "400", sens: "0.45", res: "1920x1080", cross: "0;p;0;s;1;P;h;0;f;0;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "Razer DeathAdder V4 Pro Green" },
+        { name: "JINGGG (PRX)", img: "https://prosettings.net/wp-content/uploads/jinggg-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1600", sens: "0.175", res: "1280x960 (4:3)", cross: "0;s;1;P;c;5;o;1;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "G-Wolves Hati S+ 8K" },
+        { name: "SAADHAK (KRÜ)", img: "https://prosettings.net/wp-content/uploads/saadhak-200x200.webp?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "900", sens: "0.255", res: "1920x1080", cross: "0;P;o;1;d;1;0t;1;0l;4;0o;1;0a;1;0f;0;1b;0", mouse: "Logitech G Pro X2 Superstrike" },
+        { name: "NATS (Liquid)", img: "https://prosettings.net/wp-content/uploads/nats-1-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.49", res: "1280x960 (4:3)", cross: "0;P;c;1;o;1;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0", mouse: "ZOWIE U2-DW Black" },
+        { name: "TENZ (Content Creator)", img: "https://prosettings.net/wp-content/uploads/tenz-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1600", sens: "0.173", res: "1920x1440", cross: "0;s;1;P;c;5;o;0;f;0;0l;2;0v;2;0g;1;0o;1;0a;1;0f;0;1b;0", mouse: "Pulsar TenZ Signature Edition" },
+        { name: "MAKO (DRX)", img: "https://prosettings.net/wp-content/uploads/mako-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "400", sens: "0.45", res: "1920x1080", cross: "0;P;o;1;d;1;f;0;0b;0;1b;0", mouse: "Razer Viper V4 Pro Black" },
+        { name: "METEOR (T1)", img: "https://prosettings.net/wp-content/uploads/meteor-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.3", res: "1920x1080", cross: "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0;S;o;1", mouse: "Logitech G Pro X Superlight 2" },
+        { name: "BRAWK (NRG)", img: "https://prosettings.net/wp-content/uploads/brawk-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.2", res: "1440x1080", cross: "0;s;1;P;c;1;o;1;0l;5;0a;1;0f;0;1b;0;S;s;1.002", mouse: "Razer Viper V4 Pro Black" },
+        { name: "DEMON1 (Envy)", img: "https://prosettings.net/wp-content/uploads/demon1-200x200.webp?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1600", sens: "0.1", res: "1920x1080", cross: "0;p;0;s;1;P;o;1;f;0;0t;1;0l;3;0o;2;0a;1;0f;0;1b;0", mouse: "ASUS ROG Harpe Ace 2 Black" },
+        { name: "SOMETHING (PRX)", img: "https://prosettings.net/wp-content/uploads/something-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.7", res: "1280x960 (4:3)", cross: "0;s;1;P;o;0.619;d;1;f;0;s;0;0t;1;0l;0;0o;2;0a;1;0f;0;1b;0", mouse: "Logitech G Pro X2 Superstrike" },
+        { name: "SCREAM (FUT)", img: "https://prosettings.net/wp-content/uploads/scream-200x200.webp?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "400", sens: "0.785", res: "1280x960 (4:3)", cross: "0;P;c;5;o;1;d;1;z;3;f;0;0t;6;0l;0;0ee;0", mouse: "Finalmouse ULX Prophecy" },
+        { name: "JOHNQT (Sentinels)", img: "https://prosettings.net/wp-content/uploads/johnqt-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1600", sens: "0.2", res: "1920x1080", cross: "0;p;0;s;1;P;c;5;h;0;0l;4;0o;1;0a;1;0f;0;1b;0", mouse: "Razer Viper V4 Pro Black" },
+        { name: "SHROUD (Content Creator)", img: "https://prosettings.net/wp-content/uploads/shroud-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.3", res: "2560x1440", cross: "White Dot (Size 2)", mouse: "Logitech G Pro X2 Superstrike" },
+        { name: "TARIK (Sentinels)", img: "https://prosettings.net/wp-content/uploads/tarik-1-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.471", res: "1680x1050", cross: "0;s;1;P;o;1;d;1;f;0;0b;0;1b;0;S;d;0", mouse: "Finalmouse ULX Tiger" },
+        { name: "ASUNA (100T)", img: "https://prosettings.net/wp-content/uploads/asuna-2-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1400", sens: "0.26", res: "1920x1080", cross: "0;P;o;1;m;1;0t;1;0l;2;0o;2;0a;1;0f;0;1t;1;1o;3;1a;1;1m;0;1f;0", mouse: "Razer DeathAdder V2" },
+        { name: "STEWIE2K (Free Agent)", img: "https://prosettings.net/wp-content/uploads/stewie2k-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "1.1", res: "1024x768", cross: "CSGO-r3XBE-ySAhm-GuHRz-CfiVC-Vc4NF", mouse: "Razer Viper V4 Pro Black" },
+        { name: "SINATRAA (Content Creator)", img: "https://prosettings.net/wp-content/uploads/sinatraa-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.387", res: "1920x1080", cross: "0;s;1;P;c;5;o;1;0t;1;0l;3;0a;1;0f;0;1t;0;1l;1;1o;1;1a;1;1m;0;1f;0", mouse: "Logitech G Pro X Superlight 2" },
+        { name: "ACEU (Content Creator)", img: "https://prosettings.net/wp-content/uploads/aceu-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "1600", sens: "0.2", res: "1920x1080", cross: "0;P;d;1;z;1;0t;1;0l;3;0v;3;0g;1;0o;0;0a;1;0f;0;1b;0", mouse: "Finalmouse ULX Medium" },
+        { name: "SHAHZAM (Liquid)", img: "https://prosettings.net/wp-content/uploads/shahzam-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "800", sens: "0.265", res: "1920x1080", cross: "0;P;c;1;o;1;f;0;0l;5;0a;0.5;0f;0;1b;0", mouse: "TEEVOLUTION Terra" },
+        { name: "BRAX (Content Creator)", img: "https://prosettings.net/wp-content/uploads/brax-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "400", sens: "0.377", res: "1920x1080", cross: "CSGO-Zj5X7-nzzDB-vjCAP-pjLqa-5mSyL", mouse: "Razer DeathAdder V3 Pro" },
+        { name: "S0M (NRG)", img: "https://prosettings.net/wp-content/uploads/s0m-200x200.png?dpr=1|f=auto|fit=cover|height=400|q=85|width=400", dpi: "400", sens: "0.8", res: "1920x1080", cross: "White Dot (1-1-1-2)", mouse: "Logitech G Pro X Superlight 2 White" }
     ];
 
     // --- STATE ---
@@ -2319,6 +2349,7 @@
         randomizedList.forEach(agent => {
             const el = document.createElement('div');
             el.className = 'agent-card';
+            el.style.backgroundImage = `url('${agent.img}')`;
             // No synergy bar/percentage needed here, just display name and role
             el.innerHTML = `
                 <span class="name" style="font-size:1.1rem">${agent.name}</span>
@@ -2456,6 +2487,7 @@
         Object.keys(mapData).forEach(m => {
             const el = document.createElement('div');
             el.className = 'map-card';
+            el.style.backgroundImage = `url('${mapData[m].img}')`;
             el.innerHTML = `<h3>${m}</h3>`;
             el.onclick = () => selectMap(m);
             mapCont.appendChild(el);
@@ -2466,6 +2498,7 @@
             const el = document.createElement('div');
             el.className = 'pro-card';
             el.style.cursor = 'pointer';
+            el.style.backgroundImage = `url('${p.img}')`;
             el.innerHTML = `
                 <h3>${p.name}</h3>
                 <div class="pro-stat"><label>DPI</label><span>${p.dpi}</span></div>
@@ -2481,6 +2514,7 @@
             const el = document.createElement('div');
             el.className = 'agent-card';
             el.id = `agent-${a.name}`;
+            el.style.backgroundImage = `url('${a.img}')`;
             el.innerHTML = `
                 <span class="name">${a.name}</span>
                 <span style="font-size:0.6rem; opacity:0.6">${a.role.toUpperCase()}</span>
