@@ -400,6 +400,7 @@
         .val-btn:hover::after { left: 0; }
         .btn-red { background: var(--val-red); color: white; }
         .btn-green { background: #00ff88; color: black; }
+        .btn-blue { background: var(--val-blue); color: var(--val-black); } /* New style for randomizer button */
         .btn-outline { background: transparent; border: 1px solid var(--val-white); color: var(--val-white); }
 
         .advice-card { background: #22272e; padding: 25px; margin-top: 20px; border-left: 5px solid var(--val-blue); }
@@ -442,6 +443,7 @@
     </div>
     <ul class="nav-links">
         <li class="nav-item active" onclick="switchTab('strat')">STRATEG ENGINE</li>
+        <li class="nav-item" onclick="switchTab('randomizer')">AGENT RANDOMIZER</li>
         <li class="nav-item" onclick="switchTab('pro')">PRO CONFIGS</li>
         <li class="nav-item" onclick="switchTab('aim')">AIM TRAINING</li>
     </ul>
@@ -580,6 +582,40 @@
             </div>
         </div>
     </div>
+
+    <!-- TAB: AGENT RANDOMIZER -->
+    <div id="tab-randomizer" class="main-tab">
+        <h2 style="margin-bottom: 30px;">Agent & Team Comp Randomizer</h2>
+        <div class="randomizer-controls">
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE ROLES:</label>
+                <div class="filter-tags" id="randomizer-role-filters">
+                    <div class="filter-tag active" data-role="ALL" onclick="toggleRandomizerRoleFilter(this)">ALL</div>
+                    <div class="filter-tag" data-role="DUELIST" onclick="toggleRandomizerRoleFilter(this)">DUELIST</div>
+                    <div class="filter-tag" data-role="CONTROLLER" onclick="toggleRandomizerRoleFilter(this)">CONTROLLER</div>
+                    <div class="filter-tag" data-role="INITIATOR" onclick="toggleRandomizerRoleFilter(this)">INITIATOR</div>
+                    <div class="filter-tag" data-role="SENTINEL" onclick="toggleRandomizerRoleFilter(this)">SENTINEL</div>
+                </div>
+            </div>
+
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE/EXCLUDE AGENTS (comma-separated):</label>
+                <input type="text" class="val-input" id="randomizer-agent-filter" placeholder="e.g., Jett, Sova, -Raze, -Viper">
+                <small style="opacity: 0.7; font-size: 0.8rem; display: block; margin-top: 5px;">Use '-' prefix to exclude agents (e.g., -Raze)</small>
+            </div>
+
+            <div class="btn-group" style="margin-bottom: 30px;">
+                <button class="val-btn btn-red" onclick="randomizeAgents(1)">RANDOMIZE MY AGENT</button>
+                <button class="val-btn btn-blue" onclick="randomizeAgents(5)">RANDOMIZE FULL TEAM</button>
+                <button class="val-btn btn-outline" onclick="clearRandomizerSelection()">CLEAR</button>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 20px;">Randomized Agents:</h3>
+        <div class="agent-grid" id="randomizer-output">
+            <p style="opacity: 0.7;">Click a button above to randomize!</p>
+        </div>
+    </div>
 </main>
 
 <div id="match-end-overlay">
@@ -674,6 +710,11 @@
     let aimScore = 0;
     let aimTimeLeft = 30;
     let aimTimerInterval;
+
+    // Randomizer State
+    let activeRandomizerRoles = ['ALL']; // Can be multiple roles, or 'ALL'
+    let includeAgents = [];
+    let excludeAgents = [];
 
     const STORAGE_KEY = "val_strat_engine_v1";
 
@@ -819,11 +860,126 @@
         }
     }
 
+    // --- Randomizer Logic ---
+    function toggleRandomizerRoleFilter(el) {
+        const role = el.dataset.role;
+
+        if (role === 'ALL') {
+            activeRandomizerRoles = ['ALL'];
+            document.querySelectorAll('#randomizer-role-filters .filter-tag').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        } else {
+            // If ALL was active, remove it
+            if (activeRandomizerRoles.includes('ALL')) {
+                activeRandomizerRoles = activeRandomizerRoles.filter(r => r !== 'ALL');
+                document.querySelector('#randomizer-role-filters .filter-tag[data-role="ALL"]').classList.remove('active');
+            }
+            
+            // Toggle specific role
+            if (activeRandomizerRoles.includes(role)) {
+                activeRandomizerRoles = activeRandomizerRoles.filter(r => r !== role);
+                el.classList.remove('active');
+            } else {
+                activeRandomizerRoles.push(role);
+                el.classList.add('active');
+            }
+
+            // If no roles are selected, default back to ALL
+            if (activeRandomizerRoles.length === 0) {
+                activeRandomizerRoles = ['ALL'];
+                document.querySelector('#randomizer-role-filters .filter-tag[data-role="ALL"]').classList.add('active');
+            }
+        }
+    }
+
+    function parseAgentFilterInput() {
+        const input = document.getElementById('randomizer-agent-filter').value.toLowerCase();
+        const items = input.split(',').map(item => item.trim()).filter(item => item !== '');
+
+        includeAgents = [];
+        excludeAgents = [];
+
+        items.forEach(item => {
+            if (item.startsWith('-')) {
+                excludeAgents.push(item.substring(1));
+            } else {
+                includeAgents.push(item);
+            }
+        });
+    }
+
+    function randomizeAgents(count) {
+        parseAgentFilterInput(); // Process include/exclude list
+
+        let availableAgents = agents.filter(agent => {
+            const agentNameLower = agent.name.toLowerCase();
+            const agentRoleUpper = agent.role.toUpperCase();
+
+            // Check role filter
+            const roleMatch = activeRandomizerRoles.includes('ALL') || activeRandomizerRoles.includes(agentRoleUpper);
+            if (!roleMatch) return false;
+
+            // Check include/exclude
+            if (excludeAgents.includes(agentNameLower)) return false;
+            // Only include if no specific agents are listed to be included, OR if it IS in the include list
+            if (includeAgents.length > 0 && !includeAgents.includes(agentNameLower)) return false;
+
+            return true;
+        });
+
+        if (availableAgents.length === 0) {
+            alert("No agents match your current filters! Try broadening your selection.");
+            return;
+        }
+
+        const randomized = [];
+        while (randomized.length < count && availableAgents.length > 0) {
+            const randomIndex = Math.floor(Math.random() * availableAgents.length);
+            const chosenAgent = availableAgents[randomIndex];
+            randomized.push(chosenAgent);
+            availableAgents.splice(randomIndex, 1); // Remove chosen agent to prevent duplicates
+        }
+
+        displayRandomizedAgents(randomized);
+    }
+
+    function displayRandomizedAgents(randomizedList) {
+        const outputContainer = document.getElementById('randomizer-output');
+        outputContainer.innerHTML = ''; // Clear previous results
+
+        if (randomizedList.length === 0) {
+            outputContainer.innerHTML = '<p style="opacity: 0.7;">No agents found based on your filters.</p>';
+            return;
+        }
+
+        randomizedList.forEach(agent => {
+            const el = document.createElement('div');
+            el.className = 'agent-card';
+            // No synergy bar/percentage needed here, just display name and role
+            el.innerHTML = `
+                <span class="name" style="font-size:1.1rem">${agent.name}</span>
+                <span style="font-size:0.7rem; opacity:0.6">${agent.role.toUpperCase()}</span>
+            `;
+            outputContainer.appendChild(el);
+        });
+    }
+
+    function clearRandomizerSelection() {
+        document.getElementById('randomizer-output').innerHTML = '<p style="opacity: 0.7;">Click a button above to randomize!</p>';
+        document.getElementById('randomizer-agent-filter').value = '';
+        includeAgents = [];
+        excludeAgents = [];
+        // Reset role filters to ALL
+        document.querySelectorAll('#randomizer-role-filters .filter-tag').forEach(t => t.classList.remove('active'));
+        document.querySelector('#randomizer-role-filters .filter-tag[data-role="ALL"]').classList.add('active');
+        activeRandomizerRoles = ['ALL'];
+    }
+
+
     // --- INIT ---
     function filterMaps(query) {
         const cards = document.querySelectorAll('.map-card');
-        query = query.toLowerCase();
-        cards.forEach(card => {
+        query = query.toLowerCase();        cards.forEach(card => {
             const name = card.querySelector('h3').innerText.toLowerCase();
             card.style.display = name.includes(query) ? 'flex' : 'none';
         });
