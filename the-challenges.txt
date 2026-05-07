@@ -1,0 +1,1000 @@
+1. Use only the Classic for the entire match.
+2. Use only the Shorty for the entire match.
+3. Use only the Frenzy for the entire match.
+4. Use only the Ghost for the entire match.
+5. Use only the Sheriff for the entire match.
+6. Use only the Stinger for the entire match.
+7. Use only the Spectre for the entire match.
+8. Use only the Bucky for the entire match.
+9. Use only the Judge for the entire match.
+10. Use only the Bulldog for the entire match.
+11. Use only the Guardian for the entire match.
+12. Use only the Phantom for the entire match.
+13. Use only the Vandal for the entire match.
+14. Use only the Marshal for the entire match.
+15. Use only the Outlaw for the entire match.
+16. Use only the Operator for the entire match.
+17. Use only the Ares for the entire match.
+18. Use only the Odin for the entire match.
+19. For the whole match, you must never jump.
+20. For the whole match, you must always crouch while shooting.
+21. For the whole match, you must never use the 'W' key during combat.
+22. For the whole match, you must only move by strafing.
+23. For the whole match, you must walk (Shift) the entire match.
+24. For the whole match, you must jump once before every engagement.
+25. For the whole match, you must spin 360 degrees before every shot.
+26. For the whole match, you must only move backward when you see an enemy.
+27. For the whole match, you must never crouch.
+28. For the whole match, you must bunnyhop to every location.
+29. For the whole match, you must never stop moving during a round.
+30. For the whole match, you must only move if your knife is out.
+31. For the whole match, you must crouch-walk everywhere.
+32. For the whole match, you must look at the floor when rotating.
+33. For the whole match, you must speak in a pirate accent.
+34. For the whole match, you must call everyone 'Sir' or 'Ma'am'.
+35. For the whole match, you must narrate like a sports commentator.
+36. For the whole match, you must only use pings (no voice/text).
+37. For the whole match, you must compliment the enemy who kills you.
+38. For the whole match, you must sing all your callouts.
+39. For the whole match, you must start every sentence with 'To be honest'.
+40. For the whole match, you must whisper all your callouts.
+41. For the whole match, you must end every sentence with 'over and out'.
+42. For the whole match, you must speak like a robot.
+43. For the whole match, you must only talk in the first person.
+44. For the whole match, you must repeat everything your teammates say.
+45. For the whole match, you must turn off your crosshair.
+46. For the whole match, you must double your mouse sensitivity.
+47. For the whole match, you must invert your mouse Y-axis.
+48. For the whole match, you must use the left-handed view model.
+49. For the whole match, you must disable your HUD (Ctrl+U).
+50. For the whole match, you must set game language to one you don't speak.
+51. For the whole match, you must play with 1% volume.
+52. For the whole match, you must unbind your 'Crouch' key.
+53. For the whole match, you must never use the 'Reload' key (scavenge only).
+54. For the whole match, you must set brightness to minimum.
+55. For the whole match, you must play with a square crosshair that covers the enemy.
+56. For the whole match, you must never buy armor.
+57. For the whole match, you must spend all credits every round.
+58. For the whole match, you must only buy for teammates (Classic for you).
+59. For the whole match, you must buy a Shorty as secondary every round.
+60. For the whole match, you must only buy half-armor.
+61. For the whole match, you must never buy abilities.
+62. For the whole match, you must buy the most expensive gun possible every round.
+63. For the whole match, you must never buy a weapon (scavenge only).
+64. For the whole match, you must if you survive, drop your gun for the next round.
+65. For the whole match, you must buy a Sheriff every round.
+66. For the whole match, you must never buy a primary weapon.
+67. For the whole match, you must only get kills with your knife.
+68. For the whole match, you must never use ADS.
+69. For the whole match, you must use all abilities in the first 10 seconds.
+70. For the whole match, you must never reload until the mag is empty.
+71. For the whole match, you must only shoot while jumping.
+72. For the whole match, you must only kill enemies from behind.
+73. For the whole match, you must swap to knife after every kill.
+74. For the whole match, you must only shoot while standing perfectly still.
+75. For the whole match, you must attempt a wallbang for every kill.
+76. For the whole match, you must never use your Ultimate.
+77. For the whole match, you must only play for the plant/defuse, no hunting kills.
+78. For the whole match, you must always be the first one to enter site.
+79. Challenge: always be the first one to enter site. Weapon restriction: Ares only.
+80. Challenge: always be the first one to enter site. Weapon restriction: Bucky only.
+81. Challenge: always be the first one to enter site. Weapon restriction: Bulldog only.
+82. Challenge: always be the first one to enter site. Weapon restriction: Classic only.
+83. Challenge: always be the first one to enter site. Weapon restriction: Frenzy only.
+84. Challenge: always be the first one to enter site. Weapon restriction: Ghost only.
+85. Challenge: always be the first one to enter site. Weapon restriction: Guardian only.
+86. Challenge: always be the first one to enter site. Weapon restriction: Judge only.
+87. Challenge: always be the first one to enter site. Weapon restriction: Marshal only.
+88. Challenge: always be the first one to enter site. Weapon restriction: Odin only.
+89. Challenge: always be the first one to enter site. Weapon restriction: Operator only.
+90. Challenge: always be the first one to enter site. Weapon restriction: Outlaw only.
+91. Challenge: always be the first one to enter site. Weapon restriction: Phantom only.
+92. Challenge: always be the first one to enter site. Weapon restriction: Sheriff only.
+93. Challenge: always be the first one to enter site. Weapon restriction: Shorty only.
+94. Challenge: always be the first one to enter site. Weapon restriction: Spectre only.
+95. Challenge: always be the first one to enter site. Weapon restriction: Stinger only.
+96. Challenge: always be the first one to enter site. Weapon restriction: Vandal only.
+97. Challenge: always crouch while shooting. Weapon restriction: Ares only.
+98. Challenge: always crouch while shooting. Weapon restriction: Bucky only.
+99. Challenge: always crouch while shooting. Weapon restriction: Bulldog only.
+100. Challenge: always crouch while shooting. Weapon restriction: Classic only.
+101. Challenge: always crouch while shooting. Weapon restriction: Frenzy only.
+102. Challenge: always crouch while shooting. Weapon restriction: Ghost only.
+103. Challenge: always crouch while shooting. Weapon restriction: Guardian only.
+104. Challenge: always crouch while shooting. Weapon restriction: Judge only.
+105. Challenge: always crouch while shooting. Weapon restriction: Marshal only.
+106. Challenge: always crouch while shooting. Weapon restriction: Odin only.
+107. Challenge: always crouch while shooting. Weapon restriction: Operator only.
+108. Challenge: always crouch while shooting. Weapon restriction: Outlaw only.
+109. Challenge: always crouch while shooting. Weapon restriction: Phantom only.
+110. Challenge: always crouch while shooting. Weapon restriction: Sheriff only.
+111. Challenge: always crouch while shooting. Weapon restriction: Shorty only.
+112. Challenge: always crouch while shooting. Weapon restriction: Spectre only.
+113. Challenge: always crouch while shooting. Weapon restriction: Stinger only.
+114. Challenge: always crouch while shooting. Weapon restriction: Vandal only.
+115. Challenge: attempt a wallbang for every kill. Weapon restriction: Ares only.
+116. Challenge: attempt a wallbang for every kill. Weapon restriction: Bucky only.
+117. Challenge: attempt a wallbang for every kill. Weapon restriction: Bulldog only.
+118. Challenge: attempt a wallbang for every kill. Weapon restriction: Classic only.
+119. Challenge: attempt a wallbang for every kill. Weapon restriction: Frenzy only.
+120. Challenge: attempt a wallbang for every kill. Weapon restriction: Ghost only.
+121. Challenge: attempt a wallbang for every kill. Weapon restriction: Guardian only.
+122. Challenge: attempt a wallbang for every kill. Weapon restriction: Judge only.
+123. Challenge: attempt a wallbang for every kill. Weapon restriction: Marshal only.
+124. Challenge: attempt a wallbang for every kill. Weapon restriction: Odin only.
+125. Challenge: attempt a wallbang for every kill. Weapon restriction: Operator only.
+126. Challenge: attempt a wallbang for every kill. Weapon restriction: Outlaw only.
+127. Challenge: attempt a wallbang for every kill. Weapon restriction: Phantom only.
+128. Challenge: attempt a wallbang for every kill. Weapon restriction: Sheriff only.
+129. Challenge: attempt a wallbang for every kill. Weapon restriction: Shorty only.
+130. Challenge: attempt a wallbang for every kill. Weapon restriction: Spectre only.
+131. Challenge: attempt a wallbang for every kill. Weapon restriction: Stinger only.
+132. Challenge: attempt a wallbang for every kill. Weapon restriction: Vandal only.
+133. Challenge: bunnyhop to every location. Weapon restriction: Ares only.
+134. Challenge: bunnyhop to every location. Weapon restriction: Bucky only.
+135. Challenge: bunnyhop to every location. Weapon restriction: Bulldog only.
+136. Challenge: bunnyhop to every location. Weapon restriction: Classic only.
+137. Challenge: bunnyhop to every location. Weapon restriction: Frenzy only.
+138. Challenge: bunnyhop to every location. Weapon restriction: Ghost only.
+139. Challenge: bunnyhop to every location. Weapon restriction: Guardian only.
+140. Challenge: bunnyhop to every location. Weapon restriction: Judge only.
+141. Challenge: bunnyhop to every location. Weapon restriction: Marshal only.
+142. Challenge: bunnyhop to every location. Weapon restriction: Odin only.
+143. Challenge: bunnyhop to every location. Weapon restriction: Operator only.
+144. Challenge: bunnyhop to every location. Weapon restriction: Outlaw only.
+145. Challenge: bunnyhop to every location. Weapon restriction: Phantom only.
+146. Challenge: bunnyhop to every location. Weapon restriction: Sheriff only.
+147. Challenge: bunnyhop to every location. Weapon restriction: Shorty only.
+148. Challenge: bunnyhop to every location. Weapon restriction: Spectre only.
+149. Challenge: bunnyhop to every location. Weapon restriction: Stinger only.
+150. Challenge: bunnyhop to every location. Weapon restriction: Vandal only.
+151. Challenge: buy a Sheriff every round. Weapon restriction: Ares only.
+152. Challenge: buy a Sheriff every round. Weapon restriction: Bucky only.
+153. Challenge: buy a Sheriff every round. Weapon restriction: Bulldog only.
+154. Challenge: buy a Sheriff every round. Weapon restriction: Classic only.
+155. Challenge: buy a Sheriff every round. Weapon restriction: Frenzy only.
+156. Challenge: buy a Sheriff every round. Weapon restriction: Ghost only.
+157. Challenge: buy a Sheriff every round. Weapon restriction: Guardian only.
+158. Challenge: buy a Sheriff every round. Weapon restriction: Judge only.
+159. Challenge: buy a Sheriff every round. Weapon restriction: Marshal only.
+160. Challenge: buy a Sheriff every round. Weapon restriction: Odin only.
+161. Challenge: buy a Sheriff every round. Weapon restriction: Operator only.
+162. Challenge: buy a Sheriff every round. Weapon restriction: Outlaw only.
+163. Challenge: buy a Sheriff every round. Weapon restriction: Phantom only.
+164. Challenge: buy a Sheriff every round. Weapon restriction: Sheriff only.
+165. Challenge: buy a Sheriff every round. Weapon restriction: Shorty only.
+166. Challenge: buy a Sheriff every round. Weapon restriction: Spectre only.
+167. Challenge: buy a Sheriff every round. Weapon restriction: Stinger only.
+168. Challenge: buy a Sheriff every round. Weapon restriction: Vandal only.
+169. Challenge: buy a Shorty as secondary every round. Weapon restriction: Ares only.
+170. Challenge: buy a Shorty as secondary every round. Weapon restriction: Bucky only.
+171. Challenge: buy a Shorty as secondary every round. Weapon restriction: Bulldog only.
+172. Challenge: buy a Shorty as secondary every round. Weapon restriction: Classic only.
+173. Challenge: buy a Shorty as secondary every round. Weapon restriction: Frenzy only.
+174. Challenge: buy a Shorty as secondary every round. Weapon restriction: Ghost only.
+175. Challenge: buy a Shorty as secondary every round. Weapon restriction: Guardian only.
+176. Challenge: buy a Shorty as secondary every round. Weapon restriction: Judge only.
+177. Challenge: buy a Shorty as secondary every round. Weapon restriction: Marshal only.
+178. Challenge: buy a Shorty as secondary every round. Weapon restriction: Odin only.
+179. Challenge: buy a Shorty as secondary every round. Weapon restriction: Operator only.
+180. Challenge: buy a Shorty as secondary every round. Weapon restriction: Outlaw only.
+181. Challenge: buy a Shorty as secondary every round. Weapon restriction: Phantom only.
+182. Challenge: buy a Shorty as secondary every round. Weapon restriction: Sheriff only.
+183. Challenge: buy a Shorty as secondary every round. Weapon restriction: Shorty only.
+184. Challenge: buy a Shorty as secondary every round. Weapon restriction: Spectre only.
+185. Challenge: buy a Shorty as secondary every round. Weapon restriction: Stinger only.
+186. Challenge: buy a Shorty as secondary every round. Weapon restriction: Vandal only.
+187. Challenge: buy the most expensive gun possible every round. Weapon restriction: Ares only.
+188. Challenge: buy the most expensive gun possible every round. Weapon restriction: Bucky only.
+189. Challenge: buy the most expensive gun possible every round. Weapon restriction: Bulldog only.
+190. Challenge: buy the most expensive gun possible every round. Weapon restriction: Classic only.
+191. Challenge: buy the most expensive gun possible every round. Weapon restriction: Frenzy only.
+192. Challenge: buy the most expensive gun possible every round. Weapon restriction: Ghost only.
+193. Challenge: buy the most expensive gun possible every round. Weapon restriction: Guardian only.
+194. Challenge: buy the most expensive gun possible every round. Weapon restriction: Judge only.
+195. Challenge: buy the most expensive gun possible every round. Weapon restriction: Marshal only.
+196. Challenge: buy the most expensive gun possible every round. Weapon restriction: Odin only.
+197. Challenge: buy the most expensive gun possible every round. Weapon restriction: Operator only.
+198. Challenge: buy the most expensive gun possible every round. Weapon restriction: Outlaw only.
+199. Challenge: buy the most expensive gun possible every round. Weapon restriction: Phantom only.
+200. Challenge: buy the most expensive gun possible every round. Weapon restriction: Sheriff only.
+201. Challenge: buy the most expensive gun possible every round. Weapon restriction: Shorty only.
+202. Challenge: buy the most expensive gun possible every round. Weapon restriction: Spectre only.
+203. Challenge: buy the most expensive gun possible every round. Weapon restriction: Stinger only.
+204. Challenge: buy the most expensive gun possible every round. Weapon restriction: Vandal only.
+205. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Ares only.
+206. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Bucky only.
+207. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Bulldog only.
+208. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Classic only.
+209. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Frenzy only.
+210. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Ghost only.
+211. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Guardian only.
+212. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Judge only.
+213. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Marshal only.
+214. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Odin only.
+215. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Operator only.
+216. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Outlaw only.
+217. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Phantom only.
+218. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Sheriff only.
+219. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Shorty only.
+220. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Spectre only.
+221. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Stinger only.
+222. Challenge: call everyone 'Sir' or 'Ma'am'. Weapon restriction: Vandal only.
+223. Challenge: compliment the enemy who kills you. Weapon restriction: Ares only.
+224. Challenge: compliment the enemy who kills you. Weapon restriction: Bucky only.
+225. Challenge: compliment the enemy who kills you. Weapon restriction: Bulldog only.
+226. Challenge: compliment the enemy who kills you. Weapon restriction: Classic only.
+227. Challenge: compliment the enemy who kills you. Weapon restriction: Frenzy only.
+228. Challenge: compliment the enemy who kills you. Weapon restriction: Ghost only.
+229. Challenge: compliment the enemy who kills you. Weapon restriction: Guardian only.
+230. Challenge: compliment the enemy who kills you. Weapon restriction: Judge only.
+231. Challenge: compliment the enemy who kills you. Weapon restriction: Marshal only.
+232. Challenge: compliment the enemy who kills you. Weapon restriction: Odin only.
+233. Challenge: compliment the enemy who kills you. Weapon restriction: Operator only.
+234. Challenge: compliment the enemy who kills you. Weapon restriction: Outlaw only.
+235. Challenge: compliment the enemy who kills you. Weapon restriction: Phantom only.
+236. Challenge: compliment the enemy who kills you. Weapon restriction: Sheriff only.
+237. Challenge: compliment the enemy who kills you. Weapon restriction: Shorty only.
+238. Challenge: compliment the enemy who kills you. Weapon restriction: Spectre only.
+239. Challenge: compliment the enemy who kills you. Weapon restriction: Stinger only.
+240. Challenge: compliment the enemy who kills you. Weapon restriction: Vandal only.
+241. Challenge: crouch-walk everywhere. Weapon restriction: Ares only.
+242. Challenge: crouch-walk everywhere. Weapon restriction: Bucky only.
+243. Challenge: crouch-walk everywhere. Weapon restriction: Bulldog only.
+244. Challenge: crouch-walk everywhere. Weapon restriction: Classic only.
+245. Challenge: crouch-walk everywhere. Weapon restriction: Frenzy only.
+246. Challenge: crouch-walk everywhere. Weapon restriction: Ghost only.
+247. Challenge: crouch-walk everywhere. Weapon restriction: Guardian only.
+248. Challenge: crouch-walk everywhere. Weapon restriction: Judge only.
+249. Challenge: crouch-walk everywhere. Weapon restriction: Marshal only.
+250. Challenge: crouch-walk everywhere. Weapon restriction: Odin only.
+251. Challenge: crouch-walk everywhere. Weapon restriction: Operator only.
+252. Challenge: crouch-walk everywhere. Weapon restriction: Outlaw only.
+253. Challenge: crouch-walk everywhere. Weapon restriction: Phantom only.
+254. Challenge: crouch-walk everywhere. Weapon restriction: Sheriff only.
+255. Challenge: crouch-walk everywhere. Weapon restriction: Shorty only.
+256. Challenge: crouch-walk everywhere. Weapon restriction: Spectre only.
+257. Challenge: crouch-walk everywhere. Weapon restriction: Stinger only.
+258. Challenge: crouch-walk everywhere. Weapon restriction: Vandal only.
+259. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Ares only.
+260. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Bucky only.
+261. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Bulldog only.
+262. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Classic only.
+263. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Frenzy only.
+264. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Ghost only.
+265. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Guardian only.
+266. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Judge only.
+267. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Marshal only.
+268. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Odin only.
+269. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Operator only.
+270. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Outlaw only.
+271. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Phantom only.
+272. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Sheriff only.
+273. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Shorty only.
+274. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Spectre only.
+275. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Stinger only.
+276. Challenge: disable your HUD (Ctrl+U). Weapon restriction: Vandal only.
+277. Challenge: double your mouse sensitivity. Weapon restriction: Ares only.
+278. Challenge: double your mouse sensitivity. Weapon restriction: Bucky only.
+279. Challenge: double your mouse sensitivity. Weapon restriction: Bulldog only.
+280. Challenge: double your mouse sensitivity. Weapon restriction: Classic only.
+281. Challenge: double your mouse sensitivity. Weapon restriction: Frenzy only.
+282. Challenge: double your mouse sensitivity. Weapon restriction: Ghost only.
+283. Challenge: double your mouse sensitivity. Weapon restriction: Guardian only.
+284. Challenge: double your mouse sensitivity. Weapon restriction: Judge only.
+285. Challenge: double your mouse sensitivity. Weapon restriction: Marshal only.
+286. Challenge: double your mouse sensitivity. Weapon restriction: Odin only.
+287. Challenge: double your mouse sensitivity. Weapon restriction: Operator only.
+288. Challenge: double your mouse sensitivity. Weapon restriction: Outlaw only.
+289. Challenge: double your mouse sensitivity. Weapon restriction: Phantom only.
+290. Challenge: double your mouse sensitivity. Weapon restriction: Sheriff only.
+291. Challenge: double your mouse sensitivity. Weapon restriction: Shorty only.
+292. Challenge: double your mouse sensitivity. Weapon restriction: Spectre only.
+293. Challenge: double your mouse sensitivity. Weapon restriction: Stinger only.
+294. Challenge: double your mouse sensitivity. Weapon restriction: Vandal only.
+295. Challenge: end every sentence with 'over and out'. Weapon restriction: Ares only.
+296. Challenge: end every sentence with 'over and out'. Weapon restriction: Bucky only.
+297. Challenge: end every sentence with 'over and out'. Weapon restriction: Bulldog only.
+298. Challenge: end every sentence with 'over and out'. Weapon restriction: Classic only.
+299. Challenge: end every sentence with 'over and out'. Weapon restriction: Frenzy only.
+300. Challenge: end every sentence with 'over and out'. Weapon restriction: Ghost only.
+301. Challenge: end every sentence with 'over and out'. Weapon restriction: Guardian only.
+302. Challenge: end every sentence with 'over and out'. Weapon restriction: Judge only.
+303. Challenge: end every sentence with 'over and out'. Weapon restriction: Marshal only.
+304. Challenge: end every sentence with 'over and out'. Weapon restriction: Odin only.
+305. Challenge: end every sentence with 'over and out'. Weapon restriction: Operator only.
+306. Challenge: end every sentence with 'over and out'. Weapon restriction: Outlaw only.
+307. Challenge: end every sentence with 'over and out'. Weapon restriction: Phantom only.
+308. Challenge: end every sentence with 'over and out'. Weapon restriction: Sheriff only.
+309. Challenge: end every sentence with 'over and out'. Weapon restriction: Shorty only.
+310. Challenge: end every sentence with 'over and out'. Weapon restriction: Spectre only.
+311. Challenge: end every sentence with 'over and out'. Weapon restriction: Stinger only.
+312. Challenge: end every sentence with 'over and out'. Weapon restriction: Vandal only.
+313. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Ares only.
+314. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Bucky only.
+315. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Bulldog only.
+316. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Classic only.
+317. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Frenzy only.
+318. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Ghost only.
+319. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Guardian only.
+320. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Judge only.
+321. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Marshal only.
+322. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Odin only.
+323. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Operator only.
+324. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Outlaw only.
+325. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Phantom only.
+326. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Sheriff only.
+327. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Shorty only.
+328. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Spectre only.
+329. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Stinger only.
+330. Challenge: if you survive, drop your gun for the next round. Weapon restriction: Vandal only.
+331. Challenge: invert your mouse Y-axis. Weapon restriction: Ares only.
+332. Challenge: invert your mouse Y-axis. Weapon restriction: Bucky only.
+333. Challenge: invert your mouse Y-axis. Weapon restriction: Bulldog only.
+334. Challenge: invert your mouse Y-axis. Weapon restriction: Classic only.
+335. Challenge: invert your mouse Y-axis. Weapon restriction: Frenzy only.
+336. Challenge: invert your mouse Y-axis. Weapon restriction: Ghost only.
+337. Challenge: invert your mouse Y-axis. Weapon restriction: Guardian only.
+338. Challenge: invert your mouse Y-axis. Weapon restriction: Judge only.
+339. Challenge: invert your mouse Y-axis. Weapon restriction: Marshal only.
+340. Challenge: invert your mouse Y-axis. Weapon restriction: Odin only.
+341. Challenge: invert your mouse Y-axis. Weapon restriction: Operator only.
+342. Challenge: invert your mouse Y-axis. Weapon restriction: Outlaw only.
+343. Challenge: invert your mouse Y-axis. Weapon restriction: Phantom only.
+344. Challenge: invert your mouse Y-axis. Weapon restriction: Sheriff only.
+345. Challenge: invert your mouse Y-axis. Weapon restriction: Shorty only.
+346. Challenge: invert your mouse Y-axis. Weapon restriction: Spectre only.
+347. Challenge: invert your mouse Y-axis. Weapon restriction: Stinger only.
+348. Challenge: invert your mouse Y-axis. Weapon restriction: Vandal only.
+349. Challenge: jump once before every engagement. Weapon restriction: Ares only.
+350. Challenge: jump once before every engagement. Weapon restriction: Bucky only.
+351. Challenge: jump once before every engagement. Weapon restriction: Bulldog only.
+352. Challenge: jump once before every engagement. Weapon restriction: Classic only.
+353. Challenge: jump once before every engagement. Weapon restriction: Frenzy only.
+354. Challenge: jump once before every engagement. Weapon restriction: Ghost only.
+355. Challenge: jump once before every engagement. Weapon restriction: Guardian only.
+356. Challenge: jump once before every engagement. Weapon restriction: Judge only.
+357. Challenge: jump once before every engagement. Weapon restriction: Marshal only.
+358. Challenge: jump once before every engagement. Weapon restriction: Odin only.
+359. Challenge: jump once before every engagement. Weapon restriction: Operator only.
+360. Challenge: jump once before every engagement. Weapon restriction: Outlaw only.
+361. Challenge: jump once before every engagement. Weapon restriction: Phantom only.
+362. Challenge: jump once before every engagement. Weapon restriction: Sheriff only.
+363. Challenge: jump once before every engagement. Weapon restriction: Shorty only.
+364. Challenge: jump once before every engagement. Weapon restriction: Spectre only.
+365. Challenge: jump once before every engagement. Weapon restriction: Stinger only.
+366. Challenge: jump once before every engagement. Weapon restriction: Vandal only.
+367. Challenge: look at the floor when rotating. Weapon restriction: Ares only.
+368. Challenge: look at the floor when rotating. Weapon restriction: Bucky only.
+369. Challenge: look at the floor when rotating. Weapon restriction: Bulldog only.
+370. Challenge: look at the floor when rotating. Weapon restriction: Classic only.
+371. Challenge: look at the floor when rotating. Weapon restriction: Frenzy only.
+372. Challenge: look at the floor when rotating. Weapon restriction: Ghost only.
+373. Challenge: look at the floor when rotating. Weapon restriction: Guardian only.
+374. Challenge: look at the floor when rotating. Weapon restriction: Judge only.
+375. Challenge: look at the floor when rotating. Weapon restriction: Marshal only.
+376. Challenge: look at the floor when rotating. Weapon restriction: Odin only.
+377. Challenge: look at the floor when rotating. Weapon restriction: Operator only.
+378. Challenge: look at the floor when rotating. Weapon restriction: Outlaw only.
+379. Challenge: look at the floor when rotating. Weapon restriction: Phantom only.
+380. Challenge: look at the floor when rotating. Weapon restriction: Sheriff only.
+381. Challenge: look at the floor when rotating. Weapon restriction: Shorty only.
+382. Challenge: look at the floor when rotating. Weapon restriction: Spectre only.
+383. Challenge: look at the floor when rotating. Weapon restriction: Stinger only.
+384. Challenge: look at the floor when rotating. Weapon restriction: Vandal only.
+385. Challenge: narrate like a sports commentator. Weapon restriction: Ares only.
+386. Challenge: narrate like a sports commentator. Weapon restriction: Bucky only.
+387. Challenge: narrate like a sports commentator. Weapon restriction: Bulldog only.
+388. Challenge: narrate like a sports commentator. Weapon restriction: Classic only.
+389. Challenge: narrate like a sports commentator. Weapon restriction: Frenzy only.
+390. Challenge: narrate like a sports commentator. Weapon restriction: Ghost only.
+391. Challenge: narrate like a sports commentator. Weapon restriction: Guardian only.
+392. Challenge: narrate like a sports commentator. Weapon restriction: Judge only.
+393. Challenge: narrate like a sports commentator. Weapon restriction: Marshal only.
+394. Challenge: narrate like a sports commentator. Weapon restriction: Odin only.
+395. Challenge: narrate like a sports commentator. Weapon restriction: Operator only.
+396. Challenge: narrate like a sports commentator. Weapon restriction: Outlaw only.
+397. Challenge: narrate like a sports commentator. Weapon restriction: Phantom only.
+398. Challenge: narrate like a sports commentator. Weapon restriction: Sheriff only.
+399. Challenge: narrate like a sports commentator. Weapon restriction: Shorty only.
+400. Challenge: narrate like a sports commentator. Weapon restriction: Spectre only.
+401. Challenge: narrate like a sports commentator. Weapon restriction: Stinger only.
+402. Challenge: narrate like a sports commentator. Weapon restriction: Vandal only.
+403. Challenge: never buy a primary weapon. Weapon restriction: Ares only.
+404. Challenge: never buy a primary weapon. Weapon restriction: Bucky only.
+405. Challenge: never buy a primary weapon. Weapon restriction: Bulldog only.
+406. Challenge: never buy a primary weapon. Weapon restriction: Classic only.
+407. Challenge: never buy a primary weapon. Weapon restriction: Frenzy only.
+408. Challenge: never buy a primary weapon. Weapon restriction: Ghost only.
+409. Challenge: never buy a primary weapon. Weapon restriction: Guardian only.
+410. Challenge: never buy a primary weapon. Weapon restriction: Judge only.
+411. Challenge: never buy a primary weapon. Weapon restriction: Marshal only.
+412. Challenge: never buy a primary weapon. Weapon restriction: Odin only.
+413. Challenge: never buy a primary weapon. Weapon restriction: Operator only.
+414. Challenge: never buy a primary weapon. Weapon restriction: Outlaw only.
+415. Challenge: never buy a primary weapon. Weapon restriction: Phantom only.
+416. Challenge: never buy a primary weapon. Weapon restriction: Sheriff only.
+417. Challenge: never buy a primary weapon. Weapon restriction: Shorty only.
+418. Challenge: never buy a primary weapon. Weapon restriction: Spectre only.
+419. Challenge: never buy a primary weapon. Weapon restriction: Stinger only.
+420. Challenge: never buy a primary weapon. Weapon restriction: Vandal only.
+421. Challenge: never buy a weapon (scavenge only). Weapon restriction: Ares only.
+422. Challenge: never buy a weapon (scavenge only). Weapon restriction: Bucky only.
+423. Challenge: never buy a weapon (scavenge only). Weapon restriction: Bulldog only.
+424. Challenge: never buy a weapon (scavenge only). Weapon restriction: Classic only.
+425. Challenge: never buy a weapon (scavenge only). Weapon restriction: Frenzy only.
+426. Challenge: never buy a weapon (scavenge only). Weapon restriction: Ghost only.
+427. Challenge: never buy a weapon (scavenge only). Weapon restriction: Guardian only.
+428. Challenge: never buy a weapon (scavenge only). Weapon restriction: Judge only.
+429. Challenge: never buy a weapon (scavenge only). Weapon restriction: Marshal only.
+430. Challenge: never buy a weapon (scavenge only). Weapon restriction: Odin only.
+431. Challenge: never buy a weapon (scavenge only). Weapon restriction: Operator only.
+432. Challenge: never buy a weapon (scavenge only). Weapon restriction: Outlaw only.
+433. Challenge: never buy a weapon (scavenge only). Weapon restriction: Phantom only.
+434. Challenge: never buy a weapon (scavenge only). Weapon restriction: Sheriff only.
+435. Challenge: never buy a weapon (scavenge only). Weapon restriction: Shorty only.
+436. Challenge: never buy a weapon (scavenge only). Weapon restriction: Spectre only.
+437. Challenge: never buy a weapon (scavenge only). Weapon restriction: Stinger only.
+438. Challenge: never buy a weapon (scavenge only). Weapon restriction: Vandal only.
+439. Challenge: never buy abilities. Weapon restriction: Ares only.
+440. Challenge: never buy abilities. Weapon restriction: Bucky only.
+441. Challenge: never buy abilities. Weapon restriction: Bulldog only.
+442. Challenge: never buy abilities. Weapon restriction: Classic only.
+443. Challenge: never buy abilities. Weapon restriction: Frenzy only.
+444. Challenge: never buy abilities. Weapon restriction: Ghost only.
+445. Challenge: never buy abilities. Weapon restriction: Guardian only.
+446. Challenge: never buy abilities. Weapon restriction: Judge only.
+447. Challenge: never buy abilities. Weapon restriction: Marshal only.
+448. Challenge: never buy abilities. Weapon restriction: Odin only.
+449. Challenge: never buy abilities. Weapon restriction: Operator only.
+450. Challenge: never buy abilities. Weapon restriction: Outlaw only.
+451. Challenge: never buy abilities. Weapon restriction: Phantom only.
+452. Challenge: never buy abilities. Weapon restriction: Sheriff only.
+453. Challenge: never buy abilities. Weapon restriction: Shorty only.
+454. Challenge: never buy abilities. Weapon restriction: Spectre only.
+455. Challenge: never buy abilities. Weapon restriction: Stinger only.
+456. Challenge: never buy abilities. Weapon restriction: Vandal only.
+457. Challenge: never buy armor. Weapon restriction: Ares only.
+458. Challenge: never buy armor. Weapon restriction: Bucky only.
+459. Challenge: never buy armor. Weapon restriction: Bulldog only.
+460. Challenge: never buy armor. Weapon restriction: Classic only.
+461. Challenge: never buy armor. Weapon restriction: Frenzy only.
+462. Challenge: never buy armor. Weapon restriction: Ghost only.
+463. Challenge: never buy armor. Weapon restriction: Guardian only.
+464. Challenge: never buy armor. Weapon restriction: Judge only.
+465. Challenge: never buy armor. Weapon restriction: Marshal only.
+466. Challenge: never buy armor. Weapon restriction: Odin only.
+467. Challenge: never buy armor. Weapon restriction: Operator only.
+468. Challenge: never buy armor. Weapon restriction: Outlaw only.
+469. Challenge: never buy armor. Weapon restriction: Phantom only.
+470. Challenge: never buy armor. Weapon restriction: Sheriff only.
+471. Challenge: never buy armor. Weapon restriction: Shorty only.
+472. Challenge: never buy armor. Weapon restriction: Spectre only.
+473. Challenge: never buy armor. Weapon restriction: Stinger only.
+474. Challenge: never buy armor. Weapon restriction: Vandal only.
+475. Challenge: never crouch. Weapon restriction: Ares only.
+476. Challenge: never crouch. Weapon restriction: Bucky only.
+477. Challenge: never crouch. Weapon restriction: Bulldog only.
+478. Challenge: never crouch. Weapon restriction: Classic only.
+479. Challenge: never crouch. Weapon restriction: Frenzy only.
+480. Challenge: never crouch. Weapon restriction: Ghost only.
+481. Challenge: never crouch. Weapon restriction: Guardian only.
+482. Challenge: never crouch. Weapon restriction: Judge only.
+483. Challenge: never crouch. Weapon restriction: Marshal only.
+484. Challenge: never crouch. Weapon restriction: Odin only.
+485. Challenge: never crouch. Weapon restriction: Operator only.
+486. Challenge: never crouch. Weapon restriction: Outlaw only.
+487. Challenge: never crouch. Weapon restriction: Phantom only.
+488. Challenge: never crouch. Weapon restriction: Sheriff only.
+489. Challenge: never crouch. Weapon restriction: Shorty only.
+490. Challenge: never crouch. Weapon restriction: Spectre only.
+491. Challenge: never crouch. Weapon restriction: Stinger only.
+492. Challenge: never crouch. Weapon restriction: Vandal only.
+493. Challenge: never jump. Weapon restriction: Ares only.
+494. Challenge: never jump. Weapon restriction: Bucky only.
+495. Challenge: never jump. Weapon restriction: Bulldog only.
+496. Challenge: never jump. Weapon restriction: Classic only.
+497. Challenge: never jump. Weapon restriction: Frenzy only.
+498. Challenge: never jump. Weapon restriction: Ghost only.
+499. Challenge: never jump. Weapon restriction: Guardian only.
+500. Challenge: never jump. Weapon restriction: Judge only.
+501. Challenge: never jump. Weapon restriction: Marshal only.
+502. Challenge: never jump. Weapon restriction: Odin only.
+503. Challenge: never jump. Weapon restriction: Operator only.
+504. Challenge: never jump. Weapon restriction: Outlaw only.
+505. Challenge: never jump. Weapon restriction: Phantom only.
+506. Challenge: never jump. Weapon restriction: Sheriff only.
+507. Challenge: never jump. Weapon restriction: Shorty only.
+508. Challenge: never jump. Weapon restriction: Spectre only.
+509. Challenge: never jump. Weapon restriction: Stinger only.
+510. Challenge: never jump. Weapon restriction: Vandal only.
+511. Challenge: never reload until the mag is empty. Weapon restriction: Ares only.
+512. Challenge: never reload until the mag is empty. Weapon restriction: Bucky only.
+513. Challenge: never reload until the mag is empty. Weapon restriction: Bulldog only.
+514. Challenge: never reload until the mag is empty. Weapon restriction: Classic only.
+515. Challenge: never reload until the mag is empty. Weapon restriction: Frenzy only.
+516. Challenge: never reload until the mag is empty. Weapon restriction: Ghost only.
+517. Challenge: never reload until the mag is empty. Weapon restriction: Guardian only.
+518. Challenge: never reload until the mag is empty. Weapon restriction: Judge only.
+519. Challenge: never reload until the mag is empty. Weapon restriction: Marshal only.
+520. Challenge: never reload until the mag is empty. Weapon restriction: Odin only.
+521. Challenge: never reload until the mag is empty. Weapon restriction: Operator only.
+522. Challenge: never reload until the mag is empty. Weapon restriction: Outlaw only.
+523. Challenge: never reload until the mag is empty. Weapon restriction: Phantom only.
+524. Challenge: never reload until the mag is empty. Weapon restriction: Sheriff only.
+525. Challenge: never reload until the mag is empty. Weapon restriction: Shorty only.
+526. Challenge: never reload until the mag is empty. Weapon restriction: Spectre only.
+527. Challenge: never reload until the mag is empty. Weapon restriction: Stinger only.
+528. Challenge: never reload until the mag is empty. Weapon restriction: Vandal only.
+529. Challenge: never stop moving during a round. Weapon restriction: Ares only.
+530. Challenge: never stop moving during a round. Weapon restriction: Bucky only.
+531. Challenge: never stop moving during a round. Weapon restriction: Bulldog only.
+532. Challenge: never stop moving during a round. Weapon restriction: Classic only.
+533. Challenge: never stop moving during a round. Weapon restriction: Frenzy only.
+534. Challenge: never stop moving during a round. Weapon restriction: Ghost only.
+535. Challenge: never stop moving during a round. Weapon restriction: Guardian only.
+536. Challenge: never stop moving during a round. Weapon restriction: Judge only.
+537. Challenge: never stop moving during a round. Weapon restriction: Marshal only.
+538. Challenge: never stop moving during a round. Weapon restriction: Odin only.
+539. Challenge: never stop moving during a round. Weapon restriction: Operator only.
+540. Challenge: never stop moving during a round. Weapon restriction: Outlaw only.
+541. Challenge: never stop moving during a round. Weapon restriction: Phantom only.
+542. Challenge: never stop moving during a round. Weapon restriction: Sheriff only.
+543. Challenge: never stop moving during a round. Weapon restriction: Shorty only.
+544. Challenge: never stop moving during a round. Weapon restriction: Spectre only.
+545. Challenge: never stop moving during a round. Weapon restriction: Stinger only.
+546. Challenge: never stop moving during a round. Weapon restriction: Vandal only.
+547. Challenge: never use ADS. Weapon restriction: Ares only.
+548. Challenge: never use ADS. Weapon restriction: Bucky only.
+549. Challenge: never use ADS. Weapon restriction: Bulldog only.
+550. Challenge: never use ADS. Weapon restriction: Classic only.
+551. Challenge: never use ADS. Weapon restriction: Frenzy only.
+552. Challenge: never use ADS. Weapon restriction: Ghost only.
+553. Challenge: never use ADS. Weapon restriction: Guardian only.
+554. Challenge: never use ADS. Weapon restriction: Judge only.
+555. Challenge: never use ADS. Weapon restriction: Marshal only.
+556. Challenge: never use ADS. Weapon restriction: Odin only.
+557. Challenge: never use ADS. Weapon restriction: Operator only.
+558. Challenge: never use ADS. Weapon restriction: Outlaw only.
+559. Challenge: never use ADS. Weapon restriction: Phantom only.
+560. Challenge: never use ADS. Weapon restriction: Sheriff only.
+561. Challenge: never use ADS. Weapon restriction: Shorty only.
+562. Challenge: never use ADS. Weapon restriction: Spectre only.
+563. Challenge: never use ADS. Weapon restriction: Stinger only.
+564. Challenge: never use ADS. Weapon restriction: Vandal only.
+565. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Ares only.
+566. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Bucky only.
+567. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Bulldog only.
+568. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Classic only.
+569. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Frenzy only.
+570. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Ghost only.
+571. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Guardian only.
+572. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Judge only.
+573. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Marshal only.
+574. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Odin only.
+575. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Operator only.
+576. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Outlaw only.
+577. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Phantom only.
+578. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Sheriff only.
+579. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Shorty only.
+580. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Spectre only.
+581. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Stinger only.
+582. Challenge: never use the 'Reload' key (scavenge only). Weapon restriction: Vandal only.
+583. Challenge: never use the 'W' key during combat. Weapon restriction: Ares only.
+584. Challenge: never use the 'W' key during combat. Weapon restriction: Bucky only.
+585. Challenge: never use the 'W' key during combat. Weapon restriction: Bulldog only.
+586. Challenge: never use the 'W' key during combat. Weapon restriction: Classic only.
+587. Challenge: never use the 'W' key during combat. Weapon restriction: Frenzy only.
+588. Challenge: never use the 'W' key during combat. Weapon restriction: Ghost only.
+589. Challenge: never use the 'W' key during combat. Weapon restriction: Guardian only.
+590. Challenge: never use the 'W' key during combat. Weapon restriction: Judge only.
+591. Challenge: never use the 'W' key during combat. Weapon restriction: Marshal only.
+592. Challenge: never use the 'W' key during combat. Weapon restriction: Odin only.
+593. Challenge: never use the 'W' key during combat. Weapon restriction: Operator only.
+594. Challenge: never use the 'W' key during combat. Weapon restriction: Outlaw only.
+595. Challenge: never use the 'W' key during combat. Weapon restriction: Phantom only.
+596. Challenge: never use the 'W' key during combat. Weapon restriction: Sheriff only.
+597. Challenge: never use the 'W' key during combat. Weapon restriction: Shorty only.
+598. Challenge: never use the 'W' key during combat. Weapon restriction: Spectre only.
+599. Challenge: never use the 'W' key during combat. Weapon restriction: Stinger only.
+600. Challenge: never use the 'W' key during combat. Weapon restriction: Vandal only.
+601. Challenge: never use your Ultimate. Weapon restriction: Ares only.
+602. Challenge: never use your Ultimate. Weapon restriction: Bucky only.
+603. Challenge: never use your Ultimate. Weapon restriction: Bulldog only.
+604. Challenge: never use your Ultimate. Weapon restriction: Classic only.
+605. Challenge: never use your Ultimate. Weapon restriction: Frenzy only.
+606. Challenge: never use your Ultimate. Weapon restriction: Ghost only.
+607. Challenge: never use your Ultimate. Weapon restriction: Guardian only.
+608. Challenge: never use your Ultimate. Weapon restriction: Judge only.
+609. Challenge: never use your Ultimate. Weapon restriction: Marshal only.
+610. Challenge: never use your Ultimate. Weapon restriction: Odin only.
+611. Challenge: never use your Ultimate. Weapon restriction: Operator only.
+612. Challenge: never use your Ultimate. Weapon restriction: Outlaw only.
+613. Challenge: never use your Ultimate. Weapon restriction: Phantom only.
+614. Challenge: never use your Ultimate. Weapon restriction: Sheriff only.
+615. Challenge: never use your Ultimate. Weapon restriction: Shorty only.
+616. Challenge: never use your Ultimate. Weapon restriction: Spectre only.
+617. Challenge: never use your Ultimate. Weapon restriction: Stinger only.
+618. Challenge: never use your Ultimate. Weapon restriction: Vandal only.
+619. Challenge: only buy for teammates (Classic for you). Weapon restriction: Ares only.
+620. Challenge: only buy for teammates (Classic for you). Weapon restriction: Bucky only.
+621. Challenge: only buy for teammates (Classic for you). Weapon restriction: Bulldog only.
+622. Challenge: only buy for teammates (Classic for you). Weapon restriction: Classic only.
+623. Challenge: only buy for teammates (Classic for you). Weapon restriction: Frenzy only.
+624. Challenge: only buy for teammates (Classic for you). Weapon restriction: Ghost only.
+625. Challenge: only buy for teammates (Classic for you). Weapon restriction: Guardian only.
+626. Challenge: only buy for teammates (Classic for you). Weapon restriction: Judge only.
+627. Challenge: only buy for teammates (Classic for you). Weapon restriction: Marshal only.
+628. Challenge: only buy for teammates (Classic for you). Weapon restriction: Odin only.
+629. Challenge: only buy for teammates (Classic for you). Weapon restriction: Operator only.
+630. Challenge: only buy for teammates (Classic for you). Weapon restriction: Outlaw only.
+631. Challenge: only buy for teammates (Classic for you). Weapon restriction: Phantom only.
+632. Challenge: only buy for teammates (Classic for you). Weapon restriction: Sheriff only.
+633. Challenge: only buy for teammates (Classic for you). Weapon restriction: Shorty only.
+634. Challenge: only buy for teammates (Classic for you). Weapon restriction: Spectre only.
+635. Challenge: only buy for teammates (Classic for you). Weapon restriction: Stinger only.
+636. Challenge: only buy for teammates (Classic for you). Weapon restriction: Vandal only.
+637. Challenge: only buy half-armor. Weapon restriction: Ares only.
+638. Challenge: only buy half-armor. Weapon restriction: Bucky only.
+639. Challenge: only buy half-armor. Weapon restriction: Bulldog only.
+640. Challenge: only buy half-armor. Weapon restriction: Classic only.
+641. Challenge: only buy half-armor. Weapon restriction: Frenzy only.
+642. Challenge: only buy half-armor. Weapon restriction: Ghost only.
+643. Challenge: only buy half-armor. Weapon restriction: Guardian only.
+644. Challenge: only buy half-armor. Weapon restriction: Judge only.
+645. Challenge: only buy half-armor. Weapon restriction: Marshal only.
+646. Challenge: only buy half-armor. Weapon restriction: Odin only.
+647. Challenge: only buy half-armor. Weapon restriction: Operator only.
+648. Challenge: only buy half-armor. Weapon restriction: Outlaw only.
+649. Challenge: only buy half-armor. Weapon restriction: Phantom only.
+650. Challenge: only buy half-armor. Weapon restriction: Sheriff only.
+651. Challenge: only buy half-armor. Weapon restriction: Shorty only.
+652. Challenge: only buy half-armor. Weapon restriction: Spectre only.
+653. Challenge: only buy half-armor. Weapon restriction: Stinger only.
+654. Challenge: only buy half-armor. Weapon restriction: Vandal only.
+655. Challenge: only get kills with your knife. Weapon restriction: Ares only.
+656. Challenge: only get kills with your knife. Weapon restriction: Bucky only.
+657. Challenge: only get kills with your knife. Weapon restriction: Bulldog only.
+658. Challenge: only get kills with your knife. Weapon restriction: Classic only.
+659. Challenge: only get kills with your knife. Weapon restriction: Frenzy only.
+660. Challenge: only get kills with your knife. Weapon restriction: Ghost only.
+661. Challenge: only get kills with your knife. Weapon restriction: Guardian only.
+662. Challenge: only get kills with your knife. Weapon restriction: Judge only.
+663. Challenge: only get kills with your knife. Weapon restriction: Marshal only.
+664. Challenge: only get kills with your knife. Weapon restriction: Odin only.
+665. Challenge: only get kills with your knife. Weapon restriction: Operator only.
+666. Challenge: only get kills with your knife. Weapon restriction: Outlaw only.
+667. Challenge: only get kills with your knife. Weapon restriction: Phantom only.
+668. Challenge: only get kills with your knife. Weapon restriction: Sheriff only.
+669. Challenge: only get kills with your knife. Weapon restriction: Shorty only.
+670. Challenge: only get kills with your knife. Weapon restriction: Spectre only.
+671. Challenge: only get kills with your knife. Weapon restriction: Stinger only.
+672. Challenge: only get kills with your knife. Weapon restriction: Vandal only.
+673. Challenge: only kill enemies from behind. Weapon restriction: Ares only.
+674. Challenge: only kill enemies from behind. Weapon restriction: Bucky only.
+675. Challenge: only kill enemies from behind. Weapon restriction: Bulldog only.
+676. Challenge: only kill enemies from behind. Weapon restriction: Classic only.
+677. Challenge: only kill enemies from behind. Weapon restriction: Frenzy only.
+678. Challenge: only kill enemies from behind. Weapon restriction: Ghost only.
+679. Challenge: only kill enemies from behind. Weapon restriction: Guardian only.
+680. Challenge: only kill enemies from behind. Weapon restriction: Judge only.
+681. Challenge: only kill enemies from behind. Weapon restriction: Marshal only.
+682. Challenge: only kill enemies from behind. Weapon restriction: Odin only.
+683. Challenge: only kill enemies from behind. Weapon restriction: Operator only.
+684. Challenge: only kill enemies from behind. Weapon restriction: Outlaw only.
+685. Challenge: only kill enemies from behind. Weapon restriction: Phantom only.
+686. Challenge: only kill enemies from behind. Weapon restriction: Sheriff only.
+687. Challenge: only kill enemies from behind. Weapon restriction: Shorty only.
+688. Challenge: only kill enemies from behind. Weapon restriction: Spectre only.
+689. Challenge: only kill enemies from behind. Weapon restriction: Stinger only.
+690. Challenge: only kill enemies from behind. Weapon restriction: Vandal only.
+691. Challenge: only move backward when you see an enemy. Weapon restriction: Ares only.
+692. Challenge: only move backward when you see an enemy. Weapon restriction: Bucky only.
+693. Challenge: only move backward when you see an enemy. Weapon restriction: Bulldog only.
+694. Challenge: only move backward when you see an enemy. Weapon restriction: Classic only.
+695. Challenge: only move backward when you see an enemy. Weapon restriction: Frenzy only.
+696. Challenge: only move backward when you see an enemy. Weapon restriction: Ghost only.
+697. Challenge: only move backward when you see an enemy. Weapon restriction: Guardian only.
+698. Challenge: only move backward when you see an enemy. Weapon restriction: Judge only.
+699. Challenge: only move backward when you see an enemy. Weapon restriction: Marshal only.
+700. Challenge: only move backward when you see an enemy. Weapon restriction: Odin only.
+701. Challenge: only move backward when you see an enemy. Weapon restriction: Operator only.
+702. Challenge: only move backward when you see an enemy. Weapon restriction: Outlaw only.
+703. Challenge: only move backward when you see an enemy. Weapon restriction: Phantom only.
+704. Challenge: only move backward when you see an enemy. Weapon restriction: Sheriff only.
+705. Challenge: only move backward when you see an enemy. Weapon restriction: Shorty only.
+706. Challenge: only move backward when you see an enemy. Weapon restriction: Spectre only.
+707. Challenge: only move backward when you see an enemy. Weapon restriction: Stinger only.
+708. Challenge: only move backward when you see an enemy. Weapon restriction: Vandal only.
+709. Challenge: only move by strafing. Weapon restriction: Ares only.
+710. Challenge: only move by strafing. Weapon restriction: Bucky only.
+711. Challenge: only move by strafing. Weapon restriction: Bulldog only.
+712. Challenge: only move by strafing. Weapon restriction: Classic only.
+713. Challenge: only move by strafing. Weapon restriction: Frenzy only.
+714. Challenge: only move by strafing. Weapon restriction: Ghost only.
+715. Challenge: only move by strafing. Weapon restriction: Guardian only.
+716. Challenge: only move by strafing. Weapon restriction: Judge only.
+717. Challenge: only move by strafing. Weapon restriction: Marshal only.
+718. Challenge: only move by strafing. Weapon restriction: Odin only.
+719. Challenge: only move by strafing. Weapon restriction: Operator only.
+720. Challenge: only move by strafing. Weapon restriction: Outlaw only.
+721. Challenge: only move by strafing. Weapon restriction: Phantom only.
+722. Challenge: only move by strafing. Weapon restriction: Sheriff only.
+723. Challenge: only move by strafing. Weapon restriction: Shorty only.
+724. Challenge: only move by strafing. Weapon restriction: Spectre only.
+725. Challenge: only move by strafing. Weapon restriction: Stinger only.
+726. Challenge: only move by strafing. Weapon restriction: Vandal only.
+727. Challenge: only move if your knife is out. Weapon restriction: Ares only.
+728. Challenge: only move if your knife is out. Weapon restriction: Bucky only.
+729. Challenge: only move if your knife is out. Weapon restriction: Bulldog only.
+730. Challenge: only move if your knife is out. Weapon restriction: Classic only.
+731. Challenge: only move if your knife is out. Weapon restriction: Frenzy only.
+732. Challenge: only move if your knife is out. Weapon restriction: Ghost only.
+733. Challenge: only move if your knife is out. Weapon restriction: Guardian only.
+734. Challenge: only move if your knife is out. Weapon restriction: Judge only.
+735. Challenge: only move if your knife is out. Weapon restriction: Marshal only.
+736. Challenge: only move if your knife is out. Weapon restriction: Odin only.
+737. Challenge: only move if your knife is out. Weapon restriction: Operator only.
+738. Challenge: only move if your knife is out. Weapon restriction: Outlaw only.
+739. Challenge: only move if your knife is out. Weapon restriction: Phantom only.
+740. Challenge: only move if your knife is out. Weapon restriction: Sheriff only.
+741. Challenge: only move if your knife is out. Weapon restriction: Shorty only.
+742. Challenge: only move if your knife is out. Weapon restriction: Spectre only.
+743. Challenge: only move if your knife is out. Weapon restriction: Stinger only.
+744. Challenge: only move if your knife is out. Weapon restriction: Vandal only.
+745. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Ares only.
+746. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Bucky only.
+747. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Bulldog only.
+748. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Classic only.
+749. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Frenzy only.
+750. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Ghost only.
+751. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Guardian only.
+752. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Judge only.
+753. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Marshal only.
+754. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Odin only.
+755. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Operator only.
+756. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Outlaw only.
+757. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Phantom only.
+758. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Sheriff only.
+759. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Shorty only.
+760. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Spectre only.
+761. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Stinger only.
+762. Challenge: only play for the plant/defuse, no hunting kills. Weapon restriction: Vandal only.
+763. Challenge: only shoot while jumping. Weapon restriction: Ares only.
+764. Challenge: only shoot while jumping. Weapon restriction: Bucky only.
+765. Challenge: only shoot while jumping. Weapon restriction: Bulldog only.
+766. Challenge: only shoot while jumping. Weapon restriction: Classic only.
+767. Challenge: only shoot while jumping. Weapon restriction: Frenzy only.
+768. Challenge: only shoot while jumping. Weapon restriction: Ghost only.
+769. Challenge: only shoot while jumping. Weapon restriction: Guardian only.
+770. Challenge: only shoot while jumping. Weapon restriction: Judge only.
+771. Challenge: only shoot while jumping. Weapon restriction: Marshal only.
+772. Challenge: only shoot while jumping. Weapon restriction: Odin only.
+773. Challenge: only shoot while jumping. Weapon restriction: Operator only.
+774. Challenge: only shoot while jumping. Weapon restriction: Outlaw only.
+775. Challenge: only shoot while jumping. Weapon restriction: Phantom only.
+776. Challenge: only shoot while jumping. Weapon restriction: Sheriff only.
+777. Challenge: only shoot while jumping. Weapon restriction: Shorty only.
+778. Challenge: only shoot while jumping. Weapon restriction: Spectre only.
+779. Challenge: only shoot while jumping. Weapon restriction: Stinger only.
+780. Challenge: only shoot while jumping. Weapon restriction: Vandal only.
+781. Challenge: only shoot while standing perfectly still. Weapon restriction: Ares only.
+782. Challenge: only shoot while standing perfectly still. Weapon restriction: Bucky only.
+783. Challenge: only shoot while standing perfectly still. Weapon restriction: Bulldog only.
+784. Challenge: only shoot while standing perfectly still. Weapon restriction: Classic only.
+785. Challenge: only shoot while standing perfectly still. Weapon restriction: Frenzy only.
+786. Challenge: only shoot while standing perfectly still. Weapon restriction: Ghost only.
+787. Challenge: only shoot while standing perfectly still. Weapon restriction: Guardian only.
+788. Challenge: only shoot while standing perfectly still. Weapon restriction: Judge only.
+789. Challenge: only shoot while standing perfectly still. Weapon restriction: Marshal only.
+790. Challenge: only shoot while standing perfectly still. Weapon restriction: Odin only.
+791. Challenge: only shoot while standing perfectly still. Weapon restriction: Operator only.
+792. Challenge: only shoot while standing perfectly still. Weapon restriction: Outlaw only.
+793. Challenge: only shoot while standing perfectly still. Weapon restriction: Phantom only.
+794. Challenge: only shoot while standing perfectly still. Weapon restriction: Sheriff only.
+795. Challenge: only shoot while standing perfectly still. Weapon restriction: Shorty only.
+796. Challenge: only shoot while standing perfectly still. Weapon restriction: Spectre only.
+797. Challenge: only shoot while standing perfectly still. Weapon restriction: Stinger only.
+798. Challenge: only shoot while standing perfectly still. Weapon restriction: Vandal only.
+799. Challenge: only talk in the first person. Weapon restriction: Ares only.
+800. Challenge: only talk in the first person. Weapon restriction: Bucky only.
+801. Challenge: only talk in the first person. Weapon restriction: Bulldog only.
+802. Challenge: only talk in the first person. Weapon restriction: Classic only.
+803. Challenge: only talk in the first person. Weapon restriction: Frenzy only.
+804. Challenge: only talk in the first person. Weapon restriction: Ghost only.
+805. Challenge: only talk in the first person. Weapon restriction: Guardian only.
+806. Challenge: only talk in the first person. Weapon restriction: Judge only.
+807. Challenge: only talk in the first person. Weapon restriction: Marshal only.
+808. Challenge: only talk in the first person. Weapon restriction: Odin only.
+809. Challenge: only talk in the first person. Weapon restriction: Operator only.
+810. Challenge: only talk in the first person. Weapon restriction: Outlaw only.
+811. Challenge: only talk in the first person. Weapon restriction: Phantom only.
+812. Challenge: only talk in the first person. Weapon restriction: Sheriff only.
+813. Challenge: only talk in the first person. Weapon restriction: Shorty only.
+814. Challenge: only talk in the first person. Weapon restriction: Spectre only.
+815. Challenge: only talk in the first person. Weapon restriction: Stinger only.
+816. Challenge: only talk in the first person. Weapon restriction: Vandal only.
+817. Challenge: only use pings (no voice/text). Weapon restriction: Ares only.
+818. Challenge: only use pings (no voice/text). Weapon restriction: Bucky only.
+819. Challenge: only use pings (no voice/text). Weapon restriction: Bulldog only.
+820. Challenge: only use pings (no voice/text). Weapon restriction: Classic only.
+821. Challenge: only use pings (no voice/text). Weapon restriction: Frenzy only.
+822. Challenge: only use pings (no voice/text). Weapon restriction: Ghost only.
+823. Challenge: only use pings (no voice/text). Weapon restriction: Guardian only.
+824. Challenge: only use pings (no voice/text). Weapon restriction: Judge only.
+825. Challenge: only use pings (no voice/text). Weapon restriction: Marshal only.
+826. Challenge: only use pings (no voice/text). Weapon restriction: Odin only.
+827. Challenge: only use pings (no voice/text). Weapon restriction: Operator only.
+828. Challenge: only use pings (no voice/text). Weapon restriction: Outlaw only.
+829. Challenge: only use pings (no voice/text). Weapon restriction: Phantom only.
+830. Challenge: only use pings (no voice/text). Weapon restriction: Sheriff only.
+831. Challenge: only use pings (no voice/text). Weapon restriction: Shorty only.
+832. Challenge: only use pings (no voice/text). Weapon restriction: Spectre only.
+833. Challenge: only use pings (no voice/text). Weapon restriction: Stinger only.
+834. Challenge: only use pings (no voice/text). Weapon restriction: Vandal only.
+835. Challenge: play with 1% volume. Weapon restriction: Ares only.
+836. Challenge: play with 1% volume. Weapon restriction: Bucky only.
+837. Challenge: play with 1% volume. Weapon restriction: Bulldog only.
+838. Challenge: play with 1% volume. Weapon restriction: Classic only.
+839. Challenge: play with 1% volume. Weapon restriction: Frenzy only.
+840. Challenge: play with 1% volume. Weapon restriction: Ghost only.
+841. Challenge: play with 1% volume. Weapon restriction: Guardian only.
+842. Challenge: play with 1% volume. Weapon restriction: Judge only.
+843. Challenge: play with 1% volume. Weapon restriction: Marshal only.
+844. Challenge: play with 1% volume. Weapon restriction: Odin only.
+845. Challenge: play with 1% volume. Weapon restriction: Operator only.
+846. Challenge: play with 1% volume. Weapon restriction: Outlaw only.
+847. Challenge: play with 1% volume. Weapon restriction: Phantom only.
+848. Challenge: play with 1% volume. Weapon restriction: Sheriff only.
+849. Challenge: play with 1% volume. Weapon restriction: Shorty only.
+850. Challenge: play with 1% volume. Weapon restriction: Spectre only.
+851. Challenge: play with 1% volume. Weapon restriction: Stinger only.
+852. Challenge: play with 1% volume. Weapon restriction: Vandal only.
+853. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Ares only.
+854. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Bucky only.
+855. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Bulldog only.
+856. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Classic only.
+857. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Frenzy only.
+858. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Ghost only.
+859. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Guardian only.
+860. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Judge only.
+861. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Marshal only.
+862. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Odin only.
+863. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Operator only.
+864. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Outlaw only.
+865. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Phantom only.
+866. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Sheriff only.
+867. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Shorty only.
+868. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Spectre only.
+869. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Stinger only.
+870. Challenge: play with a square crosshair that covers the enemy. Weapon restriction: Vandal only.
+871. Challenge: repeat everything your teammates say. Weapon restriction: Ares only.
+872. Challenge: repeat everything your teammates say. Weapon restriction: Bucky only.
+873. Challenge: repeat everything your teammates say. Weapon restriction: Bulldog only.
+874. Challenge: repeat everything your teammates say. Weapon restriction: Classic only.
+875. Challenge: repeat everything your teammates say. Weapon restriction: Frenzy only.
+876. Challenge: repeat everything your teammates say. Weapon restriction: Ghost only.
+877. Challenge: repeat everything your teammates say. Weapon restriction: Guardian only.
+878. Challenge: repeat everything your teammates say. Weapon restriction: Judge only.
+879. Challenge: repeat everything your teammates say. Weapon restriction: Marshal only.
+880. Challenge: repeat everything your teammates say. Weapon restriction: Odin only.
+881. Challenge: repeat everything your teammates say. Weapon restriction: Operator only.
+882. Challenge: repeat everything your teammates say. Weapon restriction: Outlaw only.
+883. Challenge: repeat everything your teammates say. Weapon restriction: Phantom only.
+884. Challenge: repeat everything your teammates say. Weapon restriction: Sheriff only.
+885. Challenge: repeat everything your teammates say. Weapon restriction: Shorty only.
+886. Challenge: repeat everything your teammates say. Weapon restriction: Spectre only.
+887. Challenge: repeat everything your teammates say. Weapon restriction: Stinger only.
+888. Challenge: repeat everything your teammates say. Weapon restriction: Vandal only.
+889. Challenge: set brightness to minimum. Weapon restriction: Ares only.
+890. Challenge: set brightness to minimum. Weapon restriction: Bucky only.
+891. Challenge: set brightness to minimum. Weapon restriction: Bulldog only.
+892. Challenge: set brightness to minimum. Weapon restriction: Classic only.
+893. Challenge: set brightness to minimum. Weapon restriction: Frenzy only.
+894. Challenge: set brightness to minimum. Weapon restriction: Ghost only.
+895. Challenge: set brightness to minimum. Weapon restriction: Guardian only.
+896. Challenge: set brightness to minimum. Weapon restriction: Judge only.
+897. Challenge: set brightness to minimum. Weapon restriction: Marshal only.
+898. Challenge: set brightness to minimum. Weapon restriction: Odin only.
+899. Challenge: set brightness to minimum. Weapon restriction: Operator only.
+900. Challenge: set brightness to minimum. Weapon restriction: Outlaw only.
+901. Challenge: set brightness to minimum. Weapon restriction: Phantom only.
+902. Challenge: set brightness to minimum. Weapon restriction: Sheriff only.
+903. Challenge: set brightness to minimum. Weapon restriction: Shorty only.
+904. Challenge: set brightness to minimum. Weapon restriction: Spectre only.
+905. Challenge: set brightness to minimum. Weapon restriction: Stinger only.
+906. Challenge: set brightness to minimum. Weapon restriction: Vandal only.
+907. Challenge: set game language to one you don't speak. Weapon restriction: Ares only.
+908. Challenge: set game language to one you don't speak. Weapon restriction: Bucky only.
+909. Challenge: set game language to one you don't speak. Weapon restriction: Bulldog only.
+910. Challenge: set game language to one you don't speak. Weapon restriction: Classic only.
+911. Challenge: set game language to one you don't speak. Weapon restriction: Frenzy only.
+912. Challenge: set game language to one you don't speak. Weapon restriction: Ghost only.
+913. Challenge: set game language to one you don't speak. Weapon restriction: Guardian only.
+914. Challenge: set game language to one you don't speak. Weapon restriction: Judge only.
+915. Challenge: set game language to one you don't speak. Weapon restriction: Marshal only.
+916. Challenge: set game language to one you don't speak. Weapon restriction: Odin only.
+917. Challenge: set game language to one you don't speak. Weapon restriction: Operator only.
+918. Challenge: set game language to one you don't speak. Weapon restriction: Outlaw only.
+919. Challenge: set game language to one you don't speak. Weapon restriction: Phantom only.
+920. Challenge: set game language to one you don't speak. Weapon restriction: Sheriff only.
+921. Challenge: set game language to one you don't speak. Weapon restriction: Shorty only.
+922. Challenge: set game language to one you don't speak. Weapon restriction: Spectre only.
+923. Challenge: set game language to one you don't speak. Weapon restriction: Stinger only.
+924. Challenge: set game language to one you don't speak. Weapon restriction: Vandal only.
+925. Challenge: sing all your callouts. Weapon restriction: Ares only.
+926. Challenge: sing all your callouts. Weapon restriction: Bucky only.
+927. Challenge: sing all your callouts. Weapon restriction: Bulldog only.
+928. Challenge: sing all your callouts. Weapon restriction: Classic only.
+929. Challenge: sing all your callouts. Weapon restriction: Frenzy only.
+930. Challenge: sing all your callouts. Weapon restriction: Ghost only.
+931. Challenge: sing all your callouts. Weapon restriction: Guardian only.
+932. Challenge: sing all your callouts. Weapon restriction: Judge only.
+933. Challenge: sing all your callouts. Weapon restriction: Marshal only.
+934. Challenge: sing all your callouts. Weapon restriction: Odin only.
+935. Challenge: sing all your callouts. Weapon restriction: Operator only.
+936. Challenge: sing all your callouts. Weapon restriction: Outlaw only.
+937. Challenge: sing all your callouts. Weapon restriction: Phantom only.
+938. Challenge: sing all your callouts. Weapon restriction: Sheriff only.
+939. Challenge: sing all your callouts. Weapon restriction: Shorty only.
+940. Challenge: sing all your callouts. Weapon restriction: Spectre only.
+941. Challenge: sing all your callouts. Weapon restriction: Stinger only.
+942. Challenge: sing all your callouts. Weapon restriction: Vandal only.
+943. Challenge: speak in a pirate accent. Weapon restriction: Ares only.
+944. Challenge: speak in a pirate accent. Weapon restriction: Bucky only.
+945. Challenge: speak in a pirate accent. Weapon restriction: Bulldog only.
+946. Challenge: speak in a pirate accent. Weapon restriction: Classic only.
+947. Challenge: speak in a pirate accent. Weapon restriction: Frenzy only.
+948. Challenge: speak in a pirate accent. Weapon restriction: Ghost only.
+949. Challenge: speak in a pirate accent. Weapon restriction: Guardian only.
+950. Challenge: speak in a pirate accent. Weapon restriction: Judge only.
+951. Challenge: speak in a pirate accent. Weapon restriction: Marshal only.
+952. Challenge: speak in a pirate accent. Weapon restriction: Odin only.
+953. Challenge: speak in a pirate accent. Weapon restriction: Operator only.
+954. Challenge: speak in a pirate accent. Weapon restriction: Outlaw only.
+955. Challenge: speak in a pirate accent. Weapon restriction: Phantom only.
+956. Challenge: speak in a pirate accent. Weapon restriction: Sheriff only.
+957. Challenge: speak in a pirate accent. Weapon restriction: Shorty only.
+958. Challenge: speak in a pirate accent. Weapon restriction: Spectre only.
+959. Challenge: speak in a pirate accent. Weapon restriction: Stinger only.
+960. Challenge: speak in a pirate accent. Weapon restriction: Vandal only.
+961. Challenge: speak like a robot. Weapon restriction: Ares only.
+962. Challenge: speak like a robot. Weapon restriction: Bucky only.
+963. Challenge: speak like a robot. Weapon restriction: Bulldog only.
+964. Challenge: speak like a robot. Weapon restriction: Classic only.
+965. Challenge: speak like a robot. Weapon restriction: Frenzy only.
+966. Challenge: speak like a robot. Weapon restriction: Ghost only.
+967. Challenge: speak like a robot. Weapon restriction: Guardian only.
+968. Challenge: speak like a robot. Weapon restriction: Judge only.
+969. Challenge: speak like a robot. Weapon restriction: Marshal only.
+970. Challenge: speak like a robot. Weapon restriction: Odin only.
+971. Challenge: speak like a robot. Weapon restriction: Operator only.
+972. Challenge: speak like a robot. Weapon restriction: Outlaw only.
+973. Challenge: speak like a robot. Weapon restriction: Phantom only.
+974. Challenge: speak like a robot. Weapon restriction: Sheriff only.
+975. Challenge: speak like a robot. Weapon restriction: Shorty only.
+976. Challenge: speak like a robot. Weapon restriction: Spectre only.
+977. Challenge: speak like a robot. Weapon restriction: Stinger only.
+978. Challenge: speak like a robot. Weapon restriction: Vandal only.
+979. Challenge: spend all credits every round. Weapon restriction: Ares only.
+980. Challenge: spend all credits every round. Weapon restriction: Bucky only.
+981. Challenge: spend all credits every round. Weapon restriction: Bulldog only.
+982. Challenge: spend all credits every round. Weapon restriction: Classic only.
+983. Challenge: spend all credits every round. Weapon restriction: Frenzy only.
+984. Challenge: spend all credits every round. Weapon restriction: Ghost only.
+985. Challenge: spend all credits every round. Weapon restriction: Guardian only.
+986. Challenge: spend all credits every round. Weapon restriction: Judge only.
+987. Challenge: spend all credits every round. Weapon restriction: Marshal only.
+988. Challenge: spend all credits every round. Weapon restriction: Odin only.
+989. Challenge: spend all credits every round. Weapon restriction: Operator only.
+990. Challenge: spend all credits every round. Weapon restriction: Outlaw only.
+991. Challenge: spend all credits every round. Weapon restriction: Phantom only.
+992. Challenge: spend all credits every round. Weapon restriction: Sheriff only.
+993. Challenge: spend all credits every round. Weapon restriction: Shorty only.
+994. Challenge: spend all credits every round. Weapon restriction: Spectre only.
+995. Challenge: spend all credits every round. Weapon restriction: Stinger only.
+996. Challenge: spend all credits every round. Weapon restriction: Vandal only.
+997. Challenge: spin 360 degrees before every shot. Weapon restriction: Ares only.
+998. Challenge: spin 360 degrees before every shot. Weapon restriction: Bucky only.
+999. Challenge: spin 360 degrees before every shot. Weapon restriction: Bulldog only.
+1000. Challenge: spin 360 degrees before every shot. Weapon restriction: Classic only.

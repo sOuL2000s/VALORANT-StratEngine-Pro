@@ -203,28 +203,171 @@
             width: 100%;
             height: 600px;
             background: #05090d;
+            background-image: 
+                linear-gradient(to bottom, transparent 49.5%, rgba(255,255,255,0.05) 50%, transparent 50.5%),
+                radial-gradient(circle at 50% 50%, #0a141d 0%, #05090d 100%);
             border: 1px solid var(--val-red);
             position: relative;
             overflow: hidden;
-            cursor: crosshair;
+            cursor: none;
             border-radius: 8px;
             box-shadow: inset 0 0 50px rgba(255, 70, 85, 0.1);
+            user-select: none;
         }
+
+        #aim-crosshair-active {
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            transition: transform 0.03s linear; /* Faster response */
+        }
+
         .aim-target {
             position: absolute;
-            width: 40px; height: 40px;
-            background: radial-gradient(circle, var(--val-red), var(--val-dark-red));
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--val-red);
+            width: 30px; height: 35px;
+            background: #ece8e1;
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
             transform: translate(-50%, -50%);
-            transition: width 0.1s, height 0.1s;
-            border: 2px solid white;
+            border: 2px solid var(--val-red);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            transition: transform 0.1s ease-out;
+            transform-origin: center center;
         }
-        .aim-target:active { transform: translate(-50%, -50%) scale(0.8); }
+
+        .aim-target::before { /* Representing "Head" */
+            content: '';
+            width: 100%;
+            height: 40%;
+            background: var(--val-red);
+            margin-bottom: 2px;
+        }
+
+        .aim-target.tracking {
+            transition: top 0.5s linear, left 0.5s linear;
+        }
+
+        .aim-target:active { transform: translate(-50%, -50%) scale(0.9); }
+        
         .aim-ui { 
-            display: flex; gap: 20px; margin-bottom: 30px; align-items: center; 
+            display: flex; gap: 15px; margin-bottom: 20px; align-items: center; 
             flex-wrap: wrap; justify-content: center;
+            background: rgba(255,255,255,0.02);
+            padding: 15px;
+            border-radius: 4px;
         }
+
+        .aim-feedback {
+            position: absolute;
+            color: var(--val-red);
+            font-family: 'Orbitron';
+            font-weight: 900;
+            font-size: 0.8rem;
+            pointer-events: none;
+            animation: feedbackRise 0.5s ease-out forwards;
+        }
+
+        @keyframes feedbackRise {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-30px); opacity: 0; }
+        }
+
+        .movement-status {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Orbitron';
+            font-size: 0.7rem;
+            color: white;
+            display: flex;
+            gap: 10px;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 10px;
+        }
+        .status-light { width: 8px; height: 8px; border-radius: 50%; background: #555; }
+        .status-light.active { background: var(--val-red); box-shadow: 0 0 8px var(--val-red); }
+
+        /* Crosshair Generator */
+        .crosshair-editor {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        @media (max-width: 900px) { .crosshair-editor { grid-template-columns: 1fr; } }
+
+        .crosshair-preview {
+            aspect-ratio: 16/9;
+            background: url('https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt7a02c89270570b6d/60e3cc9e7826356767674092/Valorant_Sunset_Map.jpg') center/cover;
+            border: 2px solid var(--val-red);
+            position: relative;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            transition: background 0.3s ease;
+            image-rendering: pixelated; /* Sharp crosshair */
+        }
+
+        .crosshair-render {
+            position: relative;
+            pointer-events: none;
+            width: 1px;
+            height: 1px;
+            display: grid;
+            place-items: center;
+            transition: transform 0.1s linear;
+        }
+
+        .crosshair-line {
+            position: absolute;
+            background: #00ff00;
+            transition: all 0.1s ease-out;
+            shape-rendering: crispEdges;
+        }
+
+        /* Toast Notification */
+        #val-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--val-red);
+            color: white;
+            padding: 15px 30px;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            z-index: 5000;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transform: translateX(200%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--neon-glow);
+        }
+        #val-toast.show { transform: translateX(0); }
+
+        .firing-error-active .crosshair-line.line-up { transform: translate(-50%, calc(-50% - 10px)); }
+        .firing-error-active .crosshair-line.line-down { transform: translate(-50%, calc(-50% + 10px)); }
+        .firing-error-active .crosshair-line.line-left { transform: translate(calc(-50% - 10px), -50%); }
+        .firing-error-active .crosshair-line.line-right { transform: translate(calc(-50% + 10px), -50%); }
+
+        .crosshair-controls {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border: 1px solid var(--glass-border);
+            height: fit-content;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .control-group { margin-bottom: 20px; }
+        .control-group label { display: block; font-family: 'Orbitron'; font-size: 0.7rem; margin-bottom: 8px; opacity: 0.7; }
+        .control-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .control-row input[type="range"] { flex: 1; accent-color: var(--val-red); }
+        .control-row span { font-family: 'Orbitron'; font-size: 0.8rem; width: 30px; text-align: right; }
 
         .meta-tag { 
             background: var(--val-red); 
@@ -244,7 +387,7 @@
 
         .val-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
+            background: #161b22;
             border: 1px solid var(--glass-border);
             padding: 15px 25px;
             color: var(--val-white);
@@ -255,8 +398,21 @@
             border-radius: 2px;
         }
 
+        select.val-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            cursor: pointer;
+        }
+
+        select option {
+            background: #161b22;
+            color: var(--val-white);
+        }
+
         .val-input:focus {
-            background: rgba(255, 255, 255, 0.06);
+            background: #1c242d;
             border-color: var(--val-red);
             box-shadow: 0 0 20px rgba(255, 70, 85, 0.1);
         }
@@ -577,6 +733,18 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
             AIM TRAINING
         </li>
+        <li class="nav-item" onclick="switchTab('crosshair')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
+            CROSSHAIR GEN
+        </li>
+        <li class="nav-item" onclick="switchTab('lineups')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z"/></svg>
+            LINEUPS & SETUPS
+        </li>
+        <li class="nav-item" onclick="switchTab('challenge')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13,10H18L12,16L6,10H11V3H13V10M4,19H20V21H4V19Z"/></svg>
+            THE CHALLENGE
+        </li>
     </ul>
     <div style="padding: 25px; border-top: 1px solid var(--glass-border);">
         <button class="btn-restart" style="width: 100%" onclick="restartGame()">RESTART SYSTEM</button>
@@ -695,21 +863,51 @@
 
     <!-- TAB: AIM TRAINING -->
     <div id="tab-aim" class="main-tab">
-        <h2 style="margin-bottom: 30px;">Neural Reflex Trainer</h2>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+            <h2>Tactical Precision Lab</h2>
+            <div style="font-size: 0.7rem; opacity: 0.6; text-align: right;">
+                USE <span style="color:var(--val-red)">W A S D</span> TO TEST MOVEMENT PENALTY<br>
+                STOP MOVING FOR 100% ACCURACY
+            </div>
+        </div>
+        
         <div class="aim-ui">
             <button class="val-btn btn-red" id="aim-start-btn" onclick="startAimTrainer()">START SESSION</button>
-            <div class="meta-tag">SCORE: <span id="aim-score">0</span></div>
-            <div class="meta-tag">TIME: <span id="aim-timer">30</span>s</div>
-            <select id="aim-diff" class="btn-restart" style="height:45px; background: #161b22;">
-                <option value="easy">IRON (EASY)</option>
-                <option value="med" selected>PLATINUM (MEDIUM)</option>
-                <option value="hard">RADIANT (HARD)</option>
-            </select>
+            
+            <div style="display:flex; gap:10px;">
+                <div class="meta-tag">TIME: <span id="aim-timer">30</span>s</div>
+                <div class="meta-tag">SC: <span id="aim-score">0</span></div>
+                <div class="meta-tag">TTK: <span id="aim-avg-ttk">0</span>ms</div>
+                <div class="meta-tag">ACC: <span id="aim-acc">0</span>%</div>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <select id="aim-mode" class="btn-restart" style="height:45px; background: #161b22; border-color: var(--val-blue); color: var(--val-blue);">
+                    <option value="flick">MICRO-FLICKS</option>
+                    <option value="track">TRACKING</option>
+                    <option value="burst">BURST CONTROL</option>
+                </select>
+
+                <select id="aim-diff" class="btn-restart" style="height:45px; background: #161b22;">
+                    <option value="easy">IRON (EASY)</option>
+                    <option value="med" selected>PLATINUM (MEDIUM)</option>
+                    <option value="hard">RADIANT (HARD)</option>
+                </select>
+            </div>
         </div>
-        <div class="aim-container" id="aim-arena">
-            <div id="aim-hint" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.3; text-align:center;">
-                <h3>READY TO DEPLOY?</h3>
-                <p>Click start to begin reflex test</p>
+
+        <div class="aim-container" id="aim-arena" onmousemove="updateAimCrosshair(event)" onmousedown="aimFire(event)">
+            <div id="aim-crosshair-active"></div>
+            <div id="aim-hint" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.3; text-align:center; pointer-events:none;">
+                <h3>CALIBRATE NEURAL LINK</h3>
+                <p>Click start to begin tactical drill</p>
+            </div>
+            <div class="movement-status">
+                MOVMNT: 
+                <div id="status-w" class="status-light">W</div>
+                <div id="status-a" class="status-light">A</div>
+                <div id="status-s" class="status-light">S</div>
+                <div id="status-d" class="status-light">D</div>
             </div>
         </div>
     </div>
@@ -745,6 +943,210 @@
         <h3 style="margin-bottom: 20px;">Randomized Agents:</h3>
         <div class="agent-grid" id="randomizer-output">
             <p style="opacity: 0.7;">Click a button above to randomize!</p>
+        </div>
+    </div>
+
+    <!-- TAB: LINEUPS & SETUPS -->
+    <div id="tab-lineups" class="main-tab">
+        <h2 style="margin-bottom: 30px;">Lineups & Tactical Setups</h2>
+        
+        <div class="glass-card" style="margin-bottom: 30px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="control-group">
+                    <label>SELECT MAP</label>
+                    <select class="val-input" id="lineup-map-select" onchange="updateLineupDisplay()">
+                        <option value="ASCENT">ASCENT</option>
+                        <option value="BIND">BIND</option>
+                        <option value="HAVEN">HAVEN</option>
+                        <option value="SPLIT">SPLIT</option>
+                        <option value="ICEBOX">ICEBOX</option>
+                        <option value="BREEZE">BREEZE</option>
+                        <option value="FRACTURE">FRACTURE</option>
+                        <option value="PEARL">PEARL</option>
+                        <option value="LOTUS">LOTUS</option>
+                        <option value="SUNSET">SUNSET</option>
+                        <option value="ABYSS">ABYSS</option>
+                        <option value="CORRODE">CORRODE</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>SELECT AGENT</label>
+                    <select class="val-input" id="lineup-agent-select" onchange="updateLineupDisplay()">
+                        <optgroup label="CONTROLLERS">
+                            <option value="Brimstone">BRIMSTONE</option>
+                            <option value="Omen">OMEN</option>
+                            <option value="Viper">VIPER</option>
+                            <option value="Astra">ASTRA</option>
+                            <option value="Harbor">HARBOR</option>
+                            <option value="Clove">CLOVE</option>
+                            <option value="Miks">MIKS</option>
+                        </optgroup>
+                        <optgroup label="SENTINELS">
+                            <option value="Sage">SAGE</option>
+                            <option value="Cypher">CYPHER</option>
+                            <option value="Killjoy">KILLJOY</option>
+                            <option value="Chamber">CHAMBER</option>
+                            <option value="Deadlock">DEADLOCK</option>
+                            <option value="Vyse">VYSE</option>
+                            <option value="Veto">VETO</option>
+                        </optgroup>
+                        <optgroup label="INITIATORS">
+                            <option value="Sova">SOVA</option>
+                            <option value="Breach">BREACH</option>
+                            <option value="Skye">SKYE</option>
+                            <option value="KAY/O">KAY/O</option>
+                            <option value="Fade">FADE</option>
+                            <option value="Gekko">GEKKO</option>
+                            <option value="Tejo">TEJO</option>
+                        </optgroup>
+                        <optgroup label="DUELISTS">
+                            <option value="Jett">JETT</option>
+                            <option value="Phoenix">PHOENIX</option>
+                            <option value="Raze">RAZE</option>
+                            <option value="Reyna">REYNA</option>
+                            <option value="Yoru">YORU</option>
+                            <option value="Neon">NEON</option>
+                            <option value="Iso">ISO</option>
+                            <option value="Waylay">WAYLAY</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <div class="glass-card" style="border-left: 4px solid var(--val-red);">
+                <h3 style="color: var(--val-red); font-size: 0.9rem; margin-bottom: 20px;">ATTACKING: LINEUPS & EXECUTES</h3>
+                <div id="lineup-attack-content" style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;"></div>
+            </div>
+            <div class="glass-card" style="border-left: 4px solid var(--val-blue);">
+                <h3 style="color: var(--val-blue); font-size: 0.9rem; margin-bottom: 20px;">DEFENDING: SETUPS & ONE-WAYS</h3>
+                <div id="lineup-defend-content" style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: THE CHALLENGE -->
+    <div id="tab-challenge" class="main-tab">
+        <h2 style="margin-bottom: 10px;">The Challenge</h2>
+        <p style="opacity: 0.7; margin-bottom: 30px;">A randomized tactical mandate. Once generated, you must follow it for the entire match. No choice. No retreat.</p>
+        
+        <div class="glass-card" style="text-align: center; padding: 60px 40px; border: 2px dashed var(--val-red); background: rgba(255, 70, 85, 0.02);">
+            <div id="challenge-display">
+                <h3 style="color: var(--val-red); font-size: 1.5rem; letter-spacing: 5px; margin-bottom: 20px;">SYSTEM READY</h3>
+                <p style="font-size: 1.2rem; opacity: 0.5;">Click below to deploy a match-wide directive.</p>
+            </div>
+            
+            <div style="margin-top: 40px;">
+                <button class="val-btn btn-red" id="btn-challenge" onclick="generateChallenge()">INITIATE CHALLENGE</button>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; border-left: 4px solid var(--val-blue); background: rgba(0, 238, 255, 0.05);">
+            <h4 style="font-family: 'Orbitron'; font-size: 0.8rem; color: var(--val-blue); margin-bottom: 10px;">RULES OF ENGAGEMENT</h4>
+            <ul style="font-size: 0.9rem; opacity: 0.8; list-style-position: inside;">
+                <li>The challenge applies to every single round of the match.</li>
+                <li>Failing the challenge constitutes a tactical forfeit.</li>
+                <li>Only exception: You may use abilities as normal unless the challenge says otherwise.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- TAB: CROSSHAIR GENERATOR -->
+    <div id="tab-crosshair" class="main-tab">
+        <h2 style="margin-bottom: 30px;">Crosshair Lab</h2>
+        <div class="crosshair-editor">
+            <div class="crosshair-preview" id="ch-preview">
+                <div class="crosshair-render" id="ch-render"></div>
+            </div>
+            <div class="crosshair-controls">
+                <div class="control-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label style="margin-bottom: 0;">PREVIEW</label>
+                        <div class="btn-group" style="display: flex; gap: 5px;">
+                            <button class="copy-btn" onclick="zoomCh(1)">1X</button>
+                            <button class="copy-btn" onclick="zoomCh(2)">2X</button>
+                            <button class="copy-btn" onclick="zoomCh(4)">4X</button>
+                        </div>
+                    </div>
+                    <select class="val-input" id="ch-bg" onchange="updateChBackground(this.value)">
+                        <option value="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt7a02c89270570b6d/60e3cc9e7826356767674092/Valorant_Sunset_Map.jpg">SUNSET (DEFAULT)</option>
+                        <option value="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blta442540b6e92c26d/6047c327598687352358bc73/Icebox_Overview.jpg">ICEBOX (BRIGHT)</option>
+                        <option value="https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt4999f8d1676f284a/60e3c8808940871131c9372a/Valorant_Ascent_Map.jpg">ASCENT (BLUE)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>IMPORT CODE</label>
+                    <input type="text" class="val-input" id="ch-code-input" placeholder="0;P;c;5;..." onchange="importCrosshairCode(this.value)">
+                </div>
+                
+                <div class="control-group">
+                    <label>COLOR (CUSTOM HEX SUPPORT)</label>
+                    <div class="control-row">
+                        <select class="val-input" id="ch-color-preset" onchange="updateChColor(this.value)">
+                            <option value="#00ff00">GREEN</option>
+                            <option value="#ffffff">WHITE</option>
+                            <option value="#ff0000">RED</option>
+                            <option value="#00ffff">CYAN</option>
+                            <option value="#ffff00">YELLOW</option>
+                            <option value="custom">CUSTOM HEX</option>
+                        </select>
+                        <input type="color" id="ch-color-hex" value="#00ff00" oninput="updateCrosshair()" style="width:50px; height:45px; display:none; background:transparent; border:1px solid var(--glass-border);">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>OUTLINES</label>
+                    <div class="control-row">
+                        <input type="checkbox" id="ch-outline-toggle" onchange="updateCrosshair()" checked> <span>ENABLE</span>
+                    </div>
+                    <div class="control-row">
+                        <input type="range" min="0" max="1" step="0.001" value="0.5" id="ch-outline-opacity" oninput="updateCrosshair()"> <span id="val-outline-opacity">0.500</span>
+                    </div>
+                    <div class="control-row">
+                        <input type="range" min="1" max="6" step="1" value="1" id="ch-outline-thick" oninput="updateCrosshair()"> <span id="val-outline-thick">1</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>CENTER DOT</label>
+                    <div class="control-row">
+                        <input type="checkbox" id="ch-dot-enable" onchange="updateCrosshair()"> <span>ENABLE</span>
+                    </div>
+                    <div class="control-row">
+                        <input type="range" min="0" max="1" step="0.001" value="1" id="ch-dot-op" oninput="updateCrosshair()"> <span id="val-dot-op">1.000</span>
+                    </div>
+                    <div class="control-row">
+                        <input type="range" min="1" max="6" value="2" id="ch-dot-size" oninput="updateCrosshair()"> <span id="val-dot-size">2</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>INNER LINES</label>
+                    <div class="control-row"><input type="range" min="0" max="1" step="0.001" value="1" id="ch-inner-op" oninput="updateCrosshair()"> <span id="val-inner-op">1.000</span></div>
+                    <div class="control-row"><input type="range" min="0" max="20" value="4" id="ch-inner-len" oninput="updateCrosshair()"> <span id="val-inner-len">4</span></div>
+                    <div class="control-row"><input type="range" min="0" max="10" value="2" id="ch-inner-thick" oninput="updateCrosshair()"> <span id="val-inner-thick">2</span></div>
+                    <div class="control-row"><input type="range" min="0" max="20" value="2" id="ch-inner-off" oninput="updateCrosshair()"> <span id="val-inner-off">2</span></div>
+                </div>
+
+                <div class="control-group">
+                    <label>OUTER LINES</label>
+                    <div class="control-row"><input type="range" min="0" max="1" step="0.001" value="0" id="ch-outer-op" oninput="updateCrosshair()"> <span id="val-outer-op">0.000</span></div>
+                    <div class="control-row"><input type="range" min="0" max="20" value="2" id="ch-outer-len" oninput="updateCrosshair()"> <span id="val-outer-len">2</span></div>
+                    <div class="control-row"><input type="range" min="0" max="10" value="2" id="ch-outer-thick" oninput="updateCrosshair()"> <span id="val-outer-thick">2</span></div>
+                    <div class="control-row"><input type="range" min="0" max="40" value="10" id="ch-outer-off" oninput="updateCrosshair()"> <span id="val-outer-off">10</span></div>
+                </div>
+
+                <div class="control-group" style="background: rgba(255,70,85,0.05); padding: 15px; border: 1px solid rgba(255,70,85,0.2);">
+                    <label>SIMULATE ERROR</label>
+                    <div class="control-row">
+                        <button class="val-btn btn-outline" style="font-size:0.6rem; padding: 10px;" onmousedown="simulateFiring(true)" onmouseup="simulateFiring(false)">TEST FIRING ERROR</button>
+                    </div>
+                </div>
+
+                <button class="val-btn btn-red" style="width: 100%; margin-top: 20px;" onclick="copyCrosshairCode()">COPY GENERATED CODE</button>
+            </div>
         </div>
     </div>
 </main>
@@ -793,6 +1195,440 @@
         {a: "Clove", b: "Gekko", score: 85}, {a: "Raze", b: "Fade", score: 98}, {a: "Omen", b: "Viper", score: 92}
     ];
 
+    const masterTactics = {
+        "Controllers": {
+            "Brimstone": {
+                "ASCENT": { att: "Molly for Gen/Hell. Smoke A-Tree & Heaven.", def: "One-way smokes for A-Main." },
+                "BIND": { att: "Triple smoke B-Site. Post-plant molly from long.", def: "Molly for Hookah entry." },
+                "HAVEN": { att: "B-Site post-plant molly.", def: "Smoke A-Main/Garage." },
+                "SPLIT": { att: "Heaven/Screens smokes.", def: "Molly for Mid control." },
+                "ICEBOX": { att: "Smoke for A-Nest.", def: "Molly for default plant denial." },
+                "BREEZE": { att: "Post-plant molly from Cave.", def: "Smoke Mid-Chute." },
+                "FRACTURE": { att: "Full execute A-Site smokes.", def: "Smoke A-Drop." },
+                "PEARL": { att: "Execute smokes for B-Long.", def: "Molly A-Art." },
+                "LOTUS": { att: "Smoke C-Site plant.", def: "Molly A-Rotating doors." },
+                "SUNSET": { att: "Post-plant molly from Market.", def: "Smoke A-Main." },
+                "ABYSS": { att: "Smoke A-Bridge.", def: "Molly B-Bridge chokes." },
+                "CORRODE": { att: "Smoke A-Hall ramps.", def: "Molly B-Salt mine." }
+            },
+            "Omen": {
+                "ASCENT": { att: "Smoke A-Tree & Heaven.", def: "One-way A-Main/B-Main." },
+                "BIND": { att: "Smoke A-Lamps. TP to backsite.", def: "Smoke Hookah entry." },
+                "HAVEN": { att: "Smoke Heaven/C-Link.", def: "One-way Garage door." },
+                "SPLIT": { att: "Aggro smokes for Mid-Vent.", def: "One-way B-Main." },
+                "ICEBOX": { att: "Smoke A-Pipes/Screen.", def: "Smoke for sneaky retakes." },
+                "BREEZE": { att: "Smoke A-Pyramids.", def: "One-way Mid-Chute." },
+                "FRACTURE": { att: "Smoke A-Main/Drop.", def: "One-way A-Dish." },
+                "PEARL": { att: "Smoke B-Tower.", def: "Smoke A-Secret." },
+                "LOTUS": { att: "Smoke A-Tree entry.", def: "One-way C-Mound." },
+                "SUNSET": { att: "Smoke A-Elbow.", def: "One-way A-Main." },
+                "ABYSS": { att: "Smoke A-Drop vision.", def: "One-way A-Drop." },
+                "CORRODE": { att: "Smoke Salt-Mine chokes.", def: "One-way Medieval Alley." }
+            },
+            "Viper": {
+                "ASCENT": { att: "Molly for Gen/Hell.", def: "Wall for A-Main control." },
+                "BIND": { att: "Wall across A-Short/Lamps.", def: "Orb for B-Long/Short." },
+                "HAVEN": { att: "B-Site post-plant molly.", def: "Wall for C-Site/Garage." },
+                "SPLIT": { att: "Orb for A-Screens.", def: "One-way B-Main." },
+                "ICEBOX": { att: "Wall for A-Nest.", def: "Wall for B-Yellow control." },
+                "BREEZE": { att: "The 'A-Pyramid' Wall.", def: "B-Main wall." },
+                "FRACTURE": { att: "Wall for A-Sands/Drop.", def: "Wall for B-Main/Arcade." },
+                "PEARL": { att: "Wall for B-Long.", def: "A-Art molly/smoke setup." },
+                "LOTUS": { att: "Pit for B-Site control.", def: "Wall for C-Mound/Main." },
+                "SUNSET": { att: "Orb for Mid-Tiles.", def: "One-way A-Main." },
+                "ABYSS": { att: "Wall to block Bridge vision.", def: "Orb for A-Drop landing." },
+                "CORRODE": { att: "Post-plant for B-Salt.", def: "Wall for Medieval Alley." }
+            },
+            "Astra": {
+                "ASCENT": { att: "Smoke A-Tree & Heaven.", def: "Stars on A-Short/B-Main." },
+                "BIND": { att: "Gravity Well Hookah.", def: "Stars on A-Short/Bath." },
+                "HAVEN": { att: "Stun for Garage entry.", def: "Stars on A-Short/Garage." },
+                "SPLIT": { att: "Pull/Stun for Mid-Mail entry.", def: "Stars on A-Main/B-Alley." },
+                "ICEBOX": { att: "Smoke A-Screen.", def: "Stars on B-Green." },
+                "BREEZE": { att: "Gravity Well A-Nest.", def: "Stars on Mid-Chute." },
+                "FRACTURE": { att: "Sucker A-Drop.", def: "Stars on B-Arcade." },
+                "PEARL": { att: "Gravity Well B-Link.", def: "Stars on A-Restaurant." },
+                "LOTUS": { att: "Smoke B-Main.", def: "Stars on A-Rotating doors." },
+                "SUNSET": { att: "Stun A-Elbow.", def: "Stars on Mid-Market." },
+                "ABYSS": { att: "Pull enemies off Bridge edge!", def: "Stars on A-Drop." },
+                "CORRODE": { att: "Concuss for Salt-Mine chokes.", def: "Stars on Medieval Alley." }
+            },
+            "Harbor": {
+                "ASCENT": { att: "Wall for B-Lane entry.", def: "Cascade for A-Main hold." },
+                "BIND": { att: "Wall for A-Short push.", def: "Cascade for Hookah delay." },
+                "HAVEN": { att: "Wall for C-Long push.", def: "Cove for B-Site retake." },
+                "SPLIT": { att: "Cascade for Mid-Vent control.", def: "Wall for B-Main/Alley." },
+                "ICEBOX": { att: "Cove for B-Default plant.", def: "Cascade for A-Belt vision." },
+                "BREEZE": { att: "Wall for A-Pyramid push.", def: "Cascades to block Mid-Chute." },
+                "FRACTURE": { att: "Wall for B-Main/Arcade.", def: "Cascade for A-Dish info." },
+                "PEARL": { att: "Cove for B-Long plant.", def: "Double cascades for B-Main." },
+                "LOTUS": { att: "Cove C-Site plant.", def: "Wall for A-Root/Tree." },
+                "SUNSET": { att: "Wall for Mid-Market control.", def: "Cascade for A-Main push." },
+                "ABYSS": { att: "Wall to isolate Bridge lanes.", def: "Cove for Bridge retake." },
+                "CORRODE": { att: "Wall across Medieval Alley.", def: "Cascade for Salt-Mine chokes." }
+            },
+            "Clove": {
+                "ASCENT": { att: "Aggro smokes for Mid-link.", def: "Post-death smokes for A-Main." },
+                "BIND": { att: "Aggro smokes for Hookah.", def: "Post-death smokes for B-Long." },
+                "HAVEN": { att: "Smoke for Garage entry.", def: "Post-death smokes for C-Main." },
+                "SPLIT": { att: "Aggro smokes for Mid-Vent.", def: "Post-death smokes for B-Alley." },
+                "ICEBOX": { att: "Smoke for B-Yellow push.", def: "Post-death smokes for A-Belt." },
+                "BREEZE": { att: "Smoke for Cave/Pyramids.", def: "Post-death smokes for Mid-Chute." },
+                "FRACTURE": { att: "Smoke for A-Main/Drop.", def: "Post-death smokes for B-Canteen." },
+                "PEARL": { att: "Smoke for B-Tower/Link.", def: "Post-death smokes for A-Art." },
+                "LOTUS": { att: "Smoke A-Tree on entry.", def: "Post-death smokes for C-Bend." },
+                "SUNSET": { att: "Smoke for Mid-Tiles.", def: "Post-death smokes for Mid-Tiles." },
+                "ABYSS": { att: "Smoke for A-Drop/Bridge.", def: "Post-death smokes for A-Drop." },
+                "CORRODE": { att: "Smoke for Salt-Mine.", def: "Post-death smokes for Medieval Alley." }
+            },
+            "Miks": {
+                "ASCENT": { att: "Healing smokes on Mid-link.", def: "Smoke A-Main for heals." },
+                "BIND": { att: "Smoke Tunnels to isolate 1v1s.", def: "Healing smokes for Hookah." },
+                "HAVEN": { att: "Smoke Garage for B-Split.", def: "Smoke A-Short for health regens." },
+                "SPLIT": { att: "Smoke Mid-Vents for entry.", def: "Healing smokes for B-Alley." },
+                "ICEBOX": { att: "Smoke A-Screen for plant.", def: "Smoke Pipes for sneaky retakes." },
+                "BREEZE": { att: "Smoke Cave for A-Push.", def: "Healing smokes for B-Main." },
+                "FRACTURE": { att: "Smoke B-Main for heals.", def: "Retake smokes for B-Canteen." },
+                "PEARL": { att: "Smoke A-Secret for plant.", def: "Healing smokes for B-Link." },
+                "LOTUS": { att: "Smoke B-Main for heals.", def: "Smoke C-Mound for isolation." },
+                "SUNSET": { att: "Smoke Mid-Market for entry.", def: "Healing smokes for A-Elbow." },
+                "ABYSS": { att: "Smoke B-Bridge to hide health-regens.", def: "Smoke B-Main for heals." },
+                "CORRODE": { att: "Smoke Salt-Mine entry.", def: "Healing smokes for Medieval Ramps." }
+            }
+        },
+        "Sentinels": {
+            "Sage": {
+                "ASCENT": { att: "Wall A-Switch to close door.", def: "Wall B-Main/Mid-Link." },
+                "BIND": { att: "Wall for B-Long plant.", def: "Wall Hookah entry." },
+                "HAVEN": { att: "Wall Mid-B to split.", def: "Wall C-Long/Garage." },
+                "SPLIT": { att: "Wall Mid-Mail.", def: "Wall B-Main/A-Main." },
+                "ICEBOX": { att: "Wall B-Yellow.", def: "Wall A-Belt/Kitchen." },
+                "BREEZE": { att: "Wall Mid-Tunnel.", def: "Wall B-Main/Mid." },
+                "FRACTURE": { att: "Wall for A-Sands plant.", def: "Wall B-Canteen retake." },
+                "PEARL": { att: "Wall B-Long.", def: "Wall Mid-Art." },
+                "LOTUS": { att: "Wall B-Site.", def: "Wall A-Rotating doors." },
+                "SUNSET": { att: "Wall Mid-Market.", def: "Wall A-Main/B-Main." },
+                "ABYSS": { att: "Wall A-Drop edges.", def: "Wall B-Bridge lanes." },
+                "CORRODE": { att: "Wall B-Alley.", def: "Wall Medieval Ramps." }
+            },
+            "Cypher": {
+                "ASCENT": { att: "Flank trip B-Main.", def: "A-Main one-way cage + Cam." },
+                "BIND": { att: "Trip A-Bath/Short.", def: "One-way cages for Hookah." },
+                "HAVEN": { att: "Flank trip C-Long.", def: "C-Site trips + Garage Cam." },
+                "SPLIT": { att: "Flank trips B-Alley.", def: "A-Screens cam setup." },
+                "ICEBOX": { att: "Flank trip B-Green.", def: "A-Site trip/cam setup." },
+                "BREEZE": { att: "Flank trip Cave.", def: "B-Site cam (Top Wall)." },
+                "FRACTURE": { att: "Trip Dish/Arcade.", def: "A-Main/Sands trip setup." },
+                "PEARL": { att: "Trip A-Restaurant.", def: "B-Hall trip setup." },
+                "LOTUS": { att: "Trip C-Mound.", def: "A-Root trips." },
+                "SUNSET": { att: "Trip Mid-Tiles.", def: "B-Site 'God Cam'." },
+                "ABYSS": { att: "Flank trip A-Drop.", def: "B-Main/Zip trip setup." },
+                "CORRODE": { att: "Trip B-Alley.", def: "Salt-Mine trip/cam setup." }
+            },
+            "Killjoy": {
+                "ASCENT": { att: "Turret Mid-Link.", def: "B-Site setup (Turret on Logs)." },
+                "BIND": { att: "Turret B-Long.", def: "A-Short/Lamps setup." },
+                "HAVEN": { att: "Turret C-Mound.", def: "C-Site setup." },
+                "SPLIT": { att: "Turret Mid-Vents.", def: "A-Heaven/B-Main setup." },
+                "ICEBOX": { att: "Turret A-Belt.", def: "A-Site setup (Nades on Pipes)." },
+                "BREEZE": { att: "Turret Mid-Tunnel.", def: "B-Site turret/alarmbot." },
+                "FRACTURE": { att: "Turret Arcade/Dish.", def: "B-Site Alarmbot setup." },
+                "PEARL": { att: "Turret A-Restaurant.", def: "B-Long alarmbot/nades." },
+                "LOTUS": { att: "Turret C-Mound.", def: "C-Site alarmbot setup." },
+                "SUNSET": { att: "Turret Mid-Tiles.", def: "A-Main Swarm Grenades." },
+                "ABYSS": { att: "Turret B-Bridge.", def: "A-Drop alarmbot/nades." },
+                "CORRODE": { att: "Turret B-Alley.", def: "Setup for A-Castle." }
+            },
+            "Chamber": {
+                "ASCENT": { att: "Trap B-Main.", def: "OP at A-Main." },
+                "BIND": { att: "Trip A-Short.", def: "Headhunter for Hookah." },
+                "HAVEN": { att: "Trap C-Long.", def: "A-Long TP/OP angle." },
+                "SPLIT": { att: "Trap Mid-Mail.", def: "B-Heaven TP/OP angle." },
+                "ICEBOX": { att: "Trip A-Belt.", def: "A-Nest TP/OP angle." },
+                "BREEZE": { att: "Trip B-Main.", def: "Mid-Chute headhunter." },
+                "FRACTURE": { att: "Trip Arcade/Dish.", def: "A-Main TP/OP angle." },
+                "PEARL": { att: "Trip A-Restaurant.", def: "B-Tower TP/OP angle." },
+                "LOTUS": { att: "Trip C-Mound.", def: "C-Site TP/OP angle." },
+                "SUNSET": { att: "Trip Mid-Tiles.", def: "A-Main TP/OP angle." },
+                "ABYSS": { att: "Trip B-Bridge.", def: "A-Tower TP/OP angle." },
+                "CORRODE": { att: "Trap B-Salt Mine.", def: "Medieval Alley TP/OP angle." }
+            },
+            "Deadlock": {
+                "ASCENT": { att: "GravNet B-Main entry.", def: "Barrier Mesh Mid-link." },
+                "BIND": { att: "Wall off Hookah.", def: "Sonic sensor A-Short/Bath." },
+                "HAVEN": { att: "Wall off Garage.", def: "Barrier Mesh B-Main." },
+                "SPLIT": { att: "GravNet Mid-Mail.", def: "Sonic sensor A-Rafters." },
+                "ICEBOX": { att: "Barrier Mesh B-Yellow.", def: "Sonic sensor B-Green." },
+                "BREEZE": { att: "GravNet A-Pyramid.", def: "Barrier Mesh Mid-Tunnel." },
+                "FRACTURE": { att: "GravNet A-Drop.", def: "Shear wall A-Main push." },
+                "PEARL": { att: "Barrier Mesh B-Long.", def: "Sonic sensor A-Art." },
+                "LOTUS": { att: "GravNet C-Site.", def: "Barrier Mesh A-Root." },
+                "SUNSET": { att: "Wall B-Market.", def: "Sonic sensor A-Main lobby." },
+                "ABYSS": { att: "GravNet Bridge edge.", def: "Sonic Sensor on B-Bridge." },
+                "CORRODE": { att: "Barrier Mesh Salt-Mine.", def: "Sonic sensor Medieval Ramps." }
+            },
+            "Vyse": {
+                "ASCENT": { att: "Steel Garden A-Gen entry.", def: "Liquid metal Floor Mid-link." },
+                "BIND": { att: "Steel Garden B-Backsite.", def: "Shear wall A-Short." },
+                "HAVEN": { att: "Steel Garden C-Site retake.", def: "Rose Flash Garage." },
+                "SPLIT": { att: "Steel Garden Mid-Vent.", def: "Liquid metal floor B-Main." },
+                "ICEBOX": { att: "Steel Garden A-Nest.", def: "Shear wall B-Yellow." },
+                "BREEZE": { att: "Steel Garden B-Back.", def: "Rose Flash A-Pyramids." },
+                "FRACTURE": { att: "Steel Garden B-Gen.", def: "Shear wall A-Main." },
+                "PEARL": { att: "Steel Garden B-Tower.", def: "Liquid metal floor A-Art." },
+                "LOTUS": { att: "Steel Garden C-Site retake.", def: "Rose Flash A-Tree." },
+                "SUNSET": { att: "Steel Garden B-Market.", def: "Shear wall A-Elbow." },
+                "ABYSS": { att: "Steel Garden Bridge lanes.", def: "Liquid metal A-Tower." },
+                "CORRODE": { att: "Steel Garden B-Salt Mine.", def: "Shear wall Medieval Ramps." }
+            },
+            "Veto": {
+                "ASCENT": { att: "Proximity trap B-Lane.", def: "Veto-Point A-Main." },
+                "BIND": { att: "Detection zone A-Short.", def: "Proximity traps Hookah." },
+                "HAVEN": { att: "Veto-Point B-Main.", def: "Veto-Point A-Short/Garage." },
+                "SPLIT": { att: "Detection zone Mid-Mail.", def: "Veto-Point B-Alley." },
+                "ICEBOX": { att: "Proximity trap A-Pipes.", def: "Veto-Point B-Green." },
+                "BREEZE": { att: "Detection zone Cave.", def: "Veto-Point Mid-Chute." },
+                "FRACTURE": { att: "Proximity trap Arcade.", def: "Veto-Point A-Sands." },
+                "PEARL": { att: "Detection zones Mid-Art.", def: "Veto-Point B-Tower." },
+                "LOTUS": { att: "Veto-Point C-Mound.", def: "Proximity traps A-Root." },
+                "SUNSET": { att: "Detection zone A-Main.", def: "Veto-Point B-Market." },
+                "ABYSS": { att: "Trap the Zip-lines.", def: "Detection zone A-Drop." },
+                "CORRODE": { att: "Sensor traps Salt-Mine.", def: "Veto-Point Medieval Ramps." }
+            }
+        },
+        "Initiators": {
+            "Sova": {
+                "ASCENT": { att: "God arrow for B-Main.", def: "Recon A-Main/Mid." },
+                "BIND": { att: "Recon A-Short/Bath.", def: "Recon B-Long." },
+                "HAVEN": { att: "Recon C-Long.", def: "Shock dart C-Long/Garage." },
+                "SPLIT": { att: "Recon Mid-Vents.", def: "Recon B-Alley push." },
+                "ICEBOX": { att: "Recon A-Nest.", def: "Recon B-Main info." },
+                "BREEZE": { att: "Cave recon arrow.", def: "B-Main recon info." },
+                "FRACTURE": { att: "Recon A-Main/Sands.", def: "Recon B-Arcade." },
+                "PEARL": { att: "Recon B-Long.", def: "Recon A-Main info." },
+                "LOTUS": { att: "Recon C-Mound.", def: "Recon A-Root info." },
+                "SUNSET": { att: "Recon A-Elbow.", def: "Recon Mid-Tiles." },
+                "ABYSS": { att: "Recon A-Drop entry.", def: "Recon A-Drop info." },
+                "CORRODE": { att: "Recon Medieval Ramps.", def: "Shock dart B-Salt Mine." }
+            },
+            "Breach": {
+                "ASCENT": { att: "Stun B-Main entry.", def: "Fault Line for Mid-link." },
+                "BIND": { att: "Stun A-Lamps entry.", def: "Fault Line for B-Long." },
+                "HAVEN": { att: "Stun Garage entry.", def: "Flash for Garage retake." },
+                "SPLIT": { att: "Stun Mid-Vent.", def: "Fault Line for A-Main." },
+                "ICEBOX": { att: "Stun A-Screen entry.", def: "Fault Line B-Green." },
+                "BREEZE": { att: "Stun A-Nest entry.", def: "Fault Line Cave entry." },
+                "FRACTURE": { att: "Aftershock A-Sandwich.", def: "Flash for A-Dish info." },
+                "PEARL": { att: "Stun B-Tower entry.", def: "Fault Line A-Art." },
+                "LOTUS": { att: "Aftershock A-Tree door.", def: "Flash through rotating doors." },
+                "SUNSET": { att: "Stun B-Market entry.", def: "Fault Line Mid-Tiles." },
+                "ABYSS": { att: "Stun B-Tower entry.", def: "Fault Line A-Drop." },
+                "CORRODE": { att: "Stun Medieval Ramps.", def: "Fault Line Salt-Mine." }
+            },
+            "Skye": {
+                "ASCENT": { att: "Bird Mid-link for info.", def: "Dog A-Main for info." },
+                "BIND": { att: "Dog through Hookah.", def: "Bird B-Long for info." },
+                "HAVEN": { att: "Bird Garage for info.", def: "Dog C-Long for info." },
+                "SPLIT": { att: "Bird Mid-Vents.", def: "Dog B-Alley for info." },
+                "ICEBOX": { att: "Bird A-Belt for info.", def: "Dog B-Main for info." },
+                "BREEZE": { att: "Bird Cave for info.", def: "Dog for Mid-Tunnel info." },
+                "FRACTURE": { att: "Bird A-Main for info.", def: "Dog B-Arcade for info." },
+                "PEARL": { att: "Dog B-Long for info.", def: "Bird Mid-Art for info." },
+                "LOTUS": { att: "Dog C-Mound.", def: "Bird A-Tree for info." },
+                "SUNSET": { att: "Dog A-Main for info.", def: "Bird Mid-Tiles for info." },
+                "ABYSS": { att: "Bird Bridge for info.", def: "Dog A-Drop for info." },
+                "CORRODE": { att: "Dog A-Hall.", def: "Bird B-Alley for info." }
+            },
+            "KAY/O": {
+                "ASCENT": { att: "Knife Gen for entry.", def: "Flash for A-Main retake." },
+                "BIND": { att: "Knife A-Lamps.", def: "Knife B-Long entry." },
+                "HAVEN": { att: "Knife B-Main.", def: "Flash for C-Long retake." },
+                "SPLIT": { att: "Knife B-Heaven.", def: "Knife A-Main push." },
+                "ICEBOX": { att: "Knife A-Nest.", def: "Knife A-Pipes." },
+                "BREEZE": { att: "Knife A-Pyramid.", def: "Flash for Cave retake." },
+                "FRACTURE": { att: "Knife A-Main.", def: "Knife B-Arcade." },
+                "PEARL": { att: "Flash A-Restaurant.", def: "Knife Mid-Art." },
+                "LOTUS": { att: "Knife A-Root.", def: "Flash A-Tree retake." },
+                "SUNSET": { att: "Knife B-Market.", def: "Knife Mid-Tiles." },
+                "ABYSS": { att: "Knife B-Tower.", def: "Knife A-Drop info." },
+                "CORRODE": { att: "Knife Salt-Mine.", def: "Flash Medieval Alley." }
+            },
+            "Fade": {
+                "ASCENT": { att: "Haunt A-Main entry.", def: "Haunt B-Main entry." },
+                "BIND": { att: "Haunt A-Short.", def: "Haunt B-Long." },
+                "HAVEN": { att: "Haunt A-Site.", def: "Haunt C-Long." },
+                "SPLIT": { att: "Haunt Mid-Vents.", def: "Haunt B-Alley." },
+                "ICEBOX": { att: "Haunt A-Belt.", def: "Prowler for B-Main info." },
+                "BREEZE": { att: "Haunt Cave.", def: "Haunt Mid-Tunnel." },
+                "FRACTURE": { att: "Haunt B-Site.", def: "Haunt A-Main." },
+                "PEARL": { att: "Haunt B-Long.", def: "Haunt A-Main." },
+                "LOTUS": { att: "Haunt C-Mound.", def: "Haunt B-Site." },
+                "SUNSET": { att: "Haunt Mid-Tiles.", def: "Haunt A-Main." },
+                "ABYSS": { att: "Haunt A-Drop entry.", def: "Haunt B-Bridge." },
+                "CORRODE": { att: "Haunt B-Alley.", def: "Haunt Medieval Ramps." }
+            },
+            "Gekko": {
+                "ASCENT": { att: "Wingman plant B-Back.", def: "Dizzy for A-Main info." },
+                "BIND": { att: "Wingman plant A-Lamps.", def: "Mosh Pit Hookah." },
+                "HAVEN": { att: "Wingman plant C.", def: "Dizzy B-Main info." },
+                "SPLIT": { att: "Wingman plant A-Rafters.", def: "Dizzy Mid-Vents." },
+                "ICEBOX": { att: "Flash B-Yellow.", def: "Wingman defuse B-Default." },
+                "BREEZE": { att: "Wingman plant A-Pyramid.", def: "Dizzy Cave info." },
+                "FRACTURE": { att: "Wingman plant B-Gen.", def: "Dizzy for A-Dish info." },
+                "PEARL": { att: "Wingman plant B-Long.", def: "Dizzy Mid-Art info." },
+                "LOTUS": { att: "Flash A-Root.", def: "Wingman defuse C-Site." },
+                "SUNSET": { att: "Wingman plant B-Market.", def: "Dizzy Mid-Tiles." },
+                "ABYSS": { att: "Dizzy Bridge info.", def: "Dizzy for Mid-Zip info." },
+                "CORRODE": { att: "Wingman plant Salt-Mine.", def: "Mosh Pit Medieval Ramps." }
+            },
+            "Tejo": {
+                "ASCENT": { att: "Drone B-Main entry.", def: "Info-drone for Mid-Market." },
+                "BIND": { att: "Detection pulse Hookah.", def: "Detection pulse for A-Short Bath." },
+                "HAVEN": { att: "Drone C-Long entry.", def: "Detection pulse Garage." },
+                "SPLIT": { att: "Detection pulse Mid-Mail.", def: "Pulse for B-Alley push." },
+                "ICEBOX": { att: "Drone A-Belt entry.", def: "Detection pulse A-Nest." },
+                "BREEZE": { att: "Long-range drone A-Pyramids.", def: "Long-range drone for B-Main." },
+                "FRACTURE": { att: "Detection pulse Arcade.", def: "Detection pulse A-Sands." },
+                "PEARL": { att: "Drone B-Long entry.", def: "Pulse detection for Mid-Link." },
+                "LOTUS": { att: "Detection pulse C-Mound.", def: "Drone for A-Root info." },
+                "SUNSET": { att: "Drone A-Main entry.", def: "Pulse for A-Main lobby." },
+                "ABYSS": { att: "Drone for Bridge info.", def: "Detection pulse B-Main." },
+                "CORRODE": { att: "Drone Medieval Alley.", def: "Detection pulse for B-Salt Mine." }
+            }
+        },
+        "Duelists": {
+            "Jett": {
+                "ASCENT": { att: "Dash to Gen.", def: "OP at A-Main." },
+                "BIND": { att: "Dash A-Lamps.", def: "OP B-Long." },
+                "HAVEN": { att: "Dash A-Hell.", def: "OP C-Long." },
+                "SPLIT": { att: "Dash Mid-Vents.", def: "Updraft for A-Screens angle." },
+                "ICEBOX": { att: "Dash A-Pipes.", def: "OP B-Yellow." },
+                "BREEZE": { att: "Dash A-Pyramid.", def: "OP Mid-Chute." },
+                "FRACTURE": { att: "Dash A-Sands.", def: "OP B-Main." },
+                "PEARL": { att: "Dash B-Screen.", def: "OP A-Main." },
+                "LOTUS": { att: "Dash C-Site.", def: "OP C-Mound." },
+                "SUNSET": { att: "Dash B-Market.", def: "OP A-Main." },
+                "ABYSS": { att: "Dash A-Drop.", def: "OP Bridge lanes." },
+                "CORRODE": { att: "Dash to Medieval Ramps.", def: "OP B-Alley." }
+            },
+            "Phoenix": {
+                "ASCENT": { att: "Flash B-Lane entry.", def: "Flash A-Main push." },
+                "BIND": { att: "Flash A-Bath entry.", def: "Flash B-Short." },
+                "HAVEN": { att: "Flash Garage entry.", def: "Flash C-Long push." },
+                "SPLIT": { att: "Flash Mid-Mail.", def: "Flash B-Main push." },
+                "ICEBOX": { att: "Flash A-Belt.", def: "Flash B-Green." },
+                "BREEZE": { att: "Flash Cave entry.", def: "Flash Mid-Tunnel." },
+                "FRACTURE": { att: "Flash A-Sands.", def: "Flash B-Arcade." },
+                "PEARL": { att: "Flash A-Restaurant.", def: "Flash B-Tower." },
+                "LOTUS": { att: "Flash C-Mound.", def: "Flash A-Tree." },
+                "SUNSET": { att: "Flash B-Market.", def: "Flash A-Main." },
+                "ABYSS": { att: "Flash Bridge entry.", def: "Flash A-Drop." },
+                "CORRODE": { att: "Flash Medieval Ramps.", def: "Flash Salt-Mine." }
+            },
+            "Raze": {
+                "ASCENT": { att: "Satchel to B-Backsite.", def: "Grenade B-Main." },
+                "BIND": { att: "Satchel through Hookah.", def: "Grenade A-Short." },
+                "HAVEN": { att: "Satchel C-Long entry.", def: "Grenade Garage." },
+                "SPLIT": { att: "Satchel A-Rafters.", def: "Grenade B-Main." },
+                "ICEBOX": { att: "Satchel B-Top.", def: "Grenade A-Pipes." },
+                "BREEZE": { att: "Satchel A-Pyramid.", def: "Grenade Cave." },
+                "FRACTURE": { att: "Satchel B-Gen.", def: "Grenade A-Main." },
+                "PEARL": { att: "Satchel B-Screen.", def: "Grenade A-Art." },
+                "LOTUS": { att: "Satchel A-Top.", def: "Grenade C-Mound." },
+                "SUNSET": { att: "Satchel B-Market.", def: "Grenade A-Main." },
+                "ABYSS": { att: "Satchel A-Drop entry.", def: "Paint-shells B-Window." },
+                "CORRODE": { att: "Satchel Salt-Mine.", def: "Grenade Medieval Alley." }
+            },
+            "Reyna": {
+                "ASCENT": { att: "Leer A-Main entry.", def: "Dismiss B-Main entry." },
+                "BIND": { att: "Leer Hookah entry.", def: "Leer A-Short entry." },
+                "HAVEN": { att: "Leer Garage entry.", def: "Leer C-Long." },
+                "SPLIT": { att: "Leer Mid-Mail.", def: "Leer B-Main push." },
+                "ICEBOX": { att: "Leer A-Belt.", def: "Dismiss A-Nest." },
+                "BREEZE": { att: "Leer Cave entry.", def: "Leer Mid-Tunnel." },
+                "FRACTURE": { att: "Leer A-Drop.", def: "Leer B-Arcade." },
+                "PEARL": { att: "Leer B-Long.", def: "Leer A-Restaurant." },
+                "LOTUS": { att: "Leer C-Mound.", def: "Leer A-Tree." },
+                "SUNSET": { att: "Leer B-Market.", def: "Leer Mid-Tiles." },
+                "ABYSS": { att: "Leer Bridge entry.", def: "Leer A-Drop." },
+                "CORRODE": { att: "Leer Medieval Ramps.", def: "Leer A-Hall." }
+            },
+            "Yoru": {
+                "ASCENT": { att: "TP B-Lane backsite.", def: "TP A-Main flank." },
+                "BIND": { att: "TP A-Lamps.", def: "TP Hookah flank." },
+                "HAVEN": { att: "TP C-Long backsite.", def: "TP Garage flank." },
+                "SPLIT": { att: "TP A-Heaven.", def: "TP Mid-Vent flank." },
+                "ICEBOX": { att: "TP A-Nest.", def: "TP B-Green flank." },
+                "BREEZE": { att: "TP B-Back.", def: "TP Cave flank." },
+                "FRACTURE": { att: "TP A-Main backsite.", def: "TP B-Arcade flank." },
+                "PEARL": { att: "TP B-Tower.", def: "TP for B-Long flank." },
+                "LOTUS": { att: "TP A-Tree.", def: "TP C-Mound flank." },
+                "SUNSET": { att: "TP B-Market.", def: "TP A-Main flank." },
+                "ABYSS": { att: "TP Bridge backsite.", def: "TP Zip-line flank." },
+                "CORRODE": { att: "TP Salt-Mine.", def: "TP Medieval Alley flank." }
+            },
+            "Neon": {
+                "ASCENT": { att: "Slide B-Lane entry.", def: "Slide A-Main push." },
+                "BIND": { att: "Slide Hookah entry.", def: "Slide B-Long push." },
+                "HAVEN": { att: "Sprint B-Site.", def: "Slide C-Long entry." },
+                "SPLIT": { att: "Slide B-Alley.", def: "Slide Mid-Mail push." },
+                "ICEBOX": { att: "Slide A-Belt entry.", def: "Slide B-Green push." },
+                "BREEZE": { att: "Sprint Cave entry.", def: "Slide Mid-Tunnel push." },
+                "FRACTURE": { att: "Sprint A-Drop.", def: "Slide B-Arcade entry." },
+                "PEARL": { att: "Sprint B-Long entry.", def: "Slide A-Art entry." },
+                "LOTUS": { att: "Slide C-Bend.", def: "Slide A-Root push." },
+                "SUNSET": { att: "Slide A-Main.", def: "Slide B-Market push." },
+                "ABYSS": { att: "Sprint Bridge lanes.", def: "Slide B-Main push." },
+                "CORRODE": { att: "Slide B-Salt.", def: "Slide Medieval Alley push." }
+            },
+            "Iso": {
+                "ASCENT": { att: "Shield B-Lane entry.", def: "Shield Mid-Market." },
+                "BIND": { att: "Shield A-Short entry.", def: "Shield B-Long entry." },
+                "HAVEN": { att: "Shield C-Long entry.", def: "Shield Garage entry." },
+                "SPLIT": { att: "Shield Mid-Mail.", def: "Shield Mid-Mail." },
+                "ICEBOX": { att: "Shield A-Pipes.", def: "Shield B-Green entry." },
+                "BREEZE": { att: "Shield Cave entry.", def: "Shield A-Pyramids." },
+                "FRACTURE": { att: "Shield A-Sands.", def: "Shield B-Arcade entry." },
+                "PEARL": { att: "Shield A-Main.", def: "Shield B-Long entry." },
+                "LOTUS": { att: "Shield C-Mound.", def: "Shield A-Tree entry." },
+                "SUNSET": { att: "Shield B-Market.", def: "Shield A-Main entry." },
+                "ABYSS": { att: "Shield Bridge entry.", def: "Shield A-Tower peek." },
+                "CORRODE": { att: "Shield Medieval Ramps.", def: "Shield Salt-Mine entry." }
+            },
+            "Waylay": {
+                "ASCENT": { att: "Aggro slow-field Mid-link.", def: "Aggro slow-field for Mid-Market." },
+                "BIND": { att: "Flash/Dash Bath entry.", def: "Aggro dash for A-Bath control." },
+                "HAVEN": { att: "Aggro dash B-Main.", def: "Flash/Dash for Garage picks." },
+                "SPLIT": { att: "Aggro slow-field A-Rafters.", def: "Aggro dash B-Alley control." },
+                "ICEBOX": { att: "Flash/Dash B-Yellow.", def: "Aggro dash for B-Green control." },
+                "BREEZE": { att: "Aggro dash A-Pyramids.", def: "Flash Cave entry." },
+                "FRACTURE": { att: "Flash/Dash Arcade.", def: "Aggro dash A-Sands." },
+                "PEARL": { att: "Aggro dash B-Tower.", def: "Flash A-Restaurant." },
+                "LOTUS": { att: "Flash/Dash through B-Main.", def: "Aggro dash C-Mound." },
+                "SUNSET": { att: "Flash/Dash A-Elbow.", def: "Aggro dash B-Boba." },
+                "ABYSS": { att: "Air-dash over Bridge.", def: "Aggro dash A-Drop." },
+                "CORRODE": { att: "Dash to Medieval Ramps.", def: "Aggro dash Salt-Mine." }
+            }
+        }
+    };
+
+    function updateLineupDisplay() {
+        const map = document.getElementById('lineup-map-select').value;
+        const agentName = document.getElementById('lineup-agent-select').value;
+        
+        let role = "";
+        for (let r in masterTactics) {
+            if (masterTactics[r][agentName]) {
+                role = r;
+                break;
+            }
+        }
+
+        const data = masterTactics[role][agentName][map];
+        document.getElementById('lineup-attack-content').innerText = data ? data.att : "Tactical data pending for this sector.";
+        document.getElementById('lineup-defend-content').innerText = data ? data.def : "Tactical data pending for this sector.";
+    }
+
     const proConfigs = [
         { name: "CHRONICLE (Vitality)", dpi: "1600", sens: "0.175", res: "1920x1080", cross: "0;P;h;0;f;0;0t;1;0l;4;0o;0;0a;1;0f;0;1b;0", mouse: "ATK Dragonfly A9" },
         { name: "ASPAZ (MIBR)", dpi: "800", sens: "0.4", res: "1920x1080", cross: "0;s;1;P;o;1;d;1;0b;0;1b;0;S;c;0", mouse: "Logitech G Pro X Superlight 2" },
@@ -824,6 +1660,7 @@
 
     // --- STATE ---
     let currentTab = 'strat';
+    let challengeList = [];
     let currentStep = 1;
     let selectedMap = "";
     let teammates = [];
@@ -839,15 +1676,478 @@
     // Aim Trainer State
     let aimActive = false;
     let aimScore = 0;
+    let aimShots = 0;
+    let aimHits = 0;
     let aimTimeLeft = 30;
     let aimTimerInterval;
+    let aimKeys = { w: false, a: false, s: false, d: false };
+    let aimLastTargetTime = 0;
+    let aimTotalTtk = 0;
+    let aimRecoil = 0;
+    let aimRecoilRecoveryInterval;
+
+    // Listen for movement keys for spread simulation
+    window.addEventListener('keydown', (e) => {
+        const key = e.key.toLowerCase();
+        if (['w', 'a', 's', 'd'].includes(key)) {
+            aimKeys[key] = true;
+            const el = document.getElementById(`status-${key}`);
+            if (el) el.classList.add('active');
+        }
+    });
+    window.addEventListener('keyup', (e) => {
+        const key = e.key.toLowerCase();
+        if (['w', 'a', 's', 'd'].includes(key)) {
+            aimKeys[key] = false;
+            const el = document.getElementById(`status-${key}`);
+            if (el) el.classList.remove('active');
+        }
+    });
+
+    function updateAimCrosshair(e) {
+        const arena = document.getElementById('aim-arena');
+        const ch = document.getElementById('aim-crosshair-active');
+        if (!ch) return;
+
+        const rect = arena.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        ch.style.left = x + 'px';
+        ch.style.top = y + 'px';
+
+        // Update crosshair visual based on movement and recoil
+        const isMoving = Object.values(aimKeys).some(v => v);
+        const spreadSize = (isMoving ? 15 : 0) + (aimRecoil * 10);
+        
+        // Re-render the tiny crosshair inside the aim trainer
+        const chSettings = {
+            ...crosshairSettings,
+            innerOff: parseInt(crosshairSettings.innerOff) + spreadSize,
+            color: isMoving ? "#ff4655" : crosshairSettings.color
+        };
+        renderCrosshair('aim-crosshair-active', chSettings);
+    }
+
+    function aimFire(e) {
+        if (!aimActive) return;
+        aimShots++;
+        
+        const isMoving = Object.values(aimKeys).some(v => v);
+        
+        // Add recoil
+        aimRecoil = Math.min(aimRecoil + 0.3, 1.5);
+        clearInterval(aimRecoilRecoveryInterval);
+        aimRecoilRecoveryInterval = setInterval(() => {
+            aimRecoil = Math.max(0, aimRecoil - 0.1);
+            if(aimRecoil === 0) clearInterval(aimRecoilRecoveryInterval);
+        }, 100);
+
+        // Simulation: If moving or high recoil, random chance to miss even if clicking target
+        // We'll handle hit detection via standard element clicking, but we can simulate "accuracy"
+        const spreadFactor = (isMoving ? 0.4 : 0) + (aimRecoil * 0.2);
+        if (Math.random() < spreadFactor) {
+            showAimFeedback("MISS (SPREAD)", e.clientX, e.clientY);
+            updateAimStats();
+            return;
+        }
+    }
+
+    function showAimFeedback(text, x, y) {
+        const arena = document.getElementById('aim-arena');
+        const rect = arena.getBoundingClientRect();
+        const f = document.createElement('div');
+        f.className = 'aim-feedback';
+        f.innerText = text;
+        f.style.left = (x - rect.left) + 'px';
+        f.style.top = (y - rect.top) + 'px';
+        arena.appendChild(f);
+        setTimeout(() => f.remove(), 500);
+    }
+
+    function updateAimStats() {
+        document.getElementById('aim-score').innerText = aimScore;
+        const acc = aimShots > 0 ? Math.round((aimHits / aimShots) * 100) : 0;
+        document.getElementById('aim-acc').innerText = acc;
+        const avgTtk = aimHits > 0 ? Math.round(aimTotalTtk / aimHits) : 0;
+        document.getElementById('aim-avg-ttk').innerText = avgTtk;
+    }
+
+    // --- AIM TRAINER LOGIC ---
+    function startAimTrainer() {
+        if (aimActive) return;
+        aimActive = true;
+        aimScore = 0;
+        aimHits = 0;
+        aimShots = 0;
+        aimTotalTtk = 0;
+        aimTimeLeft = 30;
+        aimRecoil = 0;
+        
+        updateAimStats();
+        document.getElementById('aim-timer').innerText = aimTimeLeft;
+        document.getElementById('aim-start-btn').innerText = "IN PROGRESS...";
+        document.getElementById('aim-hint').style.display = 'none';
+        
+        spawnTarget();
+        
+        aimTimerInterval = setInterval(() => {
+            aimTimeLeft--;
+            document.getElementById('aim-timer').innerText = aimTimeLeft;
+            if (aimTimeLeft <= 0) endAimTrainer();
+        }, 1000);
+    }
+
+    function endAimTrainer() {
+        aimActive = false;
+        clearInterval(aimTimerInterval);
+        document.getElementById('aim-start-btn').innerText = "START SESSION";
+        const arena = document.getElementById('aim-arena');
+        arena.querySelectorAll('.aim-target').forEach(t => t.remove());
+        
+        const acc = aimShots > 0 ? Math.round((aimHits / aimShots) * 100) : 0;
+        const avgTtk = aimHits > 0 ? Math.round(aimTotalTtk / aimHits) : 0;
+        
+        document.getElementById('aim-hint').innerHTML = `
+            <h3>SESSION COMPLETE</h3>
+            <p>SCORE: ${aimScore} | ACC: ${acc}% | AVG TTK: ${avgTtk}ms</p>
+        `;
+        document.getElementById('aim-hint').style.display = 'block';
+    }
+
+    function spawnTarget() {
+        if (!aimActive) return;
+        const arena = document.getElementById('aim-arena');
+        const diff = document.getElementById('aim-diff').value;
+        const mode = document.getElementById('aim-mode').value;
+        
+        const target = document.createElement('div');
+        target.className = 'aim-target';
+        if (mode === 'track') target.classList.add('tracking');
+        
+        // --- PERSPECTIVE & COORDINATE LOGIC ---
+        // 1. Determine "Depth" (Simulated Distance)
+        const depth = 0.5 + Math.random() * 1.5; // 0.5 (close) to 2.0 (far)
+        const scale = 1 / depth;
+
+        // 2. Determine Elevation Level (Headshot Planes)
+        // 0: Standard Floor, -150: Heaven/Box, 60: Crouched
+        const levels = [0, 0, 0, -120, 50]; 
+        const selectedLevel = levels[Math.floor(Math.random() * levels.length)];
+        
+        // 3. Base Sizes (Adjusted for difficulty)
+        let baseW = 30, baseH = 38, lifetime = 1500;
+        if (diff === 'easy') { baseW = 45; baseH = 55; lifetime = 2500; }
+        if (diff === 'hard') { baseW = 22; baseH = 28; lifetime = 900; }
+
+        // Apply World-Space Scaling
+        target.style.width = (baseW * scale) + 'px';
+        target.style.height = (baseH * scale) + 'px';
+
+        // 4. Position Calculation
+        const padding = 100;
+        const horizonY = arena.clientHeight / 2;
+        
+        const x = Math.random() * (arena.clientWidth - padding * 2) + padding;
+        // The "Golden Rule": Lock Y to the horizon plane, then offset by elevation Level
+        // Perspective adjustment: Higher elevations appear closer to horizon at distance
+        const y = horizonY + (selectedLevel * scale);
+
+        target.style.left = x + 'px';
+        target.style.top = y + 'px';
+        target.style.zIndex = Math.floor(100 - (depth * 10)); // Farther objects behind closer ones
+        
+        aimLastTargetTime = Date.now();
+
+        target.onmousedown = (e) => {
+            e.stopPropagation();
+            const isMoving = Object.values(aimKeys).some(v => v);
+            const spreadFactor = (isMoving ? 0.4 : 0) + (aimRecoil * 0.2);
+            
+            aimShots++; // aimFire also increments this, but we catch the target click here
+
+            if (Math.random() < spreadFactor) {
+                showAimFeedback("RUN & GUN MISS", e.clientX, e.clientY);
+                updateAimStats();
+                return;
+            }
+
+            const ttk = Date.now() - aimLastTargetTime;
+            aimTotalTtk += ttk;
+            aimScore += Math.max(10, 100 - Math.floor(ttk/10));
+            aimHits++;
+            
+            showAimFeedback(`HEADSHOT ${ttk}ms`, e.clientX, e.clientY);
+            
+            target.style.background = 'white';
+            setTimeout(() => target.remove(), 50);
+            updateAimStats();
+            spawnTarget();
+        };
+        
+        arena.appendChild(target);
+
+        // Tracking Mode Movement
+        if (mode === 'track') {
+            const moveTarget = () => {
+                if(!target.parentNode || !aimActive) return;
+                const newX = Math.random() * (arena.clientWidth - padding * 2) + padding;
+                const newY = Math.random() * (arena.clientHeight - padding * 2) + padding;
+                target.style.left = newX + 'px';
+                target.style.top = newY + 'px';
+                setTimeout(moveTarget, 800);
+            };
+            setTimeout(moveTarget, 100);
+        }
+        
+        setTimeout(() => {
+            if (target.parentNode) {
+                target.remove();
+                spawnTarget();
+            }
+        }, lifetime);
+    }
 
     // Randomizer State
     let activeRandomizerRoles = ['ALL']; // Can be multiple roles, or 'ALL'
     let includeAgents = [];
     let excludeAgents = [];
 
+    // Crosshair State
+    let crosshairSettings = {
+        color: "#00ff00",
+        outlineEnable: true,
+        outlineOpacity: 0.5,
+        outlineThickness: 1,
+        dotEnable: false,
+        dotOp: 1,
+        dotSize: 2,
+        innerOp: 1,
+        innerLen: 4,
+        innerThick: 2,
+        innerOff: 2,
+        outerOp: 0,
+        outerLen: 2,
+        outerThick: 2,
+        outerOff: 10
+    };
+
     const STORAGE_KEY = "val_strat_engine_v1";
+
+    function zoomCh(lvl) {
+        document.getElementById('ch-render').style.transform = `scale(${lvl})`;
+    }
+
+    function updateChBackground(url) {
+        document.getElementById('ch-preview').style.backgroundImage = `url('${url}')`;
+    }
+
+    function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.id = 'val-toast';
+        toast.innerText = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 400);
+        }, 3000);
+    }
+
+    function updateChColor(val) {
+        const hexInput = document.getElementById('ch-color-hex');
+        if (val === 'custom') {
+            hexInput.style.display = 'block';
+        } else {
+            hexInput.style.display = 'none';
+            hexInput.value = val;
+        }
+        updateCrosshair();
+    }
+
+    function simulateFiring(active) {
+        const render = document.getElementById('ch-render');
+        if(active) render.classList.add('firing-error-active');
+        else render.classList.remove('firing-error-active');
+    }
+
+    function updateCrosshair() {
+        const colorVal = document.getElementById('ch-color-preset').value;
+        const hexVal = document.getElementById('ch-color-hex').value;
+
+        crosshairSettings = {
+            color: colorVal === 'custom' ? hexVal : colorVal,
+            outlineEnable: document.getElementById('ch-outline-toggle').checked,
+            outlineOpacity: parseFloat(document.getElementById('ch-outline-opacity').value),
+            outlineThickness: parseInt(document.getElementById('ch-outline-thick').value),
+            dotEnable: document.getElementById('ch-dot-enable').checked,
+            dotOp: parseFloat(document.getElementById('ch-dot-op').value),
+            dotSize: parseInt(document.getElementById('ch-dot-size').value),
+            innerOp: parseFloat(document.getElementById('ch-inner-op').value),
+            innerLen: parseInt(document.getElementById('ch-inner-len').value),
+            innerThick: parseInt(document.getElementById('ch-inner-thick').value),
+            innerOff: parseInt(document.getElementById('ch-inner-off').value),
+            outerOp: parseFloat(document.getElementById('ch-outer-op').value),
+            outerLen: parseInt(document.getElementById('ch-outer-len').value),
+            outerThick: parseInt(document.getElementById('ch-outer-thick').value),
+            outerOff: parseInt(document.getElementById('ch-outer-off').value)
+        };
+
+        // Update labels
+        ['outline-opacity', 'outline-thick', 'dot-op', 'dot-size', 'inner-op', 'inner-len', 'inner-thick', 'inner-off', 'outer-op', 'outer-len', 'outer-thick', 'outer-off'].forEach(id => {
+            const el = document.getElementById(`val-${id}`);
+            const input = document.getElementById(`ch-${id}`);
+            if(el && input) {
+                let val = input.value;
+                if (id.includes('op')) val = parseFloat(val).toFixed(3);
+                el.innerText = val;
+            }
+        });
+
+        renderCrosshair('ch-render', crosshairSettings);
+    }
+
+    function renderCrosshair(containerId, settings) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+        container.innerHTML = '';
+        
+        const color = settings.color;
+        const outlineBoxShadow = settings.outlineEnable ? `0 0 0 ${settings.outlineThickness}px rgba(0,0,0,${settings.outlineOpacity})` : 'none';
+
+        // Center Dot
+        if (settings.dotEnable) {
+            const dot = document.createElement('div');
+            dot.className = 'crosshair-line';
+            dot.style.width = settings.dotSize + 'px';
+            dot.style.height = settings.dotSize + 'px';
+            dot.style.background = color;
+            dot.style.opacity = settings.dotOp;
+            dot.style.boxShadow = outlineBoxShadow;
+            dot.style.transform = 'translate(-50%, -50%)';
+            container.appendChild(dot);
+        }
+
+        const createLines = (op, len, thick, off, type) => {
+            if (op <= 0 || len <= 0 || thick <= 0) return;
+            
+            // Adjusting for "Center Pixel" problem: 
+            // If thickness is odd, we shift by 0.5px to align with pixel grid in CSS if needed, 
+            // but usually grid-centering handles this better.
+            
+            const dirs = [
+                { class: 'line-up', top: `calc(-${off}px - ${len}px)`, left: `-${thick/2}px`, w: thick, h: len },
+                { class: 'line-down', top: `${off}px`, left: `-${thick/2}px`, w: thick, h: len },
+                { class: 'line-left', top: `-${thick/2}px`, left: `calc(-${off}px - ${len}px)`, w: len, h: thick },
+                { class: 'line-right', top: `-${thick/2}px`, left: `${off}px`, w: len, h: thick }
+            ];
+
+            dirs.forEach(d => {
+                const line = document.createElement('div');
+                line.className = `crosshair-line ${d.class} ${type}-line`;
+                line.style.width = d.w + 'px';
+                line.style.height = d.h + 'px';
+                line.style.top = d.top;
+                line.style.left = d.left;
+                line.style.background = color;
+                line.style.opacity = op;
+                line.style.boxShadow = outlineBoxShadow;
+                container.appendChild(line);
+            });
+        };
+
+        createLines(settings.innerOp, settings.innerLen, settings.innerThick, settings.innerOff, 'inner');
+        createLines(settings.outerOp, settings.outerLen, settings.outerThick, settings.outerOff, 'outer');
+    }
+
+    function importCrosshairCode(code) {
+        // Simplified parser for common params
+        if(!code || !code.startsWith('0;')) return;
+        
+        // Reset to defaults then match keys
+        const parts = code.split(';');
+        const s = { ...crosshairSettings };
+
+        // Very basic mapping for demo purposes
+        if (code.includes('0t;')) {
+            const thickMatch = code.match(/0t;(\d+)/);
+            if(thickMatch) s.innerThick = parseInt(thickMatch[1]);
+        }
+        if (code.includes('0l;')) {
+            const lenMatch = code.match(/0l;(\d+)/);
+            if(lenMatch) s.innerLen = parseInt(lenMatch[1]);
+        }
+        if (code.includes('0o;')) {
+            const offMatch = code.match(/0o;(\d+)/);
+            if(offMatch) s.innerOff = parseInt(offMatch[1]);
+        }
+        if (code.includes('0a;')) {
+            const opMatch = code.match(/0a;([\d.]+)/);
+            if(opMatch) s.innerOp = parseFloat(opMatch[1]);
+        }
+        if (code.includes('d;1')) s.dot = true;
+        
+        // Update UI
+        document.getElementById('ch-inner-thick').value = s.innerThick;
+        document.getElementById('ch-inner-len').value = s.innerLen;
+        document.getElementById('ch-inner-off').value = s.innerOff;
+        document.getElementById('ch-inner-op').value = s.innerOp;
+        document.getElementById('ch-dot').checked = s.dot;
+        
+        updateCrosshair();
+    }
+
+    function copyCrosshairCode() {
+        const s = crosshairSettings;
+        // VALORANT Export Header (s;1 implies advanced options)
+        let parts = ["0", "s", "1", "P"];
+        
+        // Color
+        const presets = ["#ffffff", "#00ff00", "#ffff00", "#00ffff", "#ff0000", "#ff00ff", "#0000ff", "#000000"];
+        const presetIdx = presets.indexOf(s.color.toLowerCase());
+        if (presetIdx !== -1) {
+            if (presetIdx !== 0) parts.push(`c;${presetIdx}`);
+        } else {
+            parts.push(`c;8`, `u;${s.color.replace('#', '').toUpperCase()}FF`);
+        }
+
+        // Outlines
+        if (s.outlineEnable) {
+            parts.push("h;1");
+            if (s.outlineThickness !== 1) parts.push(`t;${s.outlineThickness}`);
+            if (s.outlineOpacity !== 0.5) parts.push(`o;${s.outlineOpacity}`);
+        } else {
+            parts.push("h;0");
+        }
+
+        // Center Dot
+        if (s.dotEnable) {
+            parts.push(`d;1`);
+            if (s.dotSize !== 2) parts.push(`z;${s.dotSize}`);
+            if (s.dotOp !== 1) parts.push(`a;${s.dotOp}`);
+        }
+
+        // Inner Lines (Flag 0)
+        if (s.innerLen > 0 || s.innerOp > 0) {
+            parts.push(`0t;${s.innerThick}`, `0l;${s.innerLen}`, `0o;${s.innerOff}`, `0a;${s.innerOp}`);
+            parts.push(`0f;0`, `0m;0`); // Movement/Firing error defaults
+        } else {
+            parts.push("0b;0");
+        }
+
+        // Outer Lines (Flag 1)
+        if (s.outerLen > 0 || s.outerOp > 0) {
+            parts.push(`1t;${s.outerThick}`, `1l;${s.outerLen}`, `1o;${s.outerOff}`, `1a;${s.outerOp}`);
+            parts.push(`1f;0`, `1m;0`);
+        } else {
+            parts.push("1b;0");
+        }
+
+        const code = parts.join(";");
+        navigator.clipboard.writeText(code).then(() => {
+            showToast("CROSSHAIR CODE COPIED TO CLIPBOARD");
+        });
+    }
 
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('open');
@@ -870,90 +2170,7 @@
         if (tabId !== 'aim' && aimActive) endAimTrainer();
     }
 
-    // --- AIM TRAINER LOGIC ---
-    function startAimTrainer() {
-        if (aimActive) return;
-        aimActive = true;
-        aimScore = 0;
-        aimTimeLeft = 30;
-        document.getElementById('aim-score').innerText = aimScore;
-        document.getElementById('aim-timer').innerText = aimTimeLeft;
-        document.getElementById('aim-start-btn').innerText = "IN PROGRESS...";
-        document.getElementById('aim-hint').style.display = 'none';
-        
-        spawnTarget();
-        
-        aimTimerInterval = setInterval(() => {
-            aimTimeLeft--;
-            document.getElementById('aim-timer').innerText = aimTimeLeft;
-            if (aimTimeLeft <= 0) endAimTrainer();
-        }, 1000);
-    }
 
-    function endAimTrainer() {
-        aimActive = false;
-        clearInterval(aimTimerInterval);
-        document.getElementById('aim-start-btn').innerText = "START SESSION";
-        document.getElementById('aim-arena').innerHTML = '<div id="aim-hint" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0.3; text-align:center;"><h3>SESSION COMPLETE</h3><p>FINAL SCORE: ' + aimScore + '</p></div>';
-    }
-
-    function spawnTarget() {
-        if (!aimActive) return;
-        const arena = document.getElementById('aim-arena');
-        const diff = document.getElementById('aim-diff').value;
-        
-        const target = document.createElement('div');
-        target.className = 'aim-target';
-        
-        let size = 40;
-        let lifetime = 1500;
-        if (diff === 'easy') { size = 60; lifetime = 2200; }
-        if (diff === 'hard') { size = 22; lifetime = 700; }
-        
-        target.style.width = size + 'px';
-        target.style.height = size + 'px';
-        
-        const padding = size + 20;
-        const x = Math.random() * (arena.clientWidth - padding * 2) + padding;
-        const y = Math.random() * (arena.clientHeight - padding * 2) + padding;
-        
-        target.style.left = x + 'px';
-        target.style.top = y + 'px';
-        
-        // Visual pop effect
-        target.style.transform = 'translate(-50%, -50%) scale(0)';
-        requestAnimationFrame(() => {
-            target.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            target.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
-
-        target.onmousedown = (e) => {
-            e.stopPropagation();
-            aimScore++;
-            document.getElementById('aim-score').innerText = aimScore;
-            
-            // Hit effect
-            target.style.background = 'white';
-            target.style.boxShadow = '0 0 30px white';
-            setTimeout(() => target.remove(), 50);
-            spawnTarget();
-        };
-        
-        arena.appendChild(target);
-        
-        const deathTimer = setTimeout(() => {
-            if (target.parentNode) {
-                target.style.opacity = '0';
-                target.style.transform = 'translate(-50%, -50%) scale(0)';
-                setTimeout(() => {
-                    if (target.parentNode) {
-                        target.remove();
-                        spawnTarget();
-                    }
-                }, 200);
-            }
-        }, lifetime);
-    }
 
     function saveProgress() {
         const state = {
@@ -1124,6 +2341,10 @@
 
 
     // --- INIT ---
+    function initLineups() {
+        updateLineupDisplay();
+    }
+
     function filterMaps(query) {
         const cards = document.querySelectorAll('.map-card');
         query = query.toLowerCase();        cards.forEach(card => {
@@ -1159,7 +2380,78 @@
         });
     }
 
+    async function loadChallenges() {
+        try {
+            const response = await fetch('the-challenges.txt');
+            const text = await response.text();
+            // Parse lines and remove the leading "1. ", "2. ", etc.
+            challengeList = text.split('\n')
+                .map(line => line.trim())
+                .filter(line => line.length > 0)
+                .map(line => line.replace(/^\d+\.\s*/, ''));
+            console.log(`Loaded ${challengeList.length} challenges.`);
+        } catch (error) {
+            console.error("Failed to load challenges from file, using fallback.", error);
+            challengeList = [
+                "Use only the Classic for the entire match.",
+                "Use only the Shorty for the entire match.",
+                "Use only the Frenzy for the entire match.",
+                "Use only the Ghost for the entire match.",
+                "Use only the Sheriff for the entire match.",
+                "Use only the Stinger for the entire match.",
+                "Use only the Spectre for the entire match.",
+                "Use only the Bucky for the entire match.",
+                "Use only the Judge for the entire match.",
+                "Use only the Bulldog for the entire match.",
+                "Use only the Guardian for the entire match.",
+                "Use only the Phantom for the entire match.",
+                "Use only the Vandal for the entire match.",
+                "Use only the Marshal for the entire match.",
+                "Use only the Outlaw for the entire match.",
+                "Use only the Operator for the entire match."
+            ];
+        }
+    }
+
+    function generateChallenge() {
+        if (challengeList.length === 0) {
+            showToast("LOADING CHALLENGE DATABASE...");
+            return;
+        }
+
+        const display = document.getElementById('challenge-display');
+        const btn = document.getElementById('btn-challenge');
+        
+        btn.innerText = "RE-DEPLOYING...";
+        btn.disabled = true;
+
+        // Glitch effect simulation
+        display.style.opacity = '0.3';
+        
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * challengeList.length);
+            const challenge = challengeList[randomIndex];
+
+            display.innerHTML = `
+                <div style="animation: tabEnter 0.4s ease-out;">
+                    <h3 style="color: var(--a-tier); font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 2px;">ACTIVE DIRECTIVE</h3>
+                    <p style="font-size: 2.2rem; font-weight: 800; line-height: 1.2; text-transform: uppercase; color: white;">
+                        ${challenge}
+                    </p>
+                </div>
+            `;
+            display.style.opacity = '1';
+            btn.innerText = "ROLL NEW CHALLENGE";
+            btn.disabled = false;
+            
+            showToast("NEW MISSION ASSIGNED");
+        }, 500);
+    }
+
     function init() {
+        loadChallenges();
+        updateCrosshair();
+        initLineups();
         const mapCont = document.getElementById('map-container');
         Object.keys(mapData).forEach(m => {
             const el = document.createElement('div');
@@ -1370,8 +2662,9 @@
         document.getElementById('score-enemy').innerText = enemyScore;
         
         // Show Draw button in OT
-        if (teamScore >= 12 && enemyScore >= 12) {
-            document.getElementById('ot-controls').style.display = 'block';
+        const otCtrl = document.getElementById('ot-controls');
+        if (otCtrl && teamScore >= 12 && enemyScore >= 12) {
+            otCtrl.style.display = 'block';
         }
     }
 
@@ -1416,6 +2709,9 @@
         
         document.getElementById('modal-pro-name').innerText = p.name;
         document.getElementById('modal-pro-details').innerHTML = `
+            <div class="modal-item" style="justify-content: center; background: #000; height: 120px; border: 1px solid var(--glass-border);">
+                <div class="crosshair-render" id="pro-ch-preview"></div>
+            </div>
             <div class="modal-item">
                 <label>DPI</label>
                 <span>${p.dpi}</span>
@@ -1446,6 +2742,34 @@
             <button class="val-btn btn-blue" style="width: 100%; margin-top: 20px; font-size: 0.8rem;" onclick="copyToClipboard(\`${configString}\`, this)">COPY ALL SETTINGS</button>
         `;
         document.getElementById('pro-modal').style.display = 'flex';
+
+        // Parse and render pro crosshair
+        setTimeout(() => {
+            const s = { ...crosshairSettings, color: "#00ff00" };
+            // Simple string check for pro preview
+            const matches = {
+                outlineEnable: p.cross.includes('h;1'),
+                outlineOpacity: p.cross.match(/o;([\d.]+)/),
+                outlineThickness: p.cross.match(/t;(\d+)/),
+                dotEnable: p.cross.match(/d;([\d.]+)/),
+                dotSize: p.cross.match(/z;(\d+)/),
+                innerOp: p.cross.match(/0a;([\d.]+)/),
+                innerLen: p.cross.match(/0l;(\d+)/),
+                innerThick: p.cross.match(/0t;(\d+)/),
+                innerOff: p.cross.match(/0o;(\d+)/),
+            };
+            
+            if(matches.outlineOpacity) s.outlineOpacity = parseFloat(matches.outlineOpacity[1]);
+            if(matches.outlineThickness) s.outlineThickness = parseInt(matches.outlineThickness[1]);
+            if(matches.dotEnable) { s.dotEnable = true; s.dotOp = parseFloat(matches.dotEnable[1]); }
+            if(matches.dotSize) s.dotSize = parseInt(matches.dotSize[1]);
+            if(matches.innerOp) s.innerOp = parseFloat(matches.innerOp[1]);
+            if(matches.innerLen) s.innerLen = parseInt(matches.innerLen[1]);
+            if(matches.innerThick) s.innerThick = parseInt(matches.innerThick[1]);
+            if(matches.innerOff) s.innerOff = parseInt(matches.innerOff[1]);
+
+            renderCrosshair('pro-ch-preview', s);
+        }, 10);
     }
 
     function closeProModal(e) {
