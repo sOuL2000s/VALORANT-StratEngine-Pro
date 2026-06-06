@@ -22,6 +22,11 @@
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --neon-glow: 0 0 15px rgba(255, 70, 85, 0.4);
+            --neon-blue-glow: 0 0 15px rgba(0, 238, 255, 0.4); /* Added for blue glow */
+            --glow-inset-red: inset 0 0 8px rgba(255, 70, 85, 0.15);
+            --glow-inset-blue: inset 0 0 8px rgba(0, 238, 255, 0.15);
+            --subtle-inner-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+            --card-hover-bg: linear-gradient(0deg, rgba(15, 25, 35, 0.95) 0%, transparent 100%);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -35,12 +40,17 @@
             display: flex;
         }
 
-        h1, h2, h3, .val-font { 
+        .val-font, h1, h2, h3, h4 { 
             font-family: 'Orbitron', sans-serif; 
             text-transform: uppercase; 
             letter-spacing: 3px; 
             font-weight: 900;
         }
+
+        h1 { font-size: 3.5rem; letter-spacing: 6px; }
+        h2 { font-size: 2.2rem; letter-spacing: 4px; }
+        h3 { font-size: 1.6rem; letter-spacing: 3px; }
+        h4 { font-size: 1.1rem; letter-spacing: 2px; }
 
         /* Sidebar Navigation */
         .sidebar {
@@ -82,8 +92,8 @@
             padding: 18px 30px;
             cursor: pointer;
             font-family: 'Orbitron';
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem; /* Slightly larger */
+            color: rgba(255, 255, 255, 0.7); /* Increased contrast */
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
@@ -103,13 +113,15 @@
 
         .nav-item:hover { 
             color: var(--val-white); 
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.05); /* Slightly more pronounced */
             padding-left: 35px;
+            box-shadow: var(--subtle-inner-shadow);
         }
 
         .nav-item.active { 
             color: var(--val-red); 
-            background: rgba(255, 70, 85, 0.05); 
+            background: rgba(255, 70, 85, 0.1); /* More pronounced */
+            box-shadow: var(--glow-inset-red);
         }
 
         .nav-item.active::before { transform: scaleY(1); }
@@ -124,6 +136,7 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Enhanced shadow */
             backdrop-filter: blur(10px);
         }
 
@@ -132,7 +145,10 @@
             display: flex; flex-direction: column; justify-content: space-between;
             cursor: pointer;
         }
-        .hamburger span { height: 2px; background: var(--val-red); width: 100%; transition: 0.3s; }
+        .hamburger span { height: 2px; background: var(--val-red); width: 100%; transition: transform 0.3s ease, opacity 0.3s ease; }
+        .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
         /* Main Content */
         main {
@@ -175,6 +191,42 @@
             transition: all 0.3s ease;
         }
 
+        /* Skeleton Loader Styles */
+        .skeleton-card {
+            background-color: var(--val-gray);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            position: relative;
+            animation: pulse-bg 1.5s infinite alternate;
+            border-radius: 4px; /* Consistent with other cards */
+            clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%); /* Unified clip-path */
+        }
+
+        .skeleton-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+            animation: loading-shine 1.5s infinite forwards;
+        }
+
+        @keyframes pulse-bg {
+            0% { background-color: #1a232c; }
+            100% { background-color: #2a313a; }
+        }
+
+        @keyframes loading-shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(400%); }
+        }
+
+        /* Specific skeleton types for height */
+        .skeleton-map { height: 220px; }
+        .skeleton-agent { height: 160px; }
+        .skeleton-pro { min-height: 220px; }
+        .skeleton-gun { height: 160px; }
+
         /* Pro Configs Style */
         .pro-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .pro-card {
@@ -185,7 +237,7 @@
             padding: 30px;
             transition: 0.4s;
             position: relative;
-            clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+            clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%); /* Unified clip-path */
             min-height: 220px;
             display: flex;
             flex-direction: column;
@@ -200,12 +252,16 @@
         .pro-card:hover { 
             border-color: var(--val-red); 
             transform: translateY(-5px); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: var(--neon-glow), var(--glow-inset-red); /* Added subtle glow on hover */
+            background: linear-gradient(0deg, rgba(15, 25, 35, 0.95) 0%, rgba(15, 25, 35, 0.7) 100%);
+        }
+        .pro-card:hover::before {
+            background: transparent; /* Remove default gradient on hover to show new one */
         }
         .pro-card h3, .pro-card .pro-stat, .pro-card div { position: relative; z-index: 1; }
-        .pro-card h3 { color: var(--val-white); margin-bottom: 10px; font-size: 1.2rem; }
-        .pro-stat { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px; }
-        .pro-stat label { opacity: 0.5; font-family: 'Orbitron'; font-size: 0.7rem; }
+        .pro-card h3 { color: var(--val-white); margin-bottom: 10px; font-size: 1.3rem; /* Slightly larger for emphasis */ }
+        .pro-stat { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1rem; /* Slightly larger */ border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px; }
+        .pro-stat label { opacity: 0.8; /* Increased contrast */ font-family: 'Orbitron'; font-size: 0.8rem; /* Slightly larger */ }
 
         /* Aim Trainer Style */
         .aim-container {
@@ -263,7 +319,10 @@
             transition: top 0.5s linear, left 0.5s linear;
         }
 
-        .aim-target:active { transform: translate(-50%, -50%) scale(0.9); }
+        .aim-target:active { 
+            transform: translate(-50%, -50%) scale(0.9); 
+            box-shadow: var(--glow-inset-red);
+        }
         
         .aim-ui { 
             display: flex; gap: 15px; margin-bottom: 20px; align-items: center; 
@@ -385,6 +444,12 @@
             font-size: 0.8rem; 
             font-family: 'Orbitron'; 
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            box-shadow: var(--subtle-inner-shadow); /* Added subtle shadow */
+            transition: all 0.3s ease;
+        }
+        .meta-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow), var(--subtle-inner-shadow);
         }
 
         /* Filter Controls */
@@ -420,10 +485,17 @@
             color: var(--val-white);
         }
 
+        @keyframes val-focus-glow {
+            0% { box-shadow: 0 0 10px rgba(255, 70, 85, 0.2), var(--glow-inset-red); }
+            50% { box-shadow: 0 0 25px rgba(255, 70, 85, 0.4), var(--glow-inset-red); }
+            100% { box-shadow: 0 0 10px rgba(255, 70, 85, 0.2), var(--glow-inset-red); }
+        }
+
         .val-input:focus {
             background: #1c242d;
             border-color: var(--val-red);
-            box-shadow: 0 0 20px rgba(255, 70, 85, 0.1);
+            box-shadow: 0 0 10px rgba(255, 70, 85, 0.2), var(--glow-inset-red); /* Base glow */
+            animation: val-focus-glow 1.5s infinite alternate ease-in-out;
         }
 
         .filter-tags {
@@ -441,13 +513,18 @@
             cursor: pointer;
             transition: 0.3s;
             background: rgba(255,255,255,0.02);
+            box-shadow: var(--subtle-inner-shadow);
+        }
+        .filter-tag:hover:not(.active) {
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.05);
         }
 
         .filter-tag.active {
             border-color: var(--val-red);
             color: white;
             background: var(--val-red);
-            box-shadow: var(--neon-glow);
+            box-shadow: var(--neon-glow), var(--glow-inset-red); /* Added inner glow */
         }
 
         /* Scoreboard */
@@ -462,7 +539,7 @@
             justify-content: center;
             align-items: center;
             border-radius: 4px;
-            box-shadow: var(--neon-glow);
+            box-shadow: var(--neon-glow), var(--glow-inset-red); /* Added inner glow */
         }
         @media (min-width: 600px) { .scoreboard { gap: 40px; font-size: 2.5rem; } }
         .score-box { text-align: center; }
@@ -480,7 +557,11 @@
             transition: 0.3s;
             font-weight: 700;
         }
-        .btn-restart:hover { background: var(--val-red); color: white; box-shadow: var(--neon-glow); }
+        .btn-restart:hover { 
+            background: var(--val-red); 
+            color: white; 
+            box-shadow: var(--neon-glow), var(--glow-inset-red); /* Added inner glow */
+        }
 
         #match-end-overlay {
             display: none;
@@ -527,8 +608,8 @@
             gap: 15px;
         }
 
-        .modal-item label { opacity: 0.5; font-family: 'Orbitron'; font-size: 0.75rem; }
-        .modal-item span { font-weight: 600; flex: 1; text-align: right; word-break: break-all; }
+        .modal-item label { opacity: 0.8; /* Increased contrast */ font-family: 'Orbitron'; font-size: 0.85rem; /* Slightly larger */ }
+        .modal-item span { font-weight: 600; flex: 1; text-align: right; word-break: break-all; font-size: 1rem; /* Consistent with other data */ }
 
         .copy-btn {
             background: rgba(255, 70, 85, 0.1);
@@ -538,12 +619,24 @@
             font-family: 'Orbitron';
             font-size: 0.65rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             white-space: nowrap;
+            box-shadow: var(--subtle-inner-shadow);
         }
 
-        .copy-btn:hover { background: var(--val-red); color: white; }
-        .copy-btn.copied { background: var(--a-tier); border-color: var(--a-tier); color: black; }
+        .copy-btn:hover { 
+            background: var(--val-red); 
+            color: white; 
+            box-shadow: var(--neon-glow), var(--glow-inset-red);
+            transform: scale(1.05);
+        }
+        .copy-btn.copied { 
+            background: var(--a-tier); 
+            border-color: var(--a-tier); 
+            color: var(--val-black); /* Changed to black for better contrast */
+            box-shadow: 0 0 10px var(--a-tier), inset 0 0 5px rgba(0, 255, 136, 0.3);
+            transform: scale(1);
+        }
         @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         
         .close-modal {
@@ -604,7 +697,7 @@
             position: relative;
             overflow: hidden;
             transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            clip-path: polygon(10% 0, 100% 0, 100% 85%, 90% 100%, 0 100%, 0 15%);
+            clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%); /* Unified clip-path */
         }
 
         .map-card::before {
@@ -625,10 +718,24 @@
         .map-card:hover { 
             border-color: var(--val-red); 
             transform: scale(1.02); 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            box-shadow: var(--neon-glow), var(--glow-inset-red); /* Added inner glow */
+            background: var(--card-hover-bg), url('...'); /* Adjust background on hover */
+            background-size: cover;
+            background-position: center;
         }
         
         .map-card:hover h3 { color: var(--val-red); transform: translateX(10px); }
+
+        /* General content transition for dynamic text blocks */
+        .content-element {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .content-element.show-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* Agent Cards */
         .agent-grid {
@@ -646,13 +753,22 @@
             padding: 20px 10px;
             text-align: center;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease; /* Ensure transitions apply to opacity and transform */
             position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 85% 100%, 0 100%);
+            clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%); /* Unified clip-path */
             min-height: 160px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            opacity: 1; /* Default visible state */
+            transform: translateY(0); /* Default position */
+        }
+
+        .agent-card.hidden-by-filter {
+            opacity: 0;
+            transform: translateY(10px);
+            /* Important: Keep display:block so opacity/transform transitions can apply */
+            pointer-events: none; /* Make it unclickable when hidden */
         }
 
         .agent-card::before {
@@ -669,12 +785,26 @@
             z-index: 1;
         }
 
-        .agent-card:hover { border-color: white; transform: translateY(-3px); }
-        .agent-card.selected-teammate { border-color: var(--val-red); background: rgba(255, 70, 85, 0.1); }
+        .agent-card:hover { 
+            border-color: var(--val-red); 
+            transform: translateY(-3px); 
+            background: var(--card-hover-bg), url('...');
+            background-size: cover;
+            background-position: center top;
+            box-shadow: var(--neon-glow), var(--subtle-inner-shadow);
+        }
+        .agent-card:hover::before {
+            background: transparent;
+        }
+        .agent-card.selected-teammate { 
+            border-color: var(--val-red); 
+            background: rgba(255, 70, 85, 0.15); /* More pronounced */
+            box-shadow: var(--neon-glow), var(--glow-inset-red); /* Added inner glow */
+        }
         .agent-card.user-choice { 
             border-color: var(--val-blue); 
-            background: rgba(0, 238, 255, 0.1); 
-            box-shadow: 0 0 20px rgba(0, 238, 255, 0.2); 
+            background: rgba(0, 238, 255, 0.15); /* More pronounced */
+            box-shadow: var(--neon-blue-glow), var(--glow-inset-blue); /* Added inner glow */
         }
 
         .agent-card .name { font-weight: 800; font-size: 1rem; margin-bottom: 5px; display: block; font-family: 'Orbitron'; }
@@ -689,26 +819,55 @@
             font-family: 'Orbitron';
             font-weight: 900;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); /* Smoother transition */
             text-transform: uppercase;
             letter-spacing: 2px;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
         }
 
-        .btn-red { background: var(--val-red); color: white; }
-        .btn-red:hover { transform: scale(1.05); box-shadow: var(--neon-glow); }
+        .btn-red { 
+            background: var(--val-red); 
+            color: white; 
+            box-shadow: var(--subtle-inner-shadow);
+        }
+        .btn-red:hover { 
+            transform: scale(1.05); 
+            box-shadow: var(--neon-glow), var(--glow-inset-red); /* Added inner glow */
+            background: linear-gradient(90deg, var(--val-red) 0%, #ff6f7a 100%);
+        }
         
-        .btn-blue { background: var(--val-blue); color: var(--val-black); }
-        .btn-blue:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--val-blue); }
+        .btn-blue { 
+            background: var(--val-blue); 
+            color: var(--val-black); 
+            box-shadow: var(--subtle-inner-shadow);
+        }
+        .btn-blue:hover { 
+            transform: scale(1.05); 
+            box-shadow: var(--neon-blue-glow), var(--glow-inset-blue); /* Used consistent blue glow */
+            background: linear-gradient(90deg, var(--val-blue) 0%, #66ffff 100%);
+        }
 
-        .btn-green { background: var(--a-tier); color: var(--val-black); }
+        .btn-green { 
+            background: var(--a-tier); 
+            color: var(--val-black); 
+            box-shadow: var(--subtle-inner-shadow);
+        }
+        .btn-green:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--a-tier), inset 0 0 8px rgba(0, 255, 136, 0.2);
+            background: linear-gradient(90deg, var(--a-tier) 0%, #7dffc4 100%);
+        }
 
         .btn-outline { 
             background: transparent; 
             border: 2px solid rgba(255,255,255,0.2); 
             color: var(--val-white); 
         }
-        .btn-outline:hover { border-color: var(--val-white); background: rgba(255,255,255,0.05); }
+        .btn-outline:hover { 
+            border-color: var(--val-white); 
+            background: rgba(255,255,255,0.08); /* More pronounced */
+            box-shadow: var(--subtle-inner-shadow);
+        }
 
         /* Dashboards */
         .match-dashboard { display: grid; grid-template-columns: 1fr 380px; gap: 40px; }
@@ -721,7 +880,16 @@
             transition: 0.3s;
             background: rgba(255,255,255,0.02);
         }
-        .round-dot.active { border-color: var(--val-red); background: rgba(255,70,85,0.15); color: white; }
+        .round-dot.active { 
+            border-color: var(--val-red); 
+            background: rgba(255,70,85,0.25); /* More pronounced */
+            color: white; 
+            box-shadow: var(--neon-glow), var(--glow-inset-red);
+        }
+        .round-dot:hover:not(.active) {
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.05);
+        }
 
         /* Responsiveness Tweak */
         @media (max-width: 1200px) {
@@ -733,12 +901,33 @@
             .selection-panel { grid-template-columns: 1fr; }
             .side-bar { order: -1; }
             .map-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-            h2 { font-size: 1.5rem; }
+            h2 { font-size: 1.8rem; /* Adjusted for better mobile hierarchy */ }
+        }
+
+        /* Custom Scrollbar Styling for Webkit Browsers */
+        ::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161b22; /* Dark track matching background */
+            border-radius: 4px; /* Rounded corners for the track */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--val-red); /* Red thumb */
+            border-radius: 4px; /* Rounded corners for the thumb */
+            border: 2px solid #161b22; /* Padding around the thumb */
+            transition: background-color 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #ff6f7a; /* Lighter red on hover */
         }
 
     </style>
 </head>
-<body onload="init()">
+<body>
 
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
@@ -748,31 +937,39 @@
         <span>STRAT//ENGINE</span>
     </div>
     <ul class="nav-links">
-        <li class="nav-item active" onclick="switchTab('strat')">
+        <li class="nav-item active" data-tab-id="strat" onclick="switchTab('strat')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"/></svg>
             STRAT ENGINE
         </li>
-        <li class="nav-item" onclick="switchTab('randomizer')">
+        <li class="nav-item" data-tab-id="randomizer" onclick="switchTab('randomizer')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14.83,13.41L13.42,14.82L16.59,18L13.42,21.17L14.83,22.58L18,19.41L21.17,22.58L22.58,21.17L19.41,18L22.58,14.83L21.17,13.42L18,16.59L14.83,13.41M5.41,20L4,18.59L7.17,15.42L4,12.25L5.41,10.84L8.58,14.01L11.75,10.84L13.16,12.25L10,15.42L13.16,18.59L11.75,20L8.58,16.83L5.41,20Z"/></svg>
             RANDOMIZER
         </li>
-        <li class="nav-item" onclick="switchTab('pro')">
+        <li class="nav-item" data-tab-id="pro" onclick="switchTab('pro')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20.24 12,20.92C9.89,20.24 8.08,18.85 6.87,17C6.91,15.27 10.3,14.33 12,14.33C13.7,14.33 17.09,15.27 17.13,17Z"/></svg>
             PRO CONFIGS
         </li>
-        <li class="nav-item" onclick="switchTab('aim')">
+        <li class="nav-item" data-tab-id="aim" onclick="switchTab('aim')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/></svg>
             AIM TRAINING
         </li>
-        <li class="nav-item" onclick="switchTab('crosshair')">
+        <li class="nav-item" data-tab-id="crosshair" onclick="switchTab('crosshair')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12,2L4.5,20.29L5.21,21L12,18L18.79,21L19.5,20.29L12,2Z"/></svg>
             CROSSHAIR GEN
         </li>
-        <li class="nav-item" onclick="switchTab('lineups')">
+        <li class="nav-item" data-tab-id="lineups" onclick="switchTab('lineups')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z"/></svg>
             LINEUPS & SETUPS
         </li>
-        <li class="nav-item" onclick="switchTab('challenge')">
+        <li class="nav-item" data-tab-id="gun-randomizer" onclick="switchTab('gun-randomizer')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14.83,13.41L13.42,14.82L16.59,18L13.42,21.17L14.83,22.58L18,19.41L21.17,22.58L22.58,21.17L19.41,18L22.58,14.83L21.17,13.42L18,16.59L14.83,13.41M5.41,20L4,18.59L7.17,15.42L4,12.25L5.41,10.84L8.58,14.01L11.75,10.84L13.16,12.25L10,15.42L13.16,18.59L11.75,20L8.58,16.83L5.41,20Z"/></svg>
+            GUN RANDOMIZER
+        </li>
+        <li class="nav-item" data-tab-id="combo-randomizer" onclick="switchTab('combo-randomizer')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14.83,13.41L13.42,14.82L16.59,18L13.42,21.17L14.83,22.58L18,19.41L21.17,22.58L22.58,21.17L19.41,18L22.58,14.83L21.17,13.42L18,16.59L14.83,13.41M5.41,20L4,18.59L7.17,15.42L4,12.25L5.41,10.84L8.58,14.01L11.75,10.84L13.16,12.25L10,15.42L13.16,18.59L11.75,20L8.58,16.83L5.41,20Z"/></svg>
+            COMBO RANDOMIZER
+        </li>
+        <li class="nav-item" data-tab-id="challenge" onclick="switchTab('challenge')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13,10H18L12,16L6,10H11V3H13V10M4,19H20V21H4V19Z"/></svg>
             THE CHALLENGE
         </li>
@@ -804,14 +1001,21 @@
             <div class="search-wrapper">
                 <input type="text" class="val-input" placeholder="SEARCH MAPS..." onkeyup="filterMaps(this.value)">
             </div>
-            <div class="map-grid" id="map-container"></div>
+            <div class="map-grid" id="map-container">
+                <div class="skeleton-card skeleton-map"></div>
+                <div class="skeleton-card skeleton-map"></div>
+                <div class="skeleton-card skeleton-map"></div>
+                <div class="skeleton-card skeleton-map"></div>
+                <div class="skeleton-card skeleton-map"></div>
+                <div class="skeleton-card skeleton-map"></div>
+            </div>
         </div>
 
         <div id="section-2" class="section">
             <div class="selection-panel">
                 <div class="side-bar">
                     <h3 id="selected-map-name" style="color: var(--val-red); margin-bottom: 10px;">MAP</h3>
-                    <p id="map-desc" style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px;"></p>
+                    <p id="map-desc" class="content-element" style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 20px;"></p>
                     <div style="margin-bottom: 30px;">
                         <label style="display:block; margin-bottom: 10px; font-weight: bold;">TEAM SLOTS</label>
                         <div id="teammate-slots" style="display: flex; gap: 5px; flex-wrap: wrap;"></div>
@@ -840,7 +1044,24 @@
                         <div class="filter-tag" onclick="setAgentRoleFilter('INITIATOR', this)">INITIATOR</div>
                         <div class="filter-tag" onclick="setAgentRoleFilter('SENTINEL', this)">SENTINEL</div>
                     </div>
-                    <div class="agent-grid" id="agent-picker"></div>
+                    <div class="agent-grid" id="agent-picker">
+                        <!-- Skeletons for Agents -->
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                        <div class="skeleton-card skeleton-agent"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -858,19 +1079,19 @@
                         <button class="val-btn btn-green" onclick="handleRound('win')">WIN</button>
                         <button class="val-btn btn-red" onclick="handleRound('loss')">LOSS</button>
                     </div>
-                    <div class="advice-card" id="main-strategy">
+                    <div class="advice-card content-element" id="main-strategy">
                         <p id="strat-text">Select round.</p>
                     </div>
                 </div>
                 <div class="side-bar">
                     <h3 id="live-map-title">MAP</h3>
                     <div id="live-side-tag" class="meta-tag" style="margin-top: 10px; width: fit-content;">SIDE</div>
-                    <div id="economy-intel" style="margin-top: 20px;"></div>
-                    <div id="agent-nuance" style="margin-top:20px; background: rgba(0,0,0,0.3); padding: 15px;"></div>
+                    <div id="economy-intel-container" class="content-element" style="margin-top: 20px;"></div>
+                    <div id="agent-nuance" class="content-element" style="margin-top:20px; background: rgba(0,0,0,0.3); padding: 15px;"></div>
                     
                     <div id="live-tactics" style="margin-top: 20px;">
-                        <h4 style="font-family: 'Orbitron'; font-size: 0.8rem; color: var(--val-red); margin-bottom: 10px; border-bottom: 1px solid var(--val-red); padding-bottom: 5px;">ACTIVE TACTICS</h4>
-                        <div id="live-tactics-content" style="font-size: 0.95rem; line-height: 1.4; opacity: 0.9; background: rgba(255, 70, 85, 0.05); padding: 15px; border-left: 2px solid var(--val-red);">
+                        <h4 style="color: var(--val-red); margin-bottom: 10px; border-bottom: 1px solid var(--val-red); padding-bottom: 5px;">ACTIVE TACTICS</h4>
+                        <div id="live-tactics-content" class="content-element" style="font-size: 0.95rem; line-height: 1.4; opacity: 0.9; background: rgba(255, 70, 85, 0.05); padding: 15px; border-left: 2px solid var(--val-red);">
                             Select a side to see setups.
                         </div>
                     </div>
@@ -886,7 +1107,13 @@
             <input type="text" class="val-input" placeholder="SEARCH PLAYERS OR MICE..." onkeyup="filterProConfigs(this.value)">
         </div>
         <div class="pro-grid" id="pro-configs-container">
-            <!-- Populated via JS -->
+            <!-- Skeletons for Pro Configs -->
+            <div class="skeleton-card skeleton-pro"></div>
+            <div class="skeleton-card skeleton-pro"></div>
+            <div class="skeleton-card skeleton-pro"></div>
+            <div class="skeleton-card skeleton-pro"></div>
+            <div class="skeleton-card skeleton-pro"></div>
+            <div class="skeleton-card skeleton-pro"></div>
         </div>
     </div>
 
@@ -981,7 +1208,9 @@
 
         <h3 style="margin-bottom: 20px;">Randomized Agents:</h3>
         <div class="agent-grid" id="randomizer-output">
-            <p style="opacity: 0.7;">Click a button above to randomize!</p>
+            <div class="skeleton-card skeleton-agent"></div>
+            <div class="skeleton-card skeleton-agent"></div>
+            <p style="opacity: 0.7; grid-column: 1 / -1; text-align: center;">Click a button above to randomize!</p>
         </div>
     </div>
 
@@ -1186,6 +1415,98 @@
 
                 <button class="val-btn btn-red" style="width: 100%; margin-top: 20px;" onclick="copyCrosshairCode()">COPY GENERATED CODE</button>
             </div>
+        </div>
+    </div>
+
+    <!-- TAB: GUN RANDOMIZER -->
+    <div id="tab-gun-randomizer" class="main-tab">
+        <h2 style="margin-bottom: 30px;">Weapon Loadout Randomizer</h2>
+        <div class="randomizer-controls">
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE WEAPON TYPES:</label>
+                <div class="filter-tags" id="gun-type-filters">
+                    <div class="filter-tag active" data-type="ALL" onclick="toggleGunTypeFilter(this)">ALL</div>
+                    <div class="filter-tag" data-type="PISTOL" onclick="toggleGunTypeFilter(this)">PISTOLS</div>
+                    <div class="filter-tag" data-type="SMG" onclick="toggleGunTypeFilter(this)">SMGS</div>
+                    <div class="filter-tag" data-type="SHOTGUN" onclick="toggleGunTypeFilter(this)">SHOTGUNS</div>
+                    <div class="filter-tag" data-type="RIFLE" onclick="toggleGunTypeFilter(this)">RIFLES</div>
+                    <div class="filter-tag" data-type="SNIPER" onclick="toggleGunTypeFilter(this)">SNIPERS</div>
+                    <div class="filter-tag" data-type="HEAVY" onclick="toggleGunTypeFilter(this)">HEAVIES</div>
+                </div>
+            </div>
+
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE/EXCLUDE WEAPONS (comma-separated):</label>
+                <input type="text" class="val-input" id="gun-filter-input" placeholder="e.g., Vandal, Phantom, -Classic">
+                <small style="opacity: 0.7; font-size: 0.8rem; display: block; margin-top: 5px;">Use '-' prefix to exclude weapons (e.g., -Classic)</small>
+            </div>
+
+            <div class="btn-group" style="margin-bottom: 30px;">
+                <button class="val-btn btn-red" onclick="randomizeGuns(1)">RANDOMIZE MY PRIMARY</button>
+                <button class="val-btn btn-blue" onclick="randomizeGuns(3)">RANDOMIZE FULL BUY</button>
+                <button class="val-btn btn-outline" onclick="clearGunRandomizerSelection()">CLEAR</button>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 20px;">Randomized Weapons:</h3>
+        <div class="agent-grid" id="gun-randomizer-output" style="grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));">
+            <div class="skeleton-card skeleton-gun"></div>
+            <div class="skeleton-card skeleton-gun"></div>
+            <p style="opacity: 0.7; grid-column: 1 / -1; text-align: center;">Click a button above to randomize!</p>
+        </div>
+    </div>
+
+    <!-- TAB: COMBO RANDOMIZER -->
+    <div id="tab-combo-randomizer" class="main-tab">
+        <h2 style="margin-bottom: 30px;">Agent & Weapon Combo Randomizer</h2>
+        <div class="randomizer-controls">
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE AGENT ROLES:</label>
+                <div class="filter-tags" id="combo-agent-role-filters">
+                    <div class="filter-tag active" data-role="ALL" onclick="toggleComboAgentRoleFilter(this)">ALL</div>
+                    <div class="filter-tag" data-role="DUELIST" onclick="toggleComboAgentRoleFilter(this)">DUELIST</div>
+                    <div class="filter-tag" data-role="CONTROLLER" onclick="toggleComboAgentRoleFilter(this)">CONTROLLER</div>
+                    <div class="filter-tag" data-role="INITIATOR" onclick="toggleComboAgentRoleFilter(this)">INITIATOR</div>
+                    <div class="filter-tag" data-role="SENTINEL" onclick="toggleComboAgentRoleFilter(this)">SENTINEL</div>
+                </div>
+            </div>
+
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE/EXCLUDE AGENTS (comma-separated):</label>
+                <input type="text" class="val-input" id="combo-agent-filter" placeholder="e.g., Jett, Sova, -Raze">
+                <small style="opacity: 0.7; font-size: 0.8rem; display: block; margin-top: 5px;">Use '-' prefix to exclude agents (e.g., -Raze)</small>
+            </div>
+
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE WEAPON TYPES:</label>
+                <div class="filter-tags" id="combo-gun-type-filters">
+                    <div class="filter-tag active" data-type="ALL" onclick="toggleComboGunTypeFilter(this)">ALL</div>
+                    <div class="filter-tag" data-type="PISTOL" onclick="toggleComboGunTypeFilter(this)">PISTOLS</div>
+                    <div class="filter-tag" data-type="SMG" onclick="toggleComboGunTypeFilter(this)">SMGS</div>
+                    <div class="filter-tag" data-type="SHOTGUN" onclick="toggleComboGunTypeFilter(this)">SHOTGUNS</div>
+                    <div class="filter-tag" data-type="RIFLE" onclick="toggleComboGunTypeFilter(this)">RIFLES</div>
+                    <div class="filter-tag" data-type="SNIPER" onclick="toggleComboGunTypeFilter(this)">SNIPERS</div>
+                    <div class="filter-tag" data-type="HEAVY" onclick="toggleComboGunTypeFilter(this)">HEAVIES</div>
+                </div>
+            </div>
+
+            <div class="filter-group" style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom: 10px; font-weight: bold;">INCLUDE/EXCLUDE WEAPONS (comma-separated):</label>
+                <input type="text" class="val-input" id="combo-gun-filter" placeholder="e.g., Vandal, Phantom, -Classic">
+                <small style="opacity: 0.7; font-size: 0.8rem; display: block; margin-top: 5px;">Use '-' prefix to exclude weapons (e.g., -Classic)</small>
+            </div>
+
+            <div class="btn-group" style="margin-bottom: 30px;">
+                <button class="val-btn btn-red" onclick="randomizeAgentGunCombo()">RANDOMIZE COMBO</button>
+                <button class="val-btn btn-outline" onclick="clearComboRandomizerSelection()">CLEAR</button>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 20px;">Randomized Combo:</h3>
+        <div class="agent-grid" id="combo-randomizer-output" style="grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));">
+            <div class="skeleton-card skeleton-agent"></div>
+            <div class="skeleton-card skeleton-gun"></div>
+            <p style="opacity: 0.7; grid-column: 1 / -1; text-align: center;">Click a button above to randomize!</p>
         </div>
     </div>
 </main>
@@ -2769,6 +3090,39 @@
     let aimRecoil = 0;
     let aimRecoilRecoveryInterval;
 
+    // Gun Randomizer State
+    let activeGunTypes = ['ALL'];
+    let includeGuns = [];
+    let excludeGuns = [];
+    const gunList = [
+        { name: "Classic", type: "PISTOL", img: "https://valorant.fandom.com/wiki/Classic?file=Classic_icon.png" },
+        { name: "Shorty", type: "SHOTGUN", img: "https://valorant.fandom.com/wiki/Shorty?file=Shorty_icon.png" },
+        { name: "Frenzy", type: "PISTOL", img: "https://valorant.fandom.com/wiki/Frenzy?file=Frenzy_icon.png" },
+        { name: "Ghost", type: "PISTOL", img: "https://valorant.fandom.com/wiki/Ghost?file=Ghost_icon.png" },
+        { name: "Sheriff", type: "PISTOL", img: "https://valorant.fandom.com/wiki/Sheriff?file=Sheriff_icon.png" },
+        { name: "Stinger", type: "SMG", img: "https://valorant.fandom.com/wiki/Stinger?file=Stinger_icon.png" },
+        { name: "Spectre", type: "SMG", img: "https://valorant.fandom.com/wiki/Spectre?file=Spectre_icon.png" },
+        { name: "Bucky", type: "SHOTGUN", img: "https://valorant.fandom.com/wiki/Bucky?file=Bucky_icon.png" },
+        { name: "Judge", type: "SHOTGUN", img: "https://valorant.fandom.com/wiki/Judge?file=Judge_icon.png" },
+        { name: "Bulldog", type: "RIFLE", img: "https://valorant.fandom.com/wiki/Bulldog?file=Bulldog_icon.png" },
+        { name: "Guardian", type: "RIFLE", img: "https://valorant.fandom.com/wiki/Guardian?file=Guardian_icon.png" },
+        { name: "Phantom", type: "RIFLE", img: "https://valorant.fandom.com/wiki/Phantom?file=Phantom_icon.png" },
+        { name: "Vandal", type: "RIFLE", img: "https://valorant.fandom.com/wiki/Vandal?file=Vandal_icon.png" },
+        { name: "Marshal", type: "SNIPER", img: "https://valorant.fandom.com/wiki/Marshal?file=Marshal_icon.png" },
+        { name: "Outlaw", type: "SNIPER", img: "https://valorant.fandom.com/wiki/Outlaw?file=Outlaw_icon.png" },
+        { name: "Operator", type: "SNIPER", img: "https://valorant.fandom.com/wiki/Operator?file=Operator_icon.png" },
+        { name: "Ares", type: "HEAVY", img: "https://valorant.fandom.com/wiki/Ares?file=Ares_icon.png" },
+        { name: "Odin", type: "HEAVY", img: "https://valorant.fandom.com/wiki/Odin?file=Odin_icon.png" }
+    ];
+
+    // Combo Randomizer State
+    let activeComboAgentRoles = ['ALL'];
+    let includeComboAgents = [];
+    let excludeComboAgents = [];
+    let activeComboGunTypes = ['ALL'];
+    let includeComboGuns = [];
+    let excludeComboGuns = [];
+
     // Listen for movement keys for spread simulation
     window.addEventListener('keydown', (e) => {
         const key = e.key.toLowerCase();
@@ -3017,6 +3371,18 @@
 
     const STORAGE_KEY = "val_strat_engine_v1";
 
+    // Helper for fade-in/slide-up transitions
+    function applyContentTransition(element, callback) {
+        if (!element) return;
+
+        element.classList.remove('show-content'); // Start fade-out
+        // Allow time for fade-out, then update content and fade-in
+        setTimeout(() => {
+            if (callback) callback(); // Update the content
+            element.classList.add('show-content'); // Trigger fade-in
+        }, 150); // Small delay to allow CSS to register initial state
+    }
+
     function zoomCh(lvl) {
         document.getElementById('ch-render').style.transform = `scale(${lvl})`;
     }
@@ -3235,6 +3601,7 @@
     function toggleSidebar() {
         document.getElementById('sidebar').classList.toggle('open');
         document.getElementById('sidebar-overlay').classList.toggle('open');
+        document.querySelector('.hamburger').classList.toggle('open'); // Toggle hamburger class
     }
 
     function switchTab(tabId) {
@@ -3251,6 +3618,17 @@
         
         // Stop aim trainer if switching tabs
         if (tabId !== 'aim' && aimActive) endAimTrainer();
+
+        // Clear randomizer outputs when switching tabs
+        if (tabId !== 'randomizer') {
+            document.getElementById('randomizer-output').innerHTML = '<p style="opacity: 0.7;">Click a button above to randomize!</p>';
+        }
+        if (tabId !== 'gun-randomizer') {
+            document.getElementById('gun-randomizer-output').innerHTML = '<p style="opacity: 0.7;">Click a button above to randomize!</p>';
+        }
+        if (tabId !== 'combo-randomizer') {
+            document.getElementById('combo-randomizer-output').innerHTML = '<p style="opacity: 0.7;">Click a button above to randomize!</p>';
+        }
     }
 
 
@@ -3294,7 +3672,12 @@
                 document.getElementById('live-map-title').innerText = `MAP: ${selectedMap}`;
                 document.getElementById('live-side-tag').innerText = side.toUpperCase();
                 initRoundNav();
-                updateRoundAdvice();
+                // Ensure dynamic content elements are marked for transition
+                document.getElementById('main-strategy').classList.add('show-content');
+                document.getElementById('economy-intel-container').classList.add('show-content');
+                document.getElementById('agent-nuance').classList.add('show-content');
+                document.getElementById('live-tactics-content').classList.add('show-content');
+                updateRoundAdvice(); // This will trigger applyContentTransition, so initial .show-content is redundant but harmless.
             }
 
             if (isGameOver) {
@@ -3423,6 +3806,279 @@
         activeRandomizerRoles = ['ALL'];
     }
 
+    // --- Gun Randomizer Logic ---
+    function toggleGunTypeFilter(el) {
+        const type = el.dataset.type;
+
+        if (type === 'ALL') {
+            activeGunTypes = ['ALL'];
+            document.querySelectorAll('#gun-type-filters .filter-tag').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        } else {
+            if (activeGunTypes.includes('ALL')) {
+                activeGunTypes = activeGunTypes.filter(t => t !== 'ALL');
+                document.querySelector('#gun-type-filters .filter-tag[data-type="ALL"]').classList.remove('active');
+            }
+            
+            if (activeGunTypes.includes(type)) {
+                activeGunTypes = activeGunTypes.filter(t => t !== type);
+                el.classList.remove('active');
+            } else {
+                activeGunTypes.push(type);
+                el.classList.add('active');
+            }
+
+            if (activeGunTypes.length === 0) {
+                activeGunTypes = ['ALL'];
+                document.querySelector('#gun-type-filters .filter-tag[data-type="ALL"]').classList.add('active');
+            }
+        }
+    }
+
+    function parseGunFilterInput() {
+        const input = document.getElementById('gun-filter-input').value.toLowerCase();
+        const items = input.split(',').map(item => item.trim()).filter(item => item !== '');
+
+        includeGuns = [];
+        excludeGuns = [];
+
+        items.forEach(item => {
+            if (item.startsWith('-')) {
+                excludeGuns.push(item.substring(1));
+            } else {
+                includeGuns.push(item);
+            }
+        });
+    }
+
+    function randomizeGuns(count) {
+        parseGunFilterInput();
+
+        let availableGuns = gunList.filter(gun => {
+            const gunNameLower = gun.name.toLowerCase();
+            const gunTypeUpper = gun.type.toUpperCase();
+
+            const typeMatch = activeGunTypes.includes('ALL') || activeGunTypes.includes(gunTypeUpper);
+            if (!typeMatch) return false;
+
+            if (excludeGuns.includes(gunNameLower)) return false;
+            if (includeGuns.length > 0 && !includeGuns.includes(gunNameLower)) return false;
+
+            return true;
+        });
+
+        if (availableGuns.length === 0) {
+            alert("No weapons match your current filters! Try broadening your selection.");
+            return;
+        }
+
+        const randomized = [];
+        while (randomized.length < count && availableGuns.length > 0) {
+            const randomIndex = Math.floor(Math.random() * availableGuns.length);
+            const chosenGun = availableGuns[randomIndex];
+            randomized.push(chosenGun);
+            availableGuns.splice(randomIndex, 1);
+        }
+
+        displayRandomizedGuns(randomized);
+    }
+
+    function displayRandomizedGuns(randomizedList) {
+        const outputContainer = document.getElementById('gun-randomizer-output');
+        outputContainer.innerHTML = '';
+
+        if (randomizedList.length === 0) {
+            outputContainer.innerHTML = '<p style="opacity: 0.7;">No weapons found based on your filters.</p>';
+            return;
+        }
+
+        randomizedList.forEach(gun => {
+            const el = document.createElement('div');
+            el.className = 'agent-card'; // Re-use agent-card style for similar visual
+            el.style.backgroundImage = `url('${gun.img}')`; // Use gun icon/image
+            el.style.backgroundSize = 'contain';
+            el.style.backgroundRepeat = 'no-repeat';
+            el.style.backgroundPosition = 'center';
+            el.style.padding = '10px'; // Adjust padding for gun images
+            el.innerHTML = `
+                <span class="name" style="font-size:1.1rem; margin-top: auto;">${gun.name}</span>
+                <span style="font-size:0.7rem; opacity:0.6">${gun.type.toUpperCase()}</span>
+            `;
+            outputContainer.appendChild(el);
+        });
+    }
+
+    function clearGunRandomizerSelection() {
+        document.getElementById('gun-randomizer-output').innerHTML = '<p style="opacity: 0.7;">Click a button above to randomize!</p>';
+        document.getElementById('gun-filter-input').value = '';
+        includeGuns = [];
+        excludeGuns = [];
+        document.querySelectorAll('#gun-type-filters .filter-tag').forEach(t => t.classList.remove('active'));
+        document.querySelector('#gun-type-filters .filter-tag[data-type="ALL"]').classList.add('active');
+        activeGunTypes = ['ALL'];
+    }
+
+    // --- Combo Randomizer Logic ---
+    function toggleComboAgentRoleFilter(el) {
+        const role = el.dataset.role;
+        if (role === 'ALL') {
+            activeComboAgentRoles = ['ALL'];
+            document.querySelectorAll('#combo-agent-role-filters .filter-tag').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        } else {
+            if (activeComboAgentRoles.includes('ALL')) {
+                activeComboAgentRoles = activeComboAgentRoles.filter(r => r !== 'ALL');
+                document.querySelector('#combo-agent-role-filters .filter-tag[data-role="ALL"]').classList.remove('active');
+            }
+            if (activeComboAgentRoles.includes(role)) {
+                activeComboAgentRoles = activeComboAgentRoles.filter(r => r !== role);
+                el.classList.remove('active');
+            } else {
+                activeComboAgentRoles.push(role);
+                el.classList.add('active');
+            }
+            if (activeComboAgentRoles.length === 0) {
+                activeComboAgentRoles = ['ALL'];
+                document.querySelector('#combo-agent-role-filters .filter-tag[data-role="ALL"]').classList.add('active');
+            }
+        }
+    }
+
+    function parseComboAgentFilterInput() {
+        const input = document.getElementById('combo-agent-filter').value.toLowerCase();
+        const items = input.split(',').map(item => item.trim()).filter(item => item !== '');
+        includeComboAgents = [];
+        excludeComboAgents = [];
+        items.forEach(item => {
+            if (item.startsWith('-')) {
+                excludeComboAgents.push(item.substring(1));
+            } else {
+                includeComboAgents.push(item);
+            }
+        });
+    }
+
+    function toggleComboGunTypeFilter(el) {
+        const type = el.dataset.type;
+        if (type === 'ALL') {
+            activeComboGunTypes = ['ALL'];
+            document.querySelectorAll('#combo-gun-type-filters .filter-tag').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        } else {
+            if (activeComboGunTypes.includes('ALL')) {
+                activeComboGunTypes = activeComboGunTypes.filter(t => t !== 'ALL');
+                document.querySelector('#combo-gun-type-filters .filter-tag[data-type="ALL"]').classList.remove('active');
+            }
+            if (activeComboGunTypes.includes(type)) {
+                activeComboGunTypes = activeComboGunTypes.filter(t => t !== type);
+                el.classList.remove('active');
+            } else {
+                activeComboGunTypes.push(type);
+                el.classList.add('active');
+            }
+            if (activeComboGunTypes.length === 0) {
+                activeComboGunTypes = ['ALL'];
+                document.querySelector('#combo-gun-type-filters .filter-tag[data-type="ALL"]').classList.add('active');
+            }
+        }
+    }
+
+    function parseComboGunFilterInput() {
+        const input = document.getElementById('combo-gun-filter').value.toLowerCase();
+        const items = input.split(',').map(item => item.trim()).filter(item => item !== '');
+        includeComboGuns = [];
+        excludeComboGuns = [];
+        items.forEach(item => {
+            if (item.startsWith('-')) {
+                excludeComboGuns.push(item.substring(1));
+            } else {
+                includeComboGuns.push(item);
+            }
+        });
+    }
+
+    function randomizeAgentGunCombo() {
+        parseComboAgentFilterInput();
+        parseComboGunFilterInput();
+
+        let availableAgents = agents.filter(agent => {
+            const agentNameLower = agent.name.toLowerCase();
+            const agentRoleUpper = agent.role.toUpperCase();
+            const roleMatch = activeComboAgentRoles.includes('ALL') || activeComboAgentRoles.includes(agentRoleUpper);
+            if (!roleMatch) return false;
+            if (excludeComboAgents.includes(agentNameLower)) return false;
+            if (includeComboAgents.length > 0 && !includeComboAgents.includes(agentNameLower)) return false;
+            return true;
+        });
+
+        let availableGuns = gunList.filter(gun => {
+            const gunNameLower = gun.name.toLowerCase();
+            const gunTypeUpper = gun.type.toUpperCase();
+            const typeMatch = activeComboGunTypes.includes('ALL') || activeComboGunTypes.includes(gunTypeUpper);
+            if (!typeMatch) return false;
+            if (excludeComboGuns.includes(gunNameLower)) return false;
+            if (includeComboGuns.length > 0 && !includeComboGuns.includes(gunNameLower)) return false;
+            return true;
+        });
+
+        if (availableAgents.length === 0) {
+            alert("No agents match your combo filters! Try broadening your agent selection.");
+            return;
+        }
+        if (availableGuns.length === 0) {
+            alert("No weapons match your combo filters! Try broadening your weapon selection.");
+            return;
+        }
+
+        const randomAgent = availableAgents[Math.floor(Math.random() * availableAgents.length)];
+        const randomGun = availableGuns[Math.floor(Math.random() * availableGuns.length)];
+
+        displayRandomizedCombo(randomAgent, randomGun);
+    }
+
+    function displayRandomizedCombo(agent, gun) {
+        const outputContainer = document.getElementById('combo-randomizer-output');
+        outputContainer.innerHTML = '';
+
+        const agentCard = document.createElement('div');
+        agentCard.className = 'agent-card';
+        agentCard.style.backgroundImage = `url('${agent.img}')`;
+        agentCard.innerHTML = `
+            <span class="name" style="font-size:1.1rem">${agent.name}</span>
+            <span style="font-size:0.7rem; opacity:0.6">${agent.role.toUpperCase()}</span>
+        `;
+        outputContainer.appendChild(agentCard);
+
+        const gunCard = document.createElement('div');
+        gunCard.className = 'agent-card';
+        gunCard.style.backgroundImage = `url('${gun.img}')`;
+        gunCard.style.backgroundSize = 'contain';
+        gunCard.style.backgroundRepeat = 'no-repeat';
+        gunCard.style.backgroundPosition = 'center';
+        gunCard.style.padding = '10px';
+        gunCard.innerHTML = `
+            <span class="name" style="font-size:1.1rem; margin-top: auto;">${gun.name}</span>
+            <span style="font-size:0.7rem; opacity:0.6">${gun.type.toUpperCase()}</span>
+        `;
+        outputContainer.appendChild(gunCard);
+    }
+
+    function clearComboRandomizerSelection() {
+        document.getElementById('combo-randomizer-output').innerHTML = '<p style="opacity: 0.7;">Click a button above to randomize!</p>';
+        document.getElementById('combo-agent-filter').value = '';
+        document.getElementById('combo-gun-filter').value = '';
+        includeComboAgents = []; excludeComboAgents = [];
+        includeComboGuns = []; excludeComboGuns = [];
+
+        document.querySelectorAll('#combo-agent-role-filters .filter-tag').forEach(t => t.classList.remove('active'));
+        document.querySelector('#combo-agent-role-filters .filter-tag[data-role="ALL"]').classList.add('active');
+        activeComboAgentRoles = ['ALL'];
+
+        document.querySelectorAll('#combo-gun-type-filters .filter-tag').forEach(t => t.classList.remove('active'));
+        document.querySelector('#combo-gun-type-filters .filter-tag[data-type="ALL"]').classList.add('active');
+        activeComboGunTypes = ['ALL'];
+    }
+
 
     // --- INIT ---
     function initLineups() {
@@ -3450,7 +4106,12 @@
             const el = document.getElementById(`agent-${agent.name}`);
             const roleMatch = activeAgentRole === 'ALL' || agent.role.toUpperCase() === activeAgentRole;
             const searchMatch = agent.name.toLowerCase().includes(query);
-            el.style.display = (roleMatch && searchMatch) ? 'block' : 'none';
+            
+            if (roleMatch && searchMatch) {
+                el.classList.remove('hidden-by-filter');
+            } else {
+                el.classList.add('hidden-by-filter');
+            }
         });
     }
 
@@ -3537,47 +4198,62 @@
         updateCrosshair();
         initLineups();
         const mapCont = document.getElementById('map-container');
-        Object.keys(mapData).forEach(m => {
-            const el = document.createElement('div');
-            el.className = 'map-card';
-            el.style.backgroundImage = `url('${mapData[m].img}')`;
-            el.innerHTML = `<h3>${m}</h3>`;
-            el.onclick = () => selectMap(m);
-            mapCont.appendChild(el);
-        });
+        if (mapCont) {
+            mapCont.innerHTML = ''; // Clear existing skeletons
+            Object.keys(mapData).forEach(m => {
+                const el = document.createElement('div');
+                el.className = 'map-card';
+                el.style.backgroundImage = `url('${mapData[m].img}')`;
+                el.innerHTML = `<h3>${m}</h3>`;
+                el.onclick = () => selectMap(m);
+                mapCont.appendChild(el);
+            });
+        }
 
         const proCont = document.getElementById('pro-configs-container');
-        proConfigs.forEach((p, idx) => {
-            const el = document.createElement('div');
-            el.className = 'pro-card';
-            el.style.cursor = 'pointer';
-            el.style.backgroundImage = `url('${p.img}')`;
-            el.innerHTML = `
-                <h3>${p.name}</h3>
-                <div class="pro-stat"><label>DPI</label><span>${p.dpi}</span></div>
-                <div class="pro-stat"><label>Sensitivity</label><span>${p.sens}</span></div>
-                <div style="margin-top:15px; color:var(--val-blue); font-size:0.7rem; font-family:'Orbitron'">CLICK TO VIEW FULL CONFIG</div>
-            `;
-            el.onclick = () => openProModal(idx);
-            proCont.appendChild(el);
-        });
+        if (proCont) {
+            proCont.innerHTML = ''; // Clear existing skeletons
+            proConfigs.forEach((p, idx) => {
+                const el = document.createElement('div');
+                el.className = 'pro-card';
+                el.style.cursor = 'pointer';
+                el.style.backgroundImage = `url('${p.img}')`;
+                el.innerHTML = `
+                    <h3>${p.name}</h3>
+                    <div class="pro-stat"><label>DPI</label><span>${p.dpi}</span></div>
+                    <div class="pro-stat"><label>Sensitivity</label><span>${p.sens}</span></div>
+                    <div style="margin-top:15px; color:var(--val-blue); font-size:0.7rem; font-family:'Orbitron'">CLICK TO VIEW FULL CONFIG</div>
+                `;
+                el.onclick = () => openProModal(idx);
+                proCont.appendChild(el);
+            });
+        }
 
         const agentCont = document.getElementById('agent-picker');
-        agents.forEach(a => {
-            const el = document.createElement('div');
-            el.className = 'agent-card';
-            el.id = `agent-${a.name}`;
-            el.style.backgroundImage = `url('${a.img}')`;
-            el.innerHTML = `
-                <span class="name">${a.name}</span>
-                <span style="font-size:0.6rem; opacity:0.6">${a.role.toUpperCase()}</span>
-                <div class="synergy-bar"><div class="synergy-fill" id="fill-${a.name}"></div></div>
-                <span class="percentage" id="perc-${a.name}">--%</span>
-            `;
-            el.onclick = () => handleAgentSelection(a.name);
-            agentCont.appendChild(el);
-        });
+        if (agentCont) {
+            agentCont.innerHTML = ''; // Clear existing skeletons
+            agents.forEach(a => {
+                const el = document.createElement('div');
+                el.className = 'agent-card';
+                el.id = `agent-${a.name}`;
+                el.style.backgroundImage = `url('${a.img}')`;
+                el.innerHTML = `
+                    <span class="name">${a.name}</span>
+                    <span style="font-size:0.6rem; opacity:0.6">${a.role.toUpperCase()}</span>
+                    <div class="synergy-bar"><div class="synergy-fill" id="fill-${a.name}"></div></div>
+                    <span class="percentage" id="perc-${a.name}">--%</span>
+                `;
+                el.onclick = () => handleAgentSelection(a.name);
+                agentCont.appendChild(el);
+            });
+        }
     }
+
+    // Ensure init() runs after the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        // Simulate a slight loading delay for skeletons to be visible initially
+        setTimeout(init, 500); // 500ms delay to show skeletons before content loads
+    });
 
     // --- NAVIGATION ---
     function goBack() {
@@ -3588,8 +4264,13 @@
 
     function selectMap(mapName) {
         selectedMap = mapName;
-        document.getElementById('selected-map-name').innerText = mapName;
-        document.getElementById('map-desc').innerText = mapData[mapName].desc;
+        document.getElementById('selected-map-name').innerText = mapName; // Update immediately
+        
+        const mapDescElement = document.getElementById('map-desc');
+        applyContentTransition(mapDescElement, () => {
+            mapDescElement.innerText = mapData[mapName].desc;
+        });
+
         switchSection(2);
         calculateSynergies();
     }
@@ -3608,6 +4289,21 @@
                 s.classList.remove('active');
             }
         });
+
+        // Trigger agent card transitions when entering section 2
+        if (step === 2) {
+            document.querySelectorAll('#agent-picker .agent-card').forEach((card, index) => {
+                // Remove hidden class if present and reapply opacity/transform for filter transitions
+                card.classList.remove('hidden-by-filter'); 
+                card.style.transitionDelay = `${index * 0.03}s`; // Staggered reveal
+                card.style.opacity = 1;
+                card.style.transform = 'translateY(0)';
+            });
+            // Reset delay after animation to avoid issues with later filtering
+            setTimeout(() => {
+                document.querySelectorAll('#agent-picker .agent-card').forEach(card => card.style.transitionDelay = '');
+            }, agents.length * 0.03 + 400); // Wait for all animations to complete
+        }
 
         if (shouldSave) saveProgress();
     }
@@ -3787,6 +4483,7 @@
                 btnElement.innerText = originalText;
                 btnElement.classList.remove('copied');
             }, 2000);
+            showToast("COPIED TO CLIPBOARD!"); // Provide a global toast notification for copy actions
         });
     }
 
@@ -3871,6 +4568,11 @@
         document.getElementById('end-title').innerText = status;
         document.getElementById('end-title').style.color = status === "VICTORY" ? "var(--a-tier)" : "var(--val-red)";
         document.getElementById('end-score').innerText = `${teamScore} - ${enemyScore}`;
+        // Ensure dynamic content elements are not in transition state at the end of match
+        document.getElementById('main-strategy').classList.remove('show-content');
+        document.getElementById('economy-intel-container').classList.remove('show-content');
+        document.getElementById('agent-nuance').classList.remove('show-content');
+        document.getElementById('live-tactics-content').classList.remove('show-content');
     }
 
     function voteDraw() {
@@ -3925,17 +4627,27 @@
         });
 
         const strat = getEconomyAdvice();
-        document.getElementById('strat-text').innerHTML = `<strong>${strat.title}</strong><br>${strat.strat}<br><br><span style="color:var(--val-blue)">RECOMMENDED LOADOUT:</span> ${strat.buy}`;
+        const mainStrategyElement = document.getElementById('main-strategy');
+        applyContentTransition(mainStrategyElement, () => {
+            document.getElementById('strat-text').innerHTML = `<strong>${strat.title}</strong><br>${strat.strat}<br><br><span style="color:var(--val-blue)">RECOMMENDED LOADOUT:</span> ${strat.buy}`;
+        });
         
-        document.getElementById('economy-intel').innerHTML = `
-            <div class="advice-card" style="border-color: #aaa; background: rgba(255,255,255,0.05)">
-                <small>NEXT ROUND MINIMUM:</small>
-                <div style="font-size:1.5rem; font-weight:bold; color:#00ff88">$${calculateMinCreds()}</div>
-            </div>
-        `;
+        const economyIntelContainer = document.getElementById('economy-intel-container');
+        applyContentTransition(economyIntelContainer, () => {
+            economyIntelContainer.innerHTML = `
+                <div class="advice-card" style="border-color: #aaa; background: rgba(255,255,255,0.05)">
+                    <small>NEXT ROUND MINIMUM:</small>
+                    <div style="font-size:1.5rem; font-weight:bold; color:#00ff88">$${calculateMinCreds()}</div>
+                </div>
+            `;
+        });
 
-        document.getElementById('agent-nuance').innerText = getAgentTip();
-        updateLiveTactics();
+        const agentNuanceElement = document.getElementById('agent-nuance');
+        applyContentTransition(agentNuanceElement, () => {
+            agentNuanceElement.innerText = getAgentTip();
+        });
+
+        updateLiveTactics(); // This function handles its own content transition
     }
 
     function updateLiveTactics() {
@@ -3949,26 +4661,34 @@
             }
         }
 
-        if (!role) return;
+        if (!role) {
+            const display = document.getElementById('live-tactics-content');
+            applyContentTransition(display, () => {
+                display.innerText = "No specific tactical data for this map/agent combo.";
+            });
+            return;
+        }
 
         const mapTactics = masterTactics[role][userAgent][selectedMap];
         const display = document.getElementById('live-tactics-content');
         const header = document.querySelector('#live-tactics h4');
 
-        if (mapTactics) {
-            const isAttack = side === "Attack";
-            const tacticText = isAttack ? mapTactics.att : mapTactics.def;
-            
-            header.innerText = `${side.toUpperCase()} // ${userAgent.toUpperCase()}`;
-            header.style.color = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
-            header.style.borderColor = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
-            display.style.borderLeftColor = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
-            display.style.background = isAttack ? 'rgba(255, 70, 85, 0.05)' : 'rgba(0, 238, 255, 0.05)';
-            
-            display.innerHTML = `<span style="opacity: 0.6; font-size: 0.7rem; display: block; margin-bottom: 5px;">MISSION DATA:</span>${tacticText}`;
-        } else {
-            display.innerText = "No specific tactical data for this map/agent combo.";
-        }
+        applyContentTransition(display, () => {
+            if (mapTactics) {
+                const isAttack = side === "Attack";
+                const tacticText = isAttack ? mapTactics.att : mapTactics.def;
+                
+                header.innerText = `${side.toUpperCase()} // ${userAgent.toUpperCase()}`;
+                header.style.color = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
+                header.style.borderColor = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
+                display.style.borderLeftColor = isAttack ? 'var(--val-red)' : 'var(--val-blue)';
+                display.style.background = isAttack ? 'rgba(255, 70, 85, 0.05)' : 'rgba(0, 238, 255, 0.05)';
+                
+                display.innerHTML = `<span style="opacity: 0.6; font-size: 0.7rem; display: block; margin-bottom: 5px;">MISSION DATA:</span>${tacticText}`;
+            } else {
+                display.innerText = "No specific tactical data for this map/agent combo.";
+            }
+        });
     }
 
     function calculateMinCreds() {

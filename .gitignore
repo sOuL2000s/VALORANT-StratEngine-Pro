@@ -1,0 +1,47 @@
+combined_project_files.txt
+# IDE-specific files
+.idea/
+.vscode/
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Temporary files
+*.tmp
+*~
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Sensitive information
+*.env
+secrets.yaml
+
+# Log files
+*.log
+
+# Testing artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database files
+*.sqlite3
